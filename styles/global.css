@@ -43,4 +43,48 @@ body {
   --color-error: #ef4444;
   --color-warning: #f59e0b;
   --color-info: #06b6d4;
+
+  /* Typography - Font Sizes (rem-based, min 16px) */
+  --font-size-base: 1rem; /* 16px - Minimum size */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+
+  /* Pokémon Type Colors (wichtigste Typen zum Testen) */
+  --type-fire: #ff6b6b;
+  --type-water: #4ecdc4;
+  --type-grass: #95e1a3;
+  --type-electric: #ffe66d;
+  --type-psychic: #ff8cc8;
+  --type-ice: #74c0fc;
+  --type-dragon: #845ec2;
+  --type-dark: #4d4d4d;
+  --type-fighting: #d63031;
+  --type-poison: #a29bfe;
+  --type-ground: #fdcb6e;
+  --type-flying: #74b9ff;
+  --type-bug: #6c5ce7;
+  --type-rock: #a0a0a0;
+  --type-ghost: #636e72;
+  --type-steel: #b2bec3;
+  --type-fairy: #fd79a8;
+  --type-normal: #ddd6fe;
 }
