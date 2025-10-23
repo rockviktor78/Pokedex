@@ -1,3 +1,13 @@
+/* ===== IMPORT ALL COMPONENT STYLES ===== */
+@import url("components/pokemon-card.css");
+@import url("components/buttons.css");
+@import url("components/loading.css");
+@import url("components/modal.css");
+@import url("components/pokemon-detail.css");
+@import url("components/search.css");
+@import url("utilities/responsive.css");
+@import url("utilities/animations.css");
+
 /* ===== CSS RESET & NORMALIZE ===== */
 * {
   margin: 0;
@@ -107,13 +117,3 @@ body {
   --color-warning: var(--warning-color);
   --color-info: var(--info-color);
 }
-
-/* ===== IMPORT ALL COMPONENT STYLES ===== */
-@import url("components/pokemon-card.css");
-@import url("components/buttons.css");
-@import url("components/loading.css");
-@import url("components/modal.css");
-@import url("components/pokemon-detail.css");
-@import url("components/search.css");
-@import url("utilities/responsive.css");
-@import url("utilities/animations.css");
