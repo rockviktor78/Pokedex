@@ -9,7 +9,7 @@
     />
     <title>Pokédex - Explore the World of Pokémon</title>
 
-    <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
 
     <!-- Mobile First Order -->
     <link rel="stylesheet" href="./styles/global.css" />
@@ -116,7 +116,11 @@
           type="button"
           aria-label="Previous Pokémon"
         >
-          ‹
+          <img
+            src="./assets/icons/chevron-left.svg"
+            alt="Previous"
+            class="nav-icon"
+          />
         </button>
 
         <button
@@ -125,9 +129,12 @@
           type="button"
           aria-label="Next Pokémon"
         >
-          ›
+          <img
+            src="./assets/icons/chevron-right.svg"
+            alt="Next"
+            class="nav-icon"
+          />
         </button>
-
         <div id="pokemonDetailContent" class="pokemon-detail">
           <!-- Dynamic content will be inserted here -->
         </div>
