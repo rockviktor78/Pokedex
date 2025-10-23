@@ -1,6 +1,5 @@
 /* ===== LOADING COMPONENTS - MOBILE FIRST ===== */
 
-/* Loading Spinner Container */
 .loading-spinner {
   padding: 2rem;
   text-align: center;
@@ -10,7 +9,6 @@
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
 }
 
-/* Spinner Animation */
 .spinner {
   width: 2.5rem;
   height: 2.5rem;
@@ -38,7 +36,6 @@
   margin: 0;
 }
 
-/* Skeleton Loading for Cards */
 .skeleton-card {
   background-color: var(--color-white);
   border-radius: 0.75rem;
@@ -97,7 +94,6 @@
   }
 }
 
-/* Loading Overlay */
 .loading-overlay {
   position: fixed;
   top: 0;

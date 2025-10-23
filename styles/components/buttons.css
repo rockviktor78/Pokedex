@@ -47,7 +47,6 @@
   transform: none;
 }
 
-/* Retry Button */
 .retry-button {
   background-color: var(--color-error);
   color: var(--color-white);
