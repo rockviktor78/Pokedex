@@ -1,0 +1,119 @@
+/* ===== IMPORT ALL COMPONENT STYLES ===== */
+@import url("components/pokemon-card.css");
+@import url("components/buttons.css");
+@import url("components/loading.css");
+@import url("components/modal.css");
+@import url("components/pokemon-detail.css");
+@import url("components/search.css");
+@import url("utilities/responsive.css");
+@import url("utilities/animations.css");
+
+/* ===== CSS RESET & NORMALIZE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+/* ===== CSS VARIABLES - COLORS ===== */
+:root {
+  /* Primary App Colors - Unified naming */
+  --primary-color: #3b82f6;
+  --primary-light: #93c5fd;
+  --primary-dark: #1d4ed8;
+  --secondary-color: #64748b;
+  --accent-color: #f59e0b;
+
+  /* Neutral Colors */
+  --white: #ffffff;
+  --black: #000000;
+  --surface-color: #f8fafc;
+  --background-color: #f1f5f9;
+  --border-color: #e2e8f0;
+  --text-color: #334155;
+  --text-muted: #64748b;
+  --muted-color: #94a3b8;
+
+  /* Status Colors */
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+  --info-color: #06b6d4;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Border Radius */
+  --border-radius-sm: 0.25rem;
+  --border-radius: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-xl: 1rem;
+
+  /* Layout */
+  --max-width: 1200px;
+  --container-padding: 1rem;
+
+  /* Font Family */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+
+  /* Pokémon Type Colors (wichtigste Typen zum Testen) */
+  --type-fire: #ff6b6b;
+  --type-water: #4ecdc4;
+  --type-grass: #95e1a3;
+  --type-electric: #ffe66d;
+  --type-psychic: #ff8cc8;
+  --type-ice: #74c0fc;
+  --type-dragon: #845ec2;
+  --type-dark: #4d4d4d;
+  --type-fighting: #d63031;
+  --type-poison: #a29bfe;
+  --type-ground: #fdcb6e;
+  --type-flying: #74b9ff;
+  --type-bug: #6c5ce7;
+  --type-rock: #a0a0a0;
+  --type-ghost: #636e72;
+  --type-steel: #b2bec3;
+  --type-fairy: #fd79a8;
+  --type-normal: #ddd6fe;
+
+  /* Legacy compatibility - map old variable names to new ones */
+  --color-primary: var(--primary-color);
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-gray-100: var(--surface-color);
+  --color-gray-200: var(--border-color);
+  --color-gray-400: var(--muted-color);
+  --color-gray-500: var(--text-muted);
+  --color-gray-600: var(--text-color);
+  --color-gray-900: var(--black);
+  --color-error: var(--error-color);
+  --color-success: var(--success-color);
+  --color-warning: var(--warning-color);
+  --color-info: var(--info-color);
+}

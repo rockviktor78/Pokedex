@@ -1,0 +1,322 @@
+/* ===== ANIMATIONS & EFFECTS - MOBILE FIRST ===== */
+
+/* ===== ENTRANCE ANIMATIONS ===== */
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide Down Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale In Animation */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== LOADING ANIMATIONS ===== */
+
+/* Spinner Rotation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Skeleton Loading */
+@keyframes skeleton-pulse {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%,
+  43% {
+    transform: translate3d(0, -0.5rem, 0);
+  }
+  70% {
+    transform: translate3d(0, -0.25rem, 0);
+  }
+  90% {
+    transform: translate3d(0, -0.125rem, 0);
+  }
+}
+
+/* ===== HOVER & INTERACTION ANIMATIONS ===== */
+
+/* Hover Lift Effect */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Button Press Effect */
+.button-press {
+  transition: transform 0.1s ease;
+}
+
+.button-press:active {
+  transform: scale(0.95);
+}
+
+/* Scale on Hover */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* ===== POKEMON CARD ANIMATIONS ===== */
+
+/* Card entrance stagger */
+.pokemon-card {
+  animation: slideUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Stagger delay for cards */
+.pokemon-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.pokemon-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.pokemon-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.pokemon-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.pokemon-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+/* Reset delays after initial load */
+.pokemon-card.loaded {
+  animation: none;
+}
+
+/* Image loading effect */
+.pokemon-image {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.pokemon-image:not([src]) {
+  opacity: 0;
+}
+
+.pokemon-image[src] {
+  opacity: 1;
+}
+
+/* Type badge animation */
+.pokemon-type {
+  animation: scaleIn 0.4s ease-out;
+  animation-fill-mode: both;
+}
+
+.pokemon-type:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.pokemon-type:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+/* ===== MODAL ANIMATIONS ===== */
+
+/* Modal overlay fade */
+.modal-overlay {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-overlay.closing {
+  animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Modal content slide */
+.modal-container {
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Navigation arrows bounce */
+.nav-arrow {
+  transition: all 0.3s ease;
+}
+
+.nav-arrow:hover {
+  animation: bounce 0.6s ease;
+}
+
+/* ===== LOADING STATES ===== */
+
+/* Loading spinner */
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Skeleton loading */
+.skeleton-card,
+.skeleton-name,
+.skeleton-id,
+.skeleton-image,
+.skeleton-type {
+  animation: skeleton-pulse 1.5s ease-in-out infinite alternate;
+}
+
+/* Button loading state */
+.load-more-button:disabled::after {
+  animation: spin 1s linear infinite;
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Fade utilities */
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease-out;
+}
+
+/* Slide utilities */
+.slide-up {
+  animation: slideUp 0.5s ease-out;
+}
+
+.slide-down {
+  animation: slideDown 0.5s ease-out;
+}
+
+/* Scale utilities */
+.scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* Pulse utility */
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Bounce utility */
+.bounce {
+  animation: bounce 1s ease infinite;
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+
+/* Enable GPU acceleration for frequently animated elements */
+.pokemon-card,
+.modal-overlay,
+.modal-container,
+.nav-arrow,
+.load-more-button,
+.spinner {
+  will-change: transform;
+}
+
+/* Remove will-change after animation completes */
+.pokemon-card.loaded {
+  will-change: auto;
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations and transitions */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Keep essential loading indicators */
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  /* Remove hover effects */
+  .pokemon-card:hover,
+  .hover-lift:hover,
+  .hover-scale:hover {
+    transform: none;
+  }
+}
