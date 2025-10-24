@@ -50,12 +50,22 @@ let initializeApp = async () => {
  */
 let setupCoreEventListeners = () => {
   const loadMoreButton = document.getElementById("loadMoreButton");
+  const scrollToTopButton = document.getElementById("scrollToTopButton");
 
   if (loadMoreButton) {
     loadMoreButton.addEventListener("click", () => {
       if (!appState.isLoading && !appState.isSearchMode) {
         handleLoadMoreClick();
       }
+    });
+  }
+
+  if (scrollToTopButton) {
+    scrollToTopButton.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     });
   }
 
