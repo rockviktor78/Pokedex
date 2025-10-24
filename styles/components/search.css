@@ -8,17 +8,13 @@
   margin: 0 auto;
   padding: 0 var(--spacing-md);
   position: relative;
-}
-
-/* ===== SEARCH FORM ===== */
-
-.search-form {
-  position: relative;
-  width: 100%;
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
 }
+
+/* ===== SEARCH FORM ===== */
+/* Form wrapper removed - using direct flex container */
 
 /* ===== SEARCH INPUT ===== */
 
@@ -26,7 +22,6 @@
   flex: 1;
   min-height: 3rem; /* 48px für Touch */
   padding: var(--spacing-sm) var(--spacing-md);
-  padding-left: 3rem; /* Platz für Icon */
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius);
   background: var(--surface-color);
@@ -51,30 +46,12 @@
   opacity: 1;
 }
 
-/* ===== SEARCH ICON ===== */
-
-.search-icon {
-  position: absolute;
-  left: var(--spacing-sm);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1.25rem;
-  height: 1.25rem;
-  color: var(--muted-color);
-  pointer-events: none;
-  z-index: 2;
-  transition: color 0.3s ease;
-}
-
-.search-input:focus + .search-icon {
-  color: var(--primary-color);
-}
-
 /* ===== SEARCH BUTTON ===== */
 
 .search-button {
   min-height: 3rem; /* 48px für Touch */
-  padding: var(--spacing-sm) var(--spacing-md);
+  min-width: 3rem;
+  padding: var(--spacing-sm);
   background: var(--primary-color);
   color: var(--white);
   border: none;
@@ -86,7 +63,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 3rem;
+  flex-shrink: 0;
+}
+
+.search-button .search-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  filter: brightness(0) invert(1); /* Macht das Icon weiß */
 }
 
 .search-button:hover {
@@ -104,17 +87,20 @@
   transform: none;
 }
 
+.search-button:disabled .search-icon {
+  opacity: 0.6;
+}
+
 /* ===== SEARCH SUGGESTIONS ===== */
 
 .search-suggestions {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 0.25rem);
   left: 0;
-  right: 0;
+  right: 3.5rem; /* Platz für Button freilassen */
   background: var(--white);
   border: 1px solid var(--border-color);
-  border-top: none;
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  border-radius: var(--border-radius);
   box-shadow: var(--shadow-md);
   max-height: 12rem;
   overflow-y: auto;
@@ -338,24 +324,24 @@
 @media (min-width: 768px) {
   .search-container {
     padding: 0 var(--spacing-lg);
-  }
-
-  .search-form {
     gap: var(--spacing-md);
   }
 
   .search-input {
     font-size: 1.125rem;
-    padding-left: 3.5rem;
   }
 
-  .search-icon {
-    left: var(--spacing-md);
-    width: 1.5rem;
-    height: 1.5rem;
+  .search-button {
+    min-width: 3.5rem;
+  }
+
+  .search-button .search-icon {
+    width: 1.375rem;
+    height: 1.375rem;
   }
 
   .search-suggestions {
+    right: 4rem; /* Mehr Platz für größeren Button */
     max-height: 16rem;
   }
 
@@ -370,17 +356,17 @@
 
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
-  .search-form {
+  .search-container {
     max-width: 32rem;
     margin: 0 auto;
   }
 
   .search-button {
-    min-width: auto;
-    padding: var(--spacing-sm) var(--spacing-lg);
+    min-width: 4rem;
   }
 
   .search-suggestions {
+    right: 4.5rem; /* Anpassung für Desktop Button */
     max-height: 20rem;
   }
 
@@ -390,10 +376,30 @@
   }
 }
 
-/* Large Desktop (1200px+) */
+/* Large Desktop (1200px+) - Hier können wir Text hinzufügen */
 @media (min-width: 1200px) {
   .search-container {
     padding: 0;
+    max-width: 36rem;
+  }
+
+  .search-button {
+    min-width: auto;
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+
+  .search-button .search-icon {
+    margin-right: var(--spacing-sm);
+  }
+
+  .search-button::after {
+    content: "Suchen";
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .search-suggestions {
+    right: 0; /* Bei großen Screens über gesamte Breite */
   }
 
   .search-filters {
