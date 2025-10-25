@@ -116,6 +116,7 @@ export let performSearch = async (query) => {
     // Setze App in Suchmodus
     appState.isSearchMode = true;
     appState.currentSearchQuery = query;
+    appState.searchResults = results; // Store search results for modal navigation
 
     // Leere Container und zeige Ergebnisse
     clearPokemonContainer();
@@ -150,6 +151,7 @@ export let handleClearSearch = async () => {
   // Zurück zum normalen Modus
   appState.isSearchMode = false;
   appState.currentSearchQuery = "";
+  appState.searchResults = []; // Clear search results
   appState.currentOffset = 0;
 
   // Container leeren und erste Pokémon laden

@@ -83,10 +83,16 @@ export let createPokemonCard = (pokemon) => {
 
   // Event Listener für Karten-Klick - Import aus pokemon-detail.js
   card.addEventListener("click", () => {
+    console.log("🖱️ Pokémon-Karte geklickt:", pokemon.name);
     // Dynamic import to avoid circular dependency
-    import("./pokemon-detail.js").then((module) => {
-      module.handlePokemonCardClick(pokemon);
-    });
+    import("./pokemon-detail.js")
+      .then((module) => {
+        console.log("📦 Pokemon-detail Modul geladen");
+        module.handlePokemonCardClick(pokemon);
+      })
+      .catch((error) => {
+        console.error("❌ Fehler beim Laden des pokemon-detail Moduls:", error);
+      });
   });
 
   return card;

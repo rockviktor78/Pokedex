@@ -31,12 +31,20 @@ let initializeApp = async () => {
 
   try {
     // Initialize core modules
+    console.log("🔍 Initialisiere Suche...");
     await initializeSearch();
+
+    console.log("🎭 Initialisiere Modal Event Listeners...");
     initializeModalEventListeners();
+
+    console.log("♿ Initialisiere Accessibility...");
     initializeAccessibility();
+
+    console.log("🔧 Setup Core Event Listeners...");
     setupCoreEventListeners();
 
     // Load initial Pokemon
+    console.log("📦 Lade erste Pokémon...");
     await loadInitialPokemon();
 
     console.log("✅ App erfolgreich initialisiert");
