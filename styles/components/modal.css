@@ -38,6 +38,7 @@
   margin: var(--spacing-md);
   display: flex;
   flex-direction: column;
+  position: relative;
   transform: scale(0.8) translateY(2rem);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -92,6 +93,7 @@
 
 .modal-body {
   padding: var(--spacing-md);
+  padding-bottom: 4rem;
 }
 
 /* ===== MODAL NAVIGATION ===== */
@@ -115,55 +117,54 @@
 /* Navigation Arrows */
 .nav-arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3rem;
-  height: 3rem;
-  border: 2px solid var(--border-color);
+  bottom: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border-color);
   background: var(--white);
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-color);
-  font-size: 1.5rem;
+  font-size: 0.875rem;
   font-weight: bold;
   z-index: 1001;
 }
 
 .nav-arrow-prev {
-  left: 1rem;
+  left: 0.75rem;
 }
 
 .nav-arrow-next {
-  right: 1rem;
+  right: 0.75rem;
 }
 
 .nav-arrow:hover:not(:disabled) {
   background: var(--primary-color);
   color: var(--white);
   border-color: var(--primary-color);
-  transform: translateY(-50%) scale(1.1);
+}
+
+.nav-arrow:active:not(:disabled) {
+  opacity: 0.8;
 }
 
 .nav-arrow:disabled {
   opacity: 0.3;
   cursor: not-allowed;
-  transform: translateY(-50%);
-}
-
-.nav-arrow:disabled:hover {
   background: var(--white);
   color: var(--text-color);
   border-color: var(--border-color);
-  transform: translateY(-50%);
 }
 
 .nav-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 0.875rem;
+  height: 0.875rem;
+  pointer-events: none;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
@@ -181,6 +182,7 @@
 
   .modal-body {
     padding: var(--spacing-lg);
+    padding-bottom: 5.5rem;
   }
 
   .modal-navigation {
@@ -188,8 +190,10 @@
   }
 
   .nav-arrow {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.2rem;
+    bottom: 1.25rem;
   }
 
   .nav-arrow-prev {
@@ -198,6 +202,11 @@
 
   .nav-arrow-next {
     right: 1.5rem;
+  }
+
+  .nav-icon {
+    width: 1.2rem;
+    height: 1.2rem;
   }
 }
 
@@ -208,8 +217,10 @@
   }
 
   .nav-arrow {
-    width: 4rem;
-    height: 4rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.4rem;
+    bottom: 1.5rem;
   }
 
   .nav-arrow-prev {
@@ -219,39 +230,10 @@
   .nav-arrow-next {
     right: 2rem;
   }
-}
 
-/* Mobile Navigation - Show arrows below modal on small screens */
-@media (max-width: 767px) {
-  .nav-arrow {
-    position: fixed;
-    top: auto;
-    bottom: 2rem;
-    transform: none;
-    width: 3rem;
-    height: 3rem;
-  }
-
-  .nav-arrow-prev {
-    left: 2rem;
-    bottom: 2rem;
-  }
-
-  .nav-arrow-next {
-    right: 2rem;
-    bottom: 2rem;
-  }
-
-  .nav-arrow:hover:not(:disabled) {
-    transform: scale(1.1);
-  }
-
-  .nav-arrow:disabled {
-    transform: none;
-  }
-
-  .nav-arrow:disabled:hover {
-    transform: none;
+  .nav-icon {
+    width: 1.4rem;
+    height: 1.4rem;
   }
 }
 

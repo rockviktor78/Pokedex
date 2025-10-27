@@ -32,7 +32,7 @@ body {
 .main {
   flex: 1;
   padding: 1rem;
-  padding-top: 120px; /* Platz für den fixed header */
+  padding-top: 240px; /* Mehr Platz für den fixed header */
   max-width: 100%;
   margin: 0 auto;
 }
