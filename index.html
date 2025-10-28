@@ -50,7 +50,6 @@
             id="searchButton"
             class="search-button"
             type="button"
-            disabled
             aria-label="Search Pokémon"
           >
             <img
@@ -59,11 +58,18 @@
               class="search-icon"
             />
           </button>
+          <div
+            id="autocompleteContainer"
+            class="autocomplete-container hidden"
+          ></div>
         </div>
       </div>
     </header>
 
     <main class="main">
+      <!-- Search Status -->
+      <div id="searchStatus" class="search-status hidden"></div>
+
       <!-- Pokémon List Container -->
       <section class="pokemon-section" aria-label="Pokémon Collection">
         <div id="pokemonContainer" class="pokemon-grid">
