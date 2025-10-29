@@ -59,6 +59,8 @@ let initializeApp = async () => {
 let setupCoreEventListeners = () => {
   const loadMoreButton = document.getElementById("loadMoreButton");
   const scrollToTopButton = document.getElementById("scrollToTopButton");
+  const logoLink = document.querySelector(".logo-link");
+  const titleLink = document.querySelector(".title-link");
 
   if (loadMoreButton) {
     loadMoreButton.addEventListener("click", () => {
@@ -66,6 +68,16 @@ let setupCoreEventListeners = () => {
         handleLoadMoreClick();
       }
     });
+  }
+
+  // Logo Click - Zurück zur Startseite
+  if (logoLink) {
+    logoLink.addEventListener("click", handleLogoClick);
+  }
+
+  // Title Click - Zurück zur Startseite
+  if (titleLink) {
+    titleLink.addEventListener("click", handleLogoClick);
   }
 
   if (scrollToTopButton) {
@@ -85,6 +97,30 @@ let setupCoreEventListeners = () => {
       previousSearchMode = appState.isSearchMode;
     }
   }, 100);
+};
+
+/**
+ * Behandelt Logo-Klick - Zurück zur Startseite
+ * @param {Event} e - Click Event
+ */
+let handleLogoClick = async (e) => {
+  e.preventDefault();
+  console.log("🏠 Logo geklickt - Zurück zur Startseite");
+
+  try {
+    // Falls wir im Suchmodus sind, Suche zurücksetzen
+    if (appState.isSearchMode) {
+      const { handleClearSearch } = await import("./search.js");
+      await handleClearSearch();
+    } else {
+      // Scroll zur Spitze
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  } catch (error) {
+    console.error("❌ Fehler beim Logo-Klick:", error);
+    // Fallback: Einfach zur Spitze scrollen
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 };
 
 /**
