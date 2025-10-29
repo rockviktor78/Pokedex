@@ -98,7 +98,7 @@
   padding: 0.75rem;
   border: 0.125rem solid var(--color-gray-300);
   border-radius: 0.5rem;
-  background-color: #1e293b;
+  background-color: #0f172a;
   color: var(--color-white);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -110,9 +110,9 @@
 }
 
 .search-button:hover:not(:disabled) {
-  background-color: #334155;
+  background-color: #1e293b;
   transform: translateY(-0.0625rem);
-  box-shadow: 0 0.25rem 0.5rem rgba(30, 41, 59, 0.4);
+  box-shadow: 0 0.25rem 0.5rem rgba(15, 23, 42, 0.5);
 }
 
 .search-button:disabled {
