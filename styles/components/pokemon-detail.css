@@ -6,6 +6,161 @@
   width: 100%;
 }
 
+/* Modal-spezifische Pokemon Detail Styles */
+.modal-container .pokemon-detail {
+  max-width: 100%;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pokémon-Typ-basierte Hintergrundfarben für Modal */
+.modal-container .pokemon-detail.fire {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 99, 71, 0.25) 0%,
+    rgba(255, 140, 0, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.water {
+  background: linear-gradient(
+    135deg,
+    rgba(100, 149, 237, 0.25) 0%,
+    rgba(30, 144, 255, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.grass {
+  background: linear-gradient(
+    135deg,
+    rgba(144, 238, 144, 0.25) 0%,
+    rgba(34, 139, 34, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.electric {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 215, 0, 0.25) 0%,
+    rgba(255, 255, 0, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.psychic {
+  background: linear-gradient(
+    135deg,
+    rgba(221, 160, 221, 0.25) 0%,
+    rgba(186, 85, 211, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.ice {
+  background: linear-gradient(
+    135deg,
+    rgba(173, 216, 230, 0.25) 0%,
+    rgba(135, 206, 235, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.dragon {
+  background: linear-gradient(
+    135deg,
+    rgba(138, 43, 226, 0.25) 0%,
+    rgba(75, 0, 130, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.dark {
+  background: linear-gradient(
+    135deg,
+    rgba(105, 105, 105, 0.25) 0%,
+    rgba(47, 79, 79, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.fairy {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 182, 193, 0.25) 0%,
+    rgba(255, 105, 180, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.fighting {
+  background: linear-gradient(
+    135deg,
+    rgba(165, 42, 42, 0.25) 0%,
+    rgba(139, 69, 19, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.poison {
+  background: linear-gradient(
+    135deg,
+    rgba(160, 32, 240, 0.25) 0%,
+    rgba(138, 43, 226, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.ground {
+  background: linear-gradient(
+    135deg,
+    rgba(222, 184, 135, 0.25) 0%,
+    rgba(210, 180, 140, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.flying {
+  background: linear-gradient(
+    135deg,
+    rgba(135, 206, 235, 0.25) 0%,
+    rgba(173, 216, 230, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.bug {
+  background: linear-gradient(
+    135deg,
+    rgba(154, 205, 50, 0.25) 0%,
+    rgba(107, 142, 35, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.rock {
+  background: linear-gradient(
+    135deg,
+    rgba(188, 143, 143, 0.25) 0%,
+    rgba(160, 82, 45, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.ghost {
+  background: linear-gradient(
+    135deg,
+    rgba(128, 128, 128, 0.25) 0%,
+    rgba(105, 105, 105, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.steel {
+  background: linear-gradient(
+    135deg,
+    rgba(192, 192, 192, 0.25) 0%,
+    rgba(169, 169, 169, 0.15) 100%
+  );
+}
+
+.modal-container .pokemon-detail.normal {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 245, 220, 0.25) 0%,
+    rgba(211, 211, 211, 0.15) 100%
+  );
+}
+
 /* Pokemon Detail Header */
 .pokemon-detail-header {
   display: flex;
@@ -13,6 +168,12 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 2rem;
+}
+
+/* Modal-spezifische kleinere Header */
+.modal-container .pokemon-detail-header {
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .pokemon-detail-name {
@@ -25,6 +186,11 @@
   text-align: center;
 }
 
+/* Kleinerer Name im Modal */
+.modal-container .pokemon-detail-name {
+  font-size: var(--font-size-2xl);
+}
+
 .pokemon-detail-id {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-medium);
@@ -32,6 +198,12 @@
   background-color: var(--color-gray-100);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+}
+
+/* Kleinere ID im Modal */
+.modal-container .pokemon-detail-id {
+  font-size: var(--font-size-base);
+  padding: 0.375rem 0.75rem;
 }
 
 /* Pokemon Detail Image */
@@ -42,6 +214,13 @@
   margin: 1rem 0;
 }
 
+/* Kleineres Bild im Modal */
+.modal-container .pokemon-detail-image {
+  width: 6rem;
+  height: 6rem;
+  margin: 0.75rem 0;
+}
+
 /* Pokemon Detail Types */
 .pokemon-detail-types {
   display: flex;
@@ -49,6 +228,12 @@
   gap: 0.75rem;
   justify-content: center;
   margin: 1rem 0;
+}
+
+/* Kleinere Type Badges im Modal */
+.modal-container .pokemon-detail-types {
+  gap: 0.5rem;
+  margin: 0.75rem 0;
 }
 
 .pokemon-detail-type {
@@ -62,10 +247,21 @@
   text-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
 }
 
+/* Kleinere Type Badges im Modal */
+.modal-container .pokemon-detail-type {
+  font-size: var(--font-size-base);
+  padding: 0.375rem 0.75rem;
+}
+
 /* Pokemon Stats */
 .pokemon-stats {
   margin-top: 2rem;
   width: 100%;
+}
+
+/* Kompaktere Stats im Modal */
+.modal-container .pokemon-stats {
+  margin-top: 1.25rem;
 }
 
 .pokemon-stats-title {
@@ -74,6 +270,12 @@
   color: var(--color-gray-900);
   text-align: center;
   margin-bottom: 1.5rem;
+}
+
+/* Kleinerer Stats-Titel im Modal */
+.modal-container .pokemon-stats-title {
+  font-size: var(--font-size-lg);
+  margin-bottom: 1rem;
 }
 
 .pokemon-stat {

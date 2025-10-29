@@ -69,6 +69,11 @@ export let openPokemonModal = (pokemon) => {
     modal.style.display = "flex";
 
     modalContent.innerHTML = createModalHTML(pokemon);
+
+    // Füge Pokémon-Typ-Klasse hinzu für Hintergrundfarbe
+    const primaryType = pokemon.types[0]?.type.name || "normal";
+    modalContent.className = `pokemon-detail ${primaryType}`;
+
     document.body.style.overflow = "hidden";
 
     // Update navigation arrows
