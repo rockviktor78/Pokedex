@@ -12,6 +12,35 @@ import {
 } from "./constants.js";
 
 /**
+ * Wählt das beste verfügbare Pokémon-Bild mit höchster Auflösung
+ * @param {Object} pokemon - Pokémon-Daten von der API
+ * @returns {string} URL des besten verfügbaren Bildes
+ */
+function getBestPokemonImage(pokemon) {
+  const sprites = pokemon.sprites;
+
+  // Hochauflösende Bilder (in Prioritätsreihenfolge)
+  if (sprites.other?.["official-artwork"]?.front_default) {
+    return sprites.other["official-artwork"].front_default;
+  }
+
+  if (sprites.other?.home?.front_default) {
+    return sprites.other.home.front_default;
+  }
+
+  if (sprites.other?.dream_world?.front_default) {
+    return sprites.other.dream_world.front_default;
+  }
+
+  if (sprites.front_default) {
+    return sprites.front_default;
+  }
+
+  // Fallback zu einem Platzhalter
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
+}
+
+/**
  * Erstellt HTML für eine Pokémon-Karte
  * @param {Object} pokemon - Pokémon-Daten von der API
  * @returns {string} HTML-String für die Karte
@@ -33,7 +62,7 @@ export function createPokemonCardHTML(pokemon) {
     </div>
     <div class="${CSS_CLASSES.pokemonImageContainer}">
       <img 
-        src="${pokemon.sprites.front_default}" 
+        src="${getBestPokemonImage(pokemon)}" 
         alt="${pokemon.name}" 
         class="${CSS_CLASSES.pokemonImage}"
         loading="lazy"
@@ -71,7 +100,7 @@ export function createModalHTML(pokemon) {
     <div class="${CSS_CLASSES.modalBody}">
       <div class="${CSS_CLASSES.modalImageSection}">
         <img 
-          src="${pokemon.sprites.front_default}" 
+          src="${getBestPokemonImage(pokemon)}" 
           alt="${pokemon.name}" 
           class="${CSS_CLASSES.modalPokemonImage}"
         >
