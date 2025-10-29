@@ -176,8 +176,8 @@ export let updateAutocomplete = (query) => {
   if (!autocompleteContainer || !appState.allPokemonNames) return;
 
   // Finde passende Pokémon-Namen
-  const matches = appState.allPokemonNames.filter((name) =>
-    name.toLowerCase().includes(query)
+  const matches = appState.allPokemonNames.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(query)
   );
 
   autocompleteContainer.innerHTML = createAutocompleteListHTML(matches, query);

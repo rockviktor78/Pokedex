@@ -54,9 +54,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-md);
+  padding: 0.75rem;
   border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
+  min-height: 3rem;
 }
 
 .modal-title {
@@ -94,7 +95,7 @@
 }
 
 .modal-body {
-  padding: var(--spacing-md);
+  padding: 0.75rem;
   padding-bottom: 4rem;
 }
 

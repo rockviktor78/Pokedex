@@ -11,12 +11,15 @@ import {
 } from "./constants.js";
 
 /**
- * Erstellt ein Autocomplete-Item
- * @param {string} name - Pokémon-Name
+ * Erstellt HTML für einzelnes Autocomplete-Item
+ * @param {Object|string} pokemon - Pokémon-Objekt oder Name
  * @param {string} query - Suchbegriff für Hervorhebung
  * @returns {string} HTML für Autocomplete-Item
  */
-export function createAutocompleteItemHTML(name, query) {
+export function createAutocompleteItemHTML(pokemon, query) {
+  // Unterstützung für beide Formate: Objekt mit .name oder direkt String
+  const name = typeof pokemon === "string" ? pokemon : pokemon.name;
+
   // Hervorhebung des Suchbegriffs
   const highlightedName = name.replace(
     new RegExp(`(${query})`, "gi"),
@@ -32,7 +35,7 @@ export function createAutocompleteItemHTML(name, query) {
 
 /**
  * Erstellt HTML für Autocomplete-Container mit Ergebnissen
- * @param {Array} matches - Passende Pokémon-Namen
+ * @param {Array} matches - Passende Pokémon-Objekte oder Namen
  * @param {string} query - Suchbegriff
  * @returns {string} HTML für Autocomplete-Liste
  */
@@ -43,7 +46,7 @@ export function createAutocompleteListHTML(matches, query) {
 
   return matches
     .slice(0, API_CONFIG.maxAutocompleteResults)
-    .map((name) => createAutocompleteItemHTML(name, query))
+    .map((pokemon) => createAutocompleteItemHTML(pokemon, query))
     .join("");
 }
 
