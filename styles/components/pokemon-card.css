@@ -1,13 +1,14 @@
 /* ===== POKEMON CARD STYLES - MOBILE FIRST ===== */
 
 .pokemon-card {
-  background-color: var(--color-white);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   border-radius: 0.75rem;
   padding: 1.25rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 1rem rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 0.125rem solid transparent;
+  border: 0.125rem solid rgba(255, 255, 255, 0.2);
   min-height: 10rem;
   display: flex;
   flex-direction: column;
@@ -17,8 +18,9 @@
 
 .pokemon-card:hover {
   transform: translateY(-0.25rem);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  border-color: var(--color-gray-300);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.4);
+  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(255, 255, 255, 0.98);
 }
 
 .pokemon-card-header {
