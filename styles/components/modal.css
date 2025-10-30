@@ -99,6 +99,19 @@
   padding-bottom: 4rem;
 }
 
+/* Modal Image Section */
+.modal-image-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* Modal Pokemon Image Styles */
 .modal-pokemon-image {
   width: 4.5rem;
@@ -108,6 +121,14 @@
   display: block;
   border-radius: 0.5rem;
   transition: transform 0.3s ease;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.modal-pokemon-image:hover {
+  transform: scale(1.05);
+}
 }
 
 .modal-pokemon-image:hover {
@@ -203,6 +224,11 @@
     padding-bottom: 5.5rem;
   }
 
+  .modal-image-section {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
   .modal-pokemon-image {
     width: 6rem;
     height: 6rem;
@@ -240,6 +266,11 @@
     max-width: 700px;
   }
 
+  .modal-image-section {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
   .modal-pokemon-image {
     width: 7rem;
     height: 7rem;
@@ -271,19 +302,22 @@
 
 /* Very small screens (max 360px) */
 @media (max-width: 360px) {
+  .modal-image-section {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
   .modal-pokemon-image {
     width: 3.5rem;
     height: 3.5rem;
     margin: 0.25rem auto;
   }
-
+  
   .modal-container {
     margin: 0.5rem;
     max-width: calc(100vw - 1rem);
   }
-}
-
-/* High contrast mode */
+}/* High contrast mode */
 @media (prefers-contrast: high) {
   .modal-overlay {
     background: rgba(0, 0, 0, 0.9);

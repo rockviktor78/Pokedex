@@ -10,9 +10,14 @@ import { showErrorMessage } from "./ui-helpers.js";
 import { createModalHTML } from "./pokemon-templates.js";
 import { ELEMENT_IDS } from "./constants.js";
 
-// Current Pokemon index for navigation
+// Current state tracking
 let currentPokemonIndex = 0;
 let currentPokemonList = [];
+
+// Modal focus tracking
+let lastFocusedElement = null;
+
+/**
 
 /**
  * Behandelt Klick auf eine Pokémon-Karte
@@ -63,6 +68,12 @@ export let openPokemonModal = (pokemon) => {
   const modalContent = document.getElementById("pokemonDetailContent");
 
   if (modal && modalContent) {
+    // Speichere das aktuell fokussierte Element
+    lastFocusedElement = document.activeElement;
+
+    // Entferne aria-hidden bevor das Modal gezeigt wird
+    modal.removeAttribute("aria-hidden");
+
     // Remove hidden class and show modal
     modal.classList.remove("hidden");
     modal.classList.add("visible");
@@ -93,10 +104,28 @@ export let openPokemonModal = (pokemon) => {
 export let closePokemonModal = () => {
   const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
   if (modal) {
+    // Entferne Fokus von allen Elementen im Modal
+    const focusedElement = modal.querySelector(":focus");
+    if (focusedElement) {
+      focusedElement.blur();
+    }
+
+    // Entferne aria-hidden erst nach dem Blur
+    modal.removeAttribute("aria-hidden");
+
     modal.classList.remove("visible");
     modal.classList.add("hidden");
     modal.style.display = "none";
     document.body.style.overflow = "auto";
+
+    // Setze aria-hidden nach dem Verstecken
+    modal.setAttribute("aria-hidden", "true");
+
+    // Setze den Fokus auf das ursprünglich fokussierte Element zurück
+    if (lastFocusedElement && lastFocusedElement.isConnected) {
+      lastFocusedElement.focus();
+      lastFocusedElement = null;
+    }
 
     console.log("✅ Modal geschlossen");
   }
