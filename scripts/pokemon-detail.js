@@ -10,14 +10,9 @@ import { showErrorMessage } from "./ui-helpers.js";
 import { createModalHTML } from "./pokemon-templates.js";
 import { ELEMENT_IDS } from "./constants.js";
 
-// Current state tracking
+// Current Pokemon index for navigation
 let currentPokemonIndex = 0;
 let currentPokemonList = [];
-
-// Modal focus tracking
-let lastFocusedElement = null;
-
-/**
 
 /**
  * Behandelt Klick auf eine Pokémon-Karte
@@ -68,16 +63,13 @@ export let openPokemonModal = (pokemon) => {
   const modalContent = document.getElementById("pokemonDetailContent");
 
   if (modal && modalContent) {
-    // Speichere das aktuell fokussierte Element
-    lastFocusedElement = document.activeElement;
-
-    // Entferne aria-hidden bevor das Modal gezeigt wird
-    modal.removeAttribute("aria-hidden");
-
     // Remove hidden class and show modal
     modal.classList.remove("hidden");
     modal.classList.add("visible");
     modal.style.display = "flex";
+
+    // Accessibility: Modal ist sichtbar und interaktiv - nur inert verwenden
+    modal.removeAttribute("inert");
 
     modalContent.innerHTML = createModalHTML(pokemon);
 
@@ -104,28 +96,14 @@ export let openPokemonModal = (pokemon) => {
 export let closePokemonModal = () => {
   const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
   if (modal) {
-    // Entferne Fokus von allen Elementen im Modal
-    const focusedElement = modal.querySelector(":focus");
-    if (focusedElement) {
-      focusedElement.blur();
-    }
-
-    // Entferne aria-hidden erst nach dem Blur
-    modal.removeAttribute("aria-hidden");
-
     modal.classList.remove("visible");
     modal.classList.add("hidden");
     modal.style.display = "none";
+
+    // Accessibility: Modal ist versteckt und nicht interaktiv - nur inert verwenden
+    modal.setAttribute("inert", "");
+
     document.body.style.overflow = "auto";
-
-    // Setze aria-hidden nach dem Verstecken
-    modal.setAttribute("aria-hidden", "true");
-
-    // Setze den Fokus auf das ursprünglich fokussierte Element zurück
-    if (lastFocusedElement && lastFocusedElement.isConnected) {
-      lastFocusedElement.focus();
-      lastFocusedElement = null;
-    }
 
     console.log("✅ Modal geschlossen");
   }
@@ -294,21 +272,16 @@ export let initializeModalEventListeners = () => {
     console.error("❌ Next Button nicht gefunden!");
   }
 
-  if (closeButton) {
-    console.log("✅ Close Button gefunden");
-    closeButton.addEventListener("click", (e) => {
-      e.stopPropagation();
-      console.log("🖱️ Close Button geklickt");
-      closePokemonModal();
-    });
-  } else {
-    console.error("❌ Close Button nicht gefunden!");
-  }
-
   // Globale Funktionen für Modal (für onclick)
   window.closePokemonModal = closePokemonModal;
   window.goToPreviousPokemon = goToPreviousPokemon;
   window.goToNextPokemon = goToNextPokemon;
+
+  // Initial Accessibility Setup - Modal sollte geschlossen sein
+  const modalElement = document.getElementById(ELEMENT_IDS.pokemonModal);
+  if (modalElement) {
+    modalElement.setAttribute("inert", "");
+  }
 
   console.log("✅ Modal Event Listeners initialisiert");
 };

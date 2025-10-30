@@ -109,15 +109,15 @@
       </div>
     </main>
 
-    <div id="pokemonModal" class="modal-overlay hidden" aria-hidden="true">
+    <div id="pokemonModal" class="modal-overlay hidden" inert>
       <div class="modal-container">
-      
         <!-- Navigation Arrows -->
         <button
           id="prevPokemonButton"
           class="nav-arrow nav-arrow-prev"
           type="button"
           aria-label="Previous Pokémon"
+          tabindex="-1"
         >
           <img
             src="./assets/icons/chevron-left.svg"
@@ -131,6 +131,7 @@
           class="nav-arrow nav-arrow-next"
           type="button"
           aria-label="Next Pokémon"
+          tabindex="-1"
         >
           <img
             src="./assets/icons/chevron-right.svg"
