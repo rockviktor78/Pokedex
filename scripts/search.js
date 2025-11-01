@@ -11,7 +11,7 @@ import { setLoadingState, showErrorMessage } from "./ui-helpers.js";
 import {
   createAutocompleteListHTML,
   createSearchStatusHTML,
-} from "./ui-templates.js";
+} from "./templates.js";
 import { ELEMENT_IDS, API_CONFIG, ANIMATIONS } from "./constants.js";
 
 /**

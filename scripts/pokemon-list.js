@@ -7,7 +7,7 @@
 import { appState } from "./main.js";
 import { fetchPokemonList } from "./api.js";
 import { setLoadingState, showErrorMessage } from "./ui-helpers.js";
-import { createPokemonCardHTML } from "./pokemon-templates.js";
+import { createPokemonCardHTML } from "./templates.js";
 import { CSS_CLASSES, ELEMENT_IDS } from "./constants.js";
 
 /**

@@ -7,7 +7,7 @@
 import { appState } from "./main.js";
 import { fetchPokemonDetails } from "./api.js";
 import { showErrorMessage } from "./ui-helpers.js";
-import { createModalHTML } from "./pokemon-templates.js";
+import { createModalHTML } from "./templates.js";
 import { ELEMENT_IDS } from "./constants.js";
 
 // Current Pokemon index for navigation

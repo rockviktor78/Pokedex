@@ -9,7 +9,7 @@ import {
   createErrorHTML,
   createErrorContainer,
   createToastHTML,
-} from "./ui-templates.js";
+} from "./templates.js";
 import { ELEMENT_IDS, UI_MESSAGES, ANIMATIONS } from "./constants.js";
 
 /**

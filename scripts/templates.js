@@ -1,6 +1,6 @@
 /**
- * Pokemon Templates Module
- * HTML template functions for Pokemon cards and detail views
+ * Templates Module
+ * HTML template functions for Pokemon cards, modals, and UI elements
  */
 
 import {
@@ -9,12 +9,13 @@ import {
   UI_MESSAGES,
   API_CONFIG,
   POKEMON_TYPES,
+  ELEMENT_IDS,
 } from "./constants.js";
+
+// ===== POKEMON TEMPLATES =====
 
 /**
  * Wählt das beste verfügbare Pokémon-Bild mit höchster Auflösung
- * @param {Object} pokemon - Pokémon-Daten von der API
- * @returns {string} URL des besten verfügbaren Bildes
  */
 function getBestPokemonImage(pokemon) {
   const sprites = pokemon.sprites;
@@ -23,15 +24,12 @@ function getBestPokemonImage(pokemon) {
   if (sprites.other?.["official-artwork"]?.front_default) {
     return sprites.other["official-artwork"].front_default;
   }
-
   if (sprites.other?.home?.front_default) {
     return sprites.other.home.front_default;
   }
-
   if (sprites.other?.dream_world?.front_default) {
     return sprites.other.dream_world.front_default;
   }
-
   if (sprites.front_default) {
     return sprites.front_default;
   }
@@ -42,8 +40,6 @@ function getBestPokemonImage(pokemon) {
 
 /**
  * Erstellt HTML für eine Pokémon-Karte
- * @param {Object} pokemon - Pokémon-Daten von der API
- * @returns {string} HTML-String für die Karte
  */
 export function createPokemonCardHTML(pokemon) {
   const typeElements = pokemon.types
@@ -76,8 +72,6 @@ export function createPokemonCardHTML(pokemon) {
 
 /**
  * Erstellt HTML für Modal-Inhalt
- * @param {Object} pokemon - Detaillierte Pokémon-Daten
- * @returns {string} HTML-String für Modal
  */
 export function createModalHTML(pokemon) {
   const primaryType = pokemon.types[0]?.type.name || POKEMON_TYPES.normal;
@@ -138,8 +132,6 @@ export function createModalHTML(pokemon) {
 
 /**
  * Erstellt HTML für Modal-Typ-Anzeige
- * @param {Array} types - Pokémon-Typen
- * @returns {string} HTML für Typen
  */
 function createModalTypesHTML(types) {
   return types
@@ -152,8 +144,6 @@ function createModalTypesHTML(types) {
 
 /**
  * Erstellt HTML für Statistiken
- * @param {Array} stats - Pokémon-Statistiken
- * @returns {string} HTML für Stats
  */
 function createStatsHTML(stats) {
   return stats
@@ -180,8 +170,6 @@ function createStatsHTML(stats) {
 
 /**
  * Erstellt HTML für physische Eigenschaften
- * @param {Object} pokemon - Pokémon-Daten
- * @returns {string} HTML für physische Stats
  */
 function createPhysicalStatsHTML(pokemon) {
   const height = (pokemon.height / API_CONFIG.heightDivisor).toFixed(1);
@@ -201,8 +189,6 @@ function createPhysicalStatsHTML(pokemon) {
 
 /**
  * Erstellt HTML für Fähigkeiten
- * @param {Array} abilities - Pokémon-Fähigkeiten
- * @returns {string} HTML für Abilities
  */
 function createAbilitiesHTML(abilities) {
   return abilities
@@ -221,4 +207,160 @@ function createAbilitiesHTML(abilities) {
       `;
     })
     .join("");
+}
+
+// ===== UI TEMPLATES =====
+
+/**
+ * Erstellt HTML für einzelnes Autocomplete-Item
+ */
+export function createAutocompleteItemHTML(pokemon, query) {
+  const name = typeof pokemon === "string" ? pokemon : pokemon.name;
+  const highlightedName = name.replace(
+    new RegExp(`(${query})`, "gi"),
+    "<strong>$1</strong>"
+  );
+
+  return `
+    <div class="${CSS_CLASSES.autocompleteItem}" onclick="window.selectAutocomplete('${name}')">
+      ${highlightedName}
+    </div>
+  `;
+}
+
+/**
+ * Erstellt HTML für Autocomplete-Container mit Ergebnissen
+ */
+export function createAutocompleteListHTML(matches, query) {
+  if (matches.length === 0) {
+    return `<div class="${CSS_CLASSES.autocompleteItem} ${CSS_CLASSES.noResults}">${UI_MESSAGES.noSuggestions}</div>`;
+  }
+
+  return matches
+    .slice(0, API_CONFIG.maxAutocompleteResults)
+    .map((pokemon) => createAutocompleteItemHTML(pokemon, query))
+    .join("");
+}
+
+/**
+ * Erstellt HTML für Fehlermeldung
+ */
+export function createErrorHTML(message = UI_MESSAGES.defaultError) {
+  return `
+    <div class="${CSS_CLASSES.errorMessage}">
+      <div class="${CSS_CLASSES.errorContent}">
+        <span class="${CSS_CLASSES.errorIcon}">⚠️</span>
+        <span class="${CSS_CLASSES.errorText}">${message}</span>
+        <button class="${CSS_CLASSES.errorClose}" onclick="window.hideErrorMessage()">${UI_MESSAGES.closeModal}</button>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Erstellt Error-Container Element
+ */
+export function createErrorContainer() {
+  const container = document.createElement("div");
+  container.id = ELEMENT_IDS.errorContainer;
+  container.className = CSS_CLASSES.errorContainer;
+  return container;
+}
+
+/**
+ * Erstellt HTML für Toast-Benachrichtigung
+ */
+export function createToastHTML(message, type = "info") {
+  const toast = document.createElement("div");
+  toast.className = `${CSS_CLASSES.toast} ${CSS_CLASSES.toast}-${type}`;
+  toast.textContent = message;
+  return toast;
+}
+
+/**
+ * Erstellt HTML für Such-Status-Anzeige
+ */
+export function createSearchStatusHTML(count, query = "") {
+  if (count === 0) {
+    return UI_MESSAGES.noResultsFound;
+  }
+  return `${count} Pokémon gefunden${query ? ` für "${query}"` : ""}`;
+}
+
+/**
+ * Erstellt HTML für Loading-Indikator
+ */
+export function createLoadingHTML(message = UI_MESSAGES.loadingPokemon) {
+  return `
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p class="loading-text">${message}</p>
+    </div>
+  `;
+}
+
+/**
+ * Erstellt HTML für "Keine Ergebnisse" Anzeige
+ */
+export function createNoResultsHTML(query = "") {
+  return `
+    <div class="no-results-container">
+      <div class="no-results-icon">🔍</div>
+      <h3 class="no-results-title">${UI_MESSAGES.noResultsFound}</h3>
+      ${
+        query
+          ? `<p class="no-results-text">Keine Pokémon gefunden für "${query}"</p>`
+          : ""
+      }
+      <p class="no-results-hint">Versuche einen anderen Suchbegriff</p>
+    </div>
+  `;
+}
+
+/**
+ * Erstellt HTML für Retry-Button
+ */
+export function createRetryButtonHTML(onClickHandler = "window.retryAction") {
+  return `
+    <button class="retry-button" type="button" onclick="${onClickHandler}">
+      ${UI_MESSAGES.retryButton}
+    </button>
+  `;
+}
+
+/**
+ * Erstellt HTML für Skip-to-Content Link (Accessibility)
+ */
+export function createSkipToContentHTML() {
+  return `
+    <a href="#main-content" class="skip-to-content">
+      Zum Hauptinhalt springen
+    </a>
+  `;
+}
+
+/**
+ * Erstellt HTML für Breadcrumb-Navigation
+ */
+export function createBreadcrumbHTML(breadcrumbs) {
+  return `
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        ${breadcrumbs
+          .map((crumb, index) => {
+            const isLast = index === breadcrumbs.length - 1;
+            return `
+            <li class="breadcrumb-item${isLast ? " active" : ""}">
+              ${
+                isLast
+                  ? `<span aria-current="page">${crumb.text}</span>`
+                  : `<a href="${crumb.url}">${crumb.text}</a>`
+              }
+            </li>
+          `;
+          })
+          .join("")}
+      </ol>
+    </nav>
+  `;
 }

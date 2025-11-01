@@ -264,6 +264,37 @@
 
 /* ===== RESPONSIVE DESIGN ===== */
 
+/* iPhone SE/6/7/8 specific adjustments (375x667) */
+@media (max-width: 375px) and (max-height: 667px) {
+  .modal-info-section {
+    padding-bottom: 1.5rem !important; /* Sehr kompakt für iPhone SE */
+    margin-bottom: 1.5rem !important; /* Weniger Abstand */
+    max-height: 220px !important; /* Kleinere Höhe für iPhone SE */
+
+    /* Content zur Mitte - iPhone SE spezifisch */
+    margin-left: 1.75rem !important; /* Kompakter für iPhone SE */
+    margin-right: 1.75rem !important; /* Kompakter für iPhone SE */
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-top: 0.5rem !important; /* Sehr kompakt */
+  }
+
+  .modal-body {
+    padding-bottom: 1rem !important; /* Sehr wenig Platz für iPhone SE */
+  }
+
+  .modal-pokemon-image {
+    width: 5.5rem !important; /* Kleineres Bild für iPhone SE */
+    height: 5.5rem !important;
+    margin: 0.25rem auto !important;
+  }
+
+  .modal-image-section {
+    padding: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
+
 /* Mobile-only adjustments (up to 767px) */
 @media (max-width: 767px) {
   .modal-info-section {
