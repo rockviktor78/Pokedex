@@ -134,7 +134,7 @@
 .modal-info-section {
   /* Sichere Abstände zu allen Seiten */
   padding: 1rem 0.75rem 1rem 0.75rem; /* Normales bottom padding */
-  max-height: 400px; /* Feste Höhe statt vh-basiert */
+  max-height: 400px; /* Standard Höhe für alle Geräte */
   overflow-y: auto; /* Scrollbar bei Bedarf */
 
   /* Visueller Container */
@@ -269,7 +269,7 @@
   .modal-info-section {
     padding-bottom: 2rem !important; /* Kompakter für mobile Navigation */
     margin-bottom: 2rem !important; /* Weniger Abstand */
-    max-height: 250px !important; /* Kleinere Höhe für Mobile */
+    max-height: 300px !important; /* Mobile Höhe */
 
     /* Content zur Mitte - Mobile Buttons sind 2rem + 0.75rem position */
     margin-left: 2rem !important; /* Platz für Mobile-Button + Puffer */
@@ -362,7 +362,7 @@
   .modal-info-section {
     padding-bottom: 3rem !important; /* Kompakter für Desktop */
     margin-bottom: 1.5rem;
-    max-height: 400px !important; /* Passendere Höhe für Desktop */
+    max-height: 500px !important; /* Desktop Höhe */
     padding-top: 1rem !important; /* Kompakteres top padding */
 
     /* Content zur Mitte verschieben - weg von großen Desktop-Buttons */
@@ -415,15 +415,20 @@
   }
 
   .modal-info-section {
-    max-height: 250px !important; /* Noch weniger Höhe für Nest Hub */
+    max-height: 200px !important; /* Kompakter wie andere mobile Geräte */
     padding-top: 0.5rem !important;
     margin-top: 0.25rem !important;
-    padding-bottom: 2rem !important; /* Reduziertes bottom padding */
-    margin-bottom: 1rem !important; /* Weniger margin */
-  }
+    padding-bottom: 1.5rem !important; /* Wie mobile Landscape */
+    margin-bottom: 0.75rem !important; /* Kompakter margin wie mobile */
 
+    /* Text mehr zur Mitte für Nest Hub */
+    margin-left: 4rem !important; /* Mehr Abstand von den Seiten */
+    margin-right: 4rem !important; /* Mehr Abstand von den Seiten */
+    padding-left: 2rem !important; /* Mehr inneres Padding für zentrierten Text */
+    padding-right: 2rem !important; /* Mehr inneres Padding für zentrierten Text */
+  }
   .modal-body {
-    padding-bottom: 1.5rem !important; /* Kompakter body */
+    padding-bottom: 1rem !important; /* Sehr kompakt wie mobile Landscape */
   }
 }
 
@@ -463,7 +468,7 @@
   .modal-info-section {
     padding-bottom: 2rem !important; /* Weniger für sehr kleine Screens */
     margin-bottom: 2rem !important; /* Kompakter margin */
-    max-height: 200px !important; /* Sehr kompakt für kleine Screens */
+    max-height: 250px !important; /* Sehr kleine Screens Höhe */
 
     /* Content zur Mitte - Sehr kleine Screens haben gleiche Button-Größe wie Mobile */
     margin-left: 1.5rem !important; /* Kompakter für sehr kleine Screens */
