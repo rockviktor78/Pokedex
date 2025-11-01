@@ -114,8 +114,8 @@
 
 /* Modal Pokemon Image Styles */
 .modal-pokemon-image {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 9rem;
+  height: 9rem;
   object-fit: contain;
   margin: 0.5rem auto;
   display: block;
@@ -229,8 +229,8 @@
   }
 
   .modal-pokemon-image {
-    width: 6rem;
-    height: 6rem;
+    width: 9rem;
+    height: 9rem;
     margin: 0.75rem auto;
   }
 
@@ -271,8 +271,8 @@
   }
 
   .modal-pokemon-image {
-    width: 7rem;
-    height: 7rem;
+    width: 9rem;
+    height: 9rem;
     margin: 1rem auto;
   }
 
@@ -305,18 +305,18 @@
     padding: 0.75rem;
     margin-bottom: 0.75rem;
   }
-  
+
   .modal-pokemon-image {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 6rem;
+    height: 6rem;
     margin: 0.25rem auto;
   }
-  
+
   .modal-container {
     margin: 0.5rem;
     max-width: calc(100vw - 1rem);
   }
-}/* High contrast mode */
+} /* High contrast mode */
 @media (prefers-contrast: high) {
   .modal-overlay {
     background: rgba(0, 0, 0, 0.9);
