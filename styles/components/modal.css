@@ -96,7 +96,7 @@
 
 .modal-body {
   padding: 0.75rem;
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
 }
 
 /* Modal Image Section */
@@ -130,11 +130,68 @@
   transform: scale(1.05);
 }
 
-.modal-pokemon-image:hover {
-  transform: scale(1.05);
+/* Modal Info Section - Sicherheitszonen */
+.modal-info-section {
+  /* Sichere Abstände zu allen Seiten */
+  padding: 1rem 0.75rem 1rem 0.75rem; /* Normales bottom padding */
+  max-height: 400px; /* Feste Höhe statt vh-basiert */
+  overflow-y: auto; /* Scrollbar bei Bedarf */
+
+  /* Visueller Container */
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0.5rem;
+  margin: 1rem 0.5rem 2rem 0.5rem; /* Mehr bottom margin */
+
+  /* Verhindert Berührung mit Close-Button */
+  margin-top: 1rem;
 }
 
-/* ===== MODAL NAVIGATION ===== */
+/* Content-Bereiche kompakt halten */
+.modal-stats,
+.modal-physical,
+.modal-abilities {
+  margin-bottom: 1.5rem;
+}
+
+.modal-stats:last-child,
+.modal-physical:last-child,
+.modal-abilities:last-child {
+  margin-bottom: 0;
+}
+
+/* Navigation Safety Zone */
+.modal-info-section::after {
+  content: "";
+  display: block;
+  height: 4rem; /* Extra Pufferzone */
+  width: 100%;
+}
+
+/* Custom Scrollbar für modal-info-section */
+.modal-info-section::-webkit-scrollbar {
+  width: 6px; /* Dünne Scrollbar */
+}
+
+.modal-info-section::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1); /* Transparenter Track */
+  border-radius: 3px;
+}
+
+.modal-info-section::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3); /* Semi-transparenter Thumb */
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.modal-info-section::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5); /* Heller beim Hover */
+}
+
+/* Firefox Scrollbar */
+.modal-info-section {
+  scrollbar-width: thin; /* Dünne Scrollbar für Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1); /* Thumb + Track */
+} /* ===== MODAL NAVIGATION ===== */
 
 .modal-navigation {
   display: flex;
@@ -207,6 +264,26 @@
 
 /* ===== RESPONSIVE DESIGN ===== */
 
+/* Mobile-only adjustments (up to 767px) */
+@media (max-width: 767px) {
+  .modal-info-section {
+    padding-bottom: 2rem !important; /* Kompakter für mobile Navigation */
+    margin-bottom: 2rem !important; /* Weniger Abstand */
+    max-height: 250px !important; /* Kleinere Höhe für Mobile */
+
+    /* Content zur Mitte - Mobile Buttons sind 2rem + 0.75rem position */
+    margin-left: 2rem !important; /* Platz für Mobile-Button + Puffer */
+    margin-right: 2rem !important; /* Platz für Mobile-Button + Puffer */
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    padding-top: 0.75rem !important; /* Kompakteres top padding */
+  }
+
+  .modal-body {
+    padding-bottom: 1.5rem !important; /* Weniger Platz für mobile Buttons */
+  }
+}
+
 /* Tablet (768px+) */
 @media (min-width: 768px) {
   .modal-container {
@@ -220,7 +297,19 @@
 
   .modal-body {
     padding: var(--spacing-lg);
-    padding-bottom: 5.5rem;
+    padding-bottom: 1.5rem; /* Kompakter für Desktop */
+  }
+
+  .modal-info-section {
+    padding-bottom: 6rem; /* Tablet - weniger als Mobile */
+    margin-bottom: 2rem;
+    max-height: 450px; /* Mehr Platz für Tablet */
+
+    /* Content zur Mitte - Tablet Buttons sind 3rem + 1.5rem position */
+    margin-left: 3rem !important; /* Platz für Tablet-Button + Puffer */
+    margin-right: 3rem !important; /* Platz für Tablet-Button + Puffer */
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 
   .modal-image-section {
@@ -270,6 +359,19 @@
     margin-bottom: 2rem;
   }
 
+  .modal-info-section {
+    padding-bottom: 3rem !important; /* Kompakter für Desktop */
+    margin-bottom: 1.5rem;
+    max-height: 400px !important; /* Passendere Höhe für Desktop */
+    padding-top: 1rem !important; /* Kompakteres top padding */
+
+    /* Content zur Mitte verschieben - weg von großen Desktop-Buttons */
+    margin-left: 4rem !important; /* Links: Platz für 3.5rem Button + 2rem position + 0.5rem buffer */
+    margin-right: 4rem !important; /* Rechts: Platz für 3.5rem Button + 2rem position + 0.5rem buffer */
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
   .modal-pokemon-image {
     width: 9rem;
     height: 9rem;
@@ -299,11 +401,76 @@
 
 /* ===== ACCESSIBILITY ===== */
 
+/* Large landscape screens (Nest Hub Max, etc.) */
+@media (min-width: 1024px) and (max-height: 900px) and (orientation: landscape) {
+  .modal-image-section {
+    padding: 0.75rem !important; /* Kompakter für Landscape */
+    margin-bottom: 1rem !important;
+  }
+
+  .modal-pokemon-image {
+    width: 6rem !important; /* Kleineres Bild für Landscape */
+    height: 6rem !important;
+    margin: 0.5rem auto !important;
+  }
+
+  .modal-info-section {
+    max-height: 250px !important; /* Noch weniger Höhe für Nest Hub */
+    padding-top: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    padding-bottom: 2rem !important; /* Reduziertes bottom padding */
+    margin-bottom: 1rem !important; /* Weniger margin */
+  }
+
+  .modal-body {
+    padding-bottom: 1.5rem !important; /* Kompakter body */
+  }
+}
+
+/* All mobile devices in landscape orientation */
+@media (max-width: 1023px) and (max-height: 600px) and (orientation: landscape) {
+  .modal-image-section {
+    padding: 0.5rem !important; /* Sehr kompakt für mobile Landscape */
+    margin-bottom: 0.75rem !important;
+  }
+
+  .modal-pokemon-image {
+    width: 5rem !important; /* Noch kleineres Bild für mobile Landscape */
+    height: 5rem !important;
+    margin: 0.25rem auto !important;
+  }
+
+  .modal-info-section {
+    max-height: 220px !important; /* Noch kleiner für mobile Landscape */
+    padding-top: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    padding-bottom: 1.5rem !important; /* Weniger bottom padding */
+    margin-bottom: 0.75rem !important; /* Kompakter margin */
+  }
+
+  .modal-body {
+    padding-bottom: 1rem !important; /* Sehr kompakt für mobile Landscape */
+  }
+}
+
 /* Very small screens (max 360px) */
 @media (max-width: 360px) {
   .modal-image-section {
     padding: 0.75rem;
     margin-bottom: 0.75rem;
+  }
+
+  .modal-info-section {
+    padding-bottom: 2rem !important; /* Weniger für sehr kleine Screens */
+    margin-bottom: 2rem !important; /* Kompakter margin */
+    max-height: 200px !important; /* Sehr kompakt für kleine Screens */
+
+    /* Content zur Mitte - Sehr kleine Screens haben gleiche Button-Größe wie Mobile */
+    margin-left: 1.5rem !important; /* Kompakter für sehr kleine Screens */
+    margin-right: 1.5rem !important; /* Kompakter für sehr kleine Screens */
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-top: 0.5rem !important; /* Kompakteres top padding */
   }
 
   .modal-pokemon-image {
