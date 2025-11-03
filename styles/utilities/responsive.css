@@ -45,7 +45,7 @@
 
   /* Modal adjustments */
   .modal-container {
-    max-width: 32rem;
+    max-width: 25rem;
   }
 
   .pokemon-detail {
@@ -77,7 +77,7 @@
 
   /* Modal larger */
   .modal-container {
-    max-width: 40rem;
+    max-width: 28rem;
   }
 
   /* Pokemon detail stats horizontal */
@@ -116,7 +116,7 @@
 
   /* Larger modal */
   .modal-container {
-    max-width: 48rem;
+    max-width: 38rem;
   }
 
   /* Search container larger */

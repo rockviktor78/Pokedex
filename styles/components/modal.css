@@ -24,7 +24,7 @@
   backdrop-filter: blur(15px);
   border-radius: var(--border-radius-lg);
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.5);
-  max-width: 90vw;
+  max-width: 73vw;
   max-height: 90vh;
   width: 100%;
   margin: var(--spacing-md);
@@ -65,6 +65,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  font-size: 1.5rem;
 }
 .modal-close:hover {
   background: var(--border-color);
@@ -214,7 +215,7 @@
 .modal-info-section {
   padding-bottom: 1rem !important;
   margin-bottom: 1rem !important;
-  max-height: 250px !important;
+  max-height: 170px !important;
   margin-left: 1.5rem !important;
   margin-right: 1.5rem !important;
   padding-left: 0.5rem !important;
