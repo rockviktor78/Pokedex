@@ -118,6 +118,8 @@
 .modal-physical,
 .modal-abilities {
   margin-bottom: 1.5rem;
+  margin-top: 1rem;
+
 }
 .modal-stats:last-child,
 .modal-physical:last-child,
