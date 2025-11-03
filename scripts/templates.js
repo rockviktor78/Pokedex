@@ -157,10 +157,9 @@ function createStatsHTML(stats) {
 
       return `
         <div class="${CSS_CLASSES.statItem}">
-          <span class="${CSS_CLASSES.statName}">${translatedName}</span>
+          <span class="${CSS_CLASSES.statName}">${translatedName}: ${stat.base_stat}</span>
           <div class="${CSS_CLASSES.statBarContainer}">
             <div class="${CSS_CLASSES.statBar}" style="width: ${statWidth}%"></div>
-            <span class="${CSS_CLASSES.statValue}">${stat.base_stat}</span>
           </div>
         </div>
       `;
