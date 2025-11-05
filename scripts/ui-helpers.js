@@ -44,8 +44,8 @@ export let updateLoadingUI = (isLoading) => {
 };
 
 /**
- * Zeigt eine Fehlermeldung an
- * @param {string} message - Fehlermeldung (optional)
+ * Shows an error message
+ * @param {string} message - Error message (optional)
  */
 export let showErrorMessage = (message = UI_MESSAGES.defaultError) => {
   // Erstelle oder aktualisiere Error-Container
@@ -66,7 +66,7 @@ export let showErrorMessage = (message = UI_MESSAGES.defaultError) => {
 };
 
 /**
- * Versteckt die Fehlermeldung
+ * Hides the error message
  */
 export let hideErrorMessage = () => {
   const errorContainer = document.getElementById(ELEMENT_IDS.errorContainer);

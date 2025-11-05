@@ -109,39 +109,39 @@ export const POKEMON_TYPES = {
 
 // ===== STAT TRANSLATIONS =====
 export const STAT_TRANSLATIONS = {
-  hp: "KP",
-  attack: "Angriff",
-  defense: "Verteidigung",
-  "special-attack": "Spez. Angriff",
-  "special-defense": "Spez. Verteidigung",
-  speed: "Initiative",
+  hp: "HP",
+  attack: "Attack",
+  defense: "Defense",
+  "special-attack": "Sp. Attack",
+  "special-defense": "Sp. Defense",
+  speed: "Speed",
 };
 
 // ===== UI MESSAGES =====
 export const UI_MESSAGES = {
   // Search Messages
-  noResultsFound: "Keine Pokémon gefunden",
-  noSuggestions: "Keine Vorschläge",
+  noResultsFound: "No Pokémon found",
+  noSuggestions: "No suggestions",
 
   // Loading Messages
-  loading: "Lädt...",
+  loading: "Loading...",
   loadingPokemon: "Loading Pokémon...",
-  loadMore: "Mehr laden",
+  loadMore: "Load more",
 
   // Error Messages
-  defaultError: "Ein Fehler ist aufgetreten. Bitte versuche es später erneut.",
-  retryButton: "Wiederholen",
+  defaultError: "An error occurred. Please try again later.",
+  retryButton: "Retry",
 
   // Modal Messages
   closeModal: "×",
 
   // Stats Section
-  baseStats: "Basiswerte",
-  physicalProperties: "Physische Eigenschaften",
-  abilities: "Fähigkeiten",
-  height: "Größe:",
-  weight: "Gewicht:",
-  hiddenAbilityLabel: " (versteckt)",
+  baseStats: "Base Stats",
+  physicalProperties: "Physical Properties",
+  abilities: "Abilities",
+  height: "Height:",
+  weight: "Weight:",
+  hiddenAbilityLabel: " (hidden)",
 };
 
 // ===== API CONSTANTS =====

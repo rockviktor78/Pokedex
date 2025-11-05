@@ -1,5 +1,5 @@
 /**
- * Pokédx App - Main Entry Point
+ * Pokédex App - Main Entry Point
  * Mobile-First Single Page Application with Modular Architecture
  */
 
@@ -20,41 +20,41 @@ export const appState = {
   searchResults: [],
   isSearchMode: false,
   currentSearchQuery: "",
-  allPokemonNames: [], // Cache für Autocompletion
+  allPokemonNames: [], // Cache for autocompletion
 };
 
 /**
- * Initialisiert die Pokédx-App
+ * Initializes the Pokédex App
  */
 let initializeApp = async () => {
-  console.log("🚀 Pokédx App wird gestartet...");
+  console.log("🚀 Pokédx App starting...");
 
   try {
     // Initialize core modules
-    console.log("🔍 Initialisiere Suche...");
+    console.log("🔍 Initializing search...");
     await initializeSearch();
 
-    console.log("🎭 Initialisiere Modal Event Listeners...");
+    console.log("🎭 Initialize Modal Event Listeners...");
     initializeModalEventListeners();
 
-    console.log("♿ Initialisiere Accessibility...");
+    console.log("♿ Initialize Accessibility...");
     initializeAccessibility();
 
     console.log("🔧 Setup Core Event Listeners...");
     setupCoreEventListeners();
 
     // Load initial Pokemon
-    console.log("📦 Lade erste Pokémon...");
+    console.log("📦 Load initial Pokémon...");
     await loadInitialPokemon();
 
-    console.log("✅ App erfolgreich initialisiert");
+    console.log("✅ App successfully initialized");
   } catch (error) {
-    console.error("❌ Fehler bei App-Initialisierung:", error);
+    console.error("❌ Error during app initialization:", error);
   }
 };
 
 /**
- * Richtet Core Event Listener ein
+ * Sets up Core Event Listeners
  */
 let setupCoreEventListeners = () => {
   const loadMoreButton = document.getElementById("loadMoreButton");
@@ -70,12 +70,12 @@ let setupCoreEventListeners = () => {
     });
   }
 
-  // Logo Click - Zurück zur Startseite
+  // Logo Click - Back to homepage
   if (logoLink) {
     logoLink.addEventListener("click", handleLogoClick);
   }
 
-  // Title Click - Zurück zur Startseite
+  // Title Click - Back to homepage
   if (titleLink) {
     titleLink.addEventListener("click", handleLogoClick);
   }
@@ -100,43 +100,55 @@ let setupCoreEventListeners = () => {
 };
 
 /**
- * Behandelt Logo-Klick - Zurück zur Startseite
+ * Handles Logo Click - Back to homepage
  * @param {Event} e - Click Event
  */
 let handleLogoClick = async (e) => {
   e.preventDefault();
-  console.log("🏠 Logo geklickt - Zurück zur Startseite");
+  console.log("🏠 Logo clicked - Back to homepage");
 
   try {
-    // Falls wir im Suchmodus sind, Suche zurücksetzen
+    // If we're in search mode, reset search
     if (appState.isSearchMode) {
       const { handleClearSearch } = await import("./search.js");
       await handleClearSearch();
     } else {
-      // Scroll zur Spitze
+      // Scroll to top
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   } catch (error) {
-    console.error("❌ Fehler beim Logo-Klick:", error);
-    // Fallback: Einfach zur Spitze scrollen
+    console.error("❌ Error during logo click:", error);
+    // Fallback: Simply scroll to top
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 };
 
 /**
- * Error Handler für unbehandelte Fehler
+ * Error handler for unhandled errors
+ */
+export let handleGlobalError = (event) => {
+  try {
+    console.error("Global error:", event.error);
+    // Show user-friendly error message
+    const { showErrorMessage } = import("./ui-helpers.js");
+    showErrorMessage?.("An unexpected error occurred. Please try again.");
+  } catch (error) {
+    console.error("Error in global error handler:", error);
+  }
+};
+
+/**
+ * Sets up global error handling
  */
 let setupGlobalErrorHandling = () => {
-  window.addEventListener("error", (event) => {
-    console.error("Globaler Fehler:", event.error);
-  });
-
+  window.addEventListener("error", handleGlobalError);
   window.addEventListener("unhandledrejection", (event) => {
-    console.error("Unbehandelte Promise-Rejection:", event.reason);
+    console.error("Unhandled promise rejection:", event.reason);
+    handleGlobalError({ error: event.reason });
   });
 };
 
-// App starten wenn DOM geladen ist
+// Start app when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   setupGlobalErrorHandling();
   initializeApp();

@@ -18,7 +18,7 @@ import { ELEMENT_IDS, API_CONFIG, ANIMATIONS } from "./constants.js";
  * Initialisiert die Suchfunktionalität
  */
 export let initializeSearch = async () => {
-  console.log("🔍 Initialisiere Suche...");
+  console.log("🔍 Initializing search...");
 
   try {
     // Lade alle Pokémon-Namen für Autocomplete
@@ -27,25 +27,30 @@ export let initializeSearch = async () => {
     // Setup Event Listeners
     setupSearchEventListeners();
 
-    console.log("✅ Suche erfolgreich initialisiert");
+    console.log("✅ Search successfully initialized");
   } catch (error) {
-    console.error("❌ Fehler beim Initialisieren der Suche:", error);
+    console.error("❌ Error initializing search:", error);
   }
 };
 
 /**
- * Richtet Event Listeners für Suche ein
+ * Sets up event listeners for search
  */
 export let setupSearchEventListeners = () => {
   const searchInput = document.getElementById(ELEMENT_IDS.searchInput);
   const searchButton = document.getElementById(ELEMENT_IDS.searchButton);
   const clearButton = document.getElementById(ELEMENT_IDS.clearSearch);
 
+  // Initialer Button-Status (disabled)
+  if (searchButton) {
+    updateSearchButtonState("");
+  }
+
   if (searchInput) {
-    // Input Event für Live-Suche
+    // Input event for live search
     searchInput.addEventListener("input", handleSearchInput);
 
-    // Enter-Taste für Suche
+    // Enter key for search (only if enough characters)
     searchInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         handleSearchSubmit();
@@ -75,6 +80,10 @@ export let setupSearchEventListeners = () => {
  */
 export let handleSearchInput = (e) => {
   const query = e.target.value.toLowerCase().trim();
+  const searchButton = document.getElementById(ELEMENT_IDS.searchButton);
+
+  // Button State basierend auf Eingabelänge aktualisieren
+  updateSearchButtonState(query);
 
   if (query.length > 0) {
     updateAutocomplete(query);
@@ -85,7 +94,29 @@ export let handleSearchInput = (e) => {
 };
 
 /**
- * Behandelt Suche-Submit (Enter oder Button-Klick)
+ * Aktualisiert den Status des Suchbuttons
+ * @param {string} query - Current search input
+ */
+let updateSearchButtonState = (query) => {
+  const searchButton = document.getElementById(ELEMENT_IDS.searchButton);
+  if (!searchButton) return;
+
+  const isValid = query.length >= 3;
+
+  searchButton.disabled = !isValid;
+  searchButton.style.opacity = isValid ? "1" : "0.5";
+  searchButton.style.cursor = isValid ? "pointer" : "not-allowed";
+
+  // Tooltip for better UX
+  if (isValid) {
+    searchButton.title = "Start search";
+  } else {
+    searchButton.title = `At least 3 characters required (${query.length}/3)`;
+  }
+};
+
+/**
+ * Handles search submit (Enter or button click)
  */
 export let handleSearchSubmit = async () => {
   const searchInput = document.getElementById(ELEMENT_IDS.searchInput);
@@ -95,6 +126,23 @@ export let handleSearchSubmit = async () => {
 
   if (query === "") {
     handleClearSearch();
+    return;
+  }
+
+  // Mindestens 3 Zeichen erforderlich
+  if (query.length < 3) {
+    console.log("⚠️ Search cancelled: At least 3 characters required");
+
+    // Visuelles Feedback
+    searchInput.style.borderColor = "#ff6b6b";
+    searchInput.placeholder = "Mindestens 3 Zeichen eingeben...";
+
+    // Reset nach 2 Sekunden
+    setTimeout(() => {
+      searchInput.style.borderColor = "";
+      searchInput.placeholder = "Pokémon suchen...";
+    }, 2000);
+
     return;
   }
 

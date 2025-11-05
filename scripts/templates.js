@@ -1,21 +1,22 @@
 /**
- * Templates Module
- * HTML template functions for Pokemon cards, modals, and UI elements
+ * Template Functions Module
+ * Handles all HTML template generation
  */
 
+// Import constants for styling and UI
 import {
   CSS_CLASSES,
+  POKEMON_TYPES,
   STAT_TRANSLATIONS,
   UI_MESSAGES,
   API_CONFIG,
-  POKEMON_TYPES,
   ELEMENT_IDS,
 } from "./constants.js";
 
-// ===== POKEMON TEMPLATES =====
-
 /**
- * Wählt das beste verfügbare Pokémon-Bild mit höchster Auflösung
+ * Selects the best available Pokémon image with highest resolution
+ * @param {Object} pokemon - Pokémon data object
+ * @returns {string} URL of the best image
  */
 function getBestPokemonImage(pokemon) {
   const sprites = pokemon.sprites;
@@ -34,12 +35,12 @@ function getBestPokemonImage(pokemon) {
     return sprites.front_default;
   }
 
-  // Fallback zu einem Platzhalter
+  // Fallback to a placeholder
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
 }
 
 /**
- * Erstellt HTML für eine Pokémon-Karte
+ * Creates HTML for a Pokémon card
  */
 export function createPokemonCardHTML(pokemon) {
   const typeElements = pokemon.types
@@ -242,7 +243,7 @@ export function createAutocompleteListHTML(matches, query) {
 }
 
 /**
- * Erstellt HTML für Fehlermeldung
+ * Creates HTML for error message
  */
 export function createErrorHTML(message = UI_MESSAGES.defaultError) {
   return `
@@ -283,7 +284,7 @@ export function createSearchStatusHTML(count, query = "") {
   if (count === 0) {
     return UI_MESSAGES.noResultsFound;
   }
-  return `${count} Pokémon gefunden${query ? ` für "${query}"` : ""}`;
+  return `${count} Pokémon found${query ? ` for "${query}"` : ""}`;
 }
 
 /**
@@ -299,7 +300,7 @@ export function createLoadingHTML(message = UI_MESSAGES.loadingPokemon) {
 }
 
 /**
- * Erstellt HTML für "Keine Ergebnisse" Anzeige
+ * Creates HTML for "No Results" display
  */
 export function createNoResultsHTML(query = "") {
   return `
@@ -308,16 +309,16 @@ export function createNoResultsHTML(query = "") {
       <h3 class="no-results-title">${UI_MESSAGES.noResultsFound}</h3>
       ${
         query
-          ? `<p class="no-results-text">Keine Pokémon gefunden für "${query}"</p>`
+          ? `<p class="no-results-text">No Pokémon found for "${query}"</p>`
           : ""
       }
-      <p class="no-results-hint">Versuche einen anderen Suchbegriff</p>
+      <p class="no-results-hint">Try a different search term</p>
     </div>
   `;
 }
 
 /**
- * Erstellt HTML für Retry-Button
+ * Creates HTML for Retry Button
  */
 export function createRetryButtonHTML(onClickHandler = "window.retryAction") {
   return `
