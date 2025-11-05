@@ -54,14 +54,10 @@ let initializeApp = async () => {
 };
 
 /**
- * Sets up Core Event Listeners
+ * Sets up load more button event listener
  */
-let setupCoreEventListeners = () => {
+let setupLoadMoreButton = () => {
   const loadMoreButton = document.getElementById("loadMoreButton");
-  const scrollToTopButton = document.getElementById("scrollToTopButton");
-  const logoLink = document.querySelector(".logo-link");
-  const titleLink = document.querySelector(".title-link");
-
   if (loadMoreButton) {
     loadMoreButton.addEventListener("click", () => {
       if (!appState.isLoading && !appState.isSearchMode) {
@@ -69,27 +65,39 @@ let setupCoreEventListeners = () => {
       }
     });
   }
+};
 
-  // Logo Click - Back to homepage
+/**
+ * Sets up navigation event listeners
+ */
+let setupNavigationListeners = () => {
+  const logoLink = document.querySelector(".logo-link");
+  const titleLink = document.querySelector(".title-link");
+
   if (logoLink) {
     logoLink.addEventListener("click", handleLogoClick);
   }
-
-  // Title Click - Back to homepage
   if (titleLink) {
     titleLink.addEventListener("click", handleLogoClick);
   }
+};
 
+/**
+ * Sets up scroll to top button
+ */
+let setupScrollButton = () => {
+  const scrollToTopButton = document.getElementById("scrollToTopButton");
   if (scrollToTopButton) {
     scrollToTopButton.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
+};
 
-  // Monitor search mode changes to update UI
+/**
+ * Sets up UI state monitoring
+ */
+let setupUIMonitoring = () => {
   let previousSearchMode = appState.isSearchMode;
   setInterval(() => {
     if (appState.isSearchMode !== previousSearchMode) {
@@ -97,6 +105,16 @@ let setupCoreEventListeners = () => {
       previousSearchMode = appState.isSearchMode;
     }
   }, 100);
+};
+
+/**
+ * Sets up Core Event Listeners
+ */
+let setupCoreEventListeners = () => {
+  setupLoadMoreButton();
+  setupNavigationListeners();
+  setupScrollButton();
+  setupUIMonitoring();
 };
 
 /**

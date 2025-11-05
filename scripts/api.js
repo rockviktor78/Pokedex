@@ -33,36 +33,39 @@ export let fetchPokemonList = async (offset, limit) => {
 };
 
 /**
+ * Processes a single Pokémon from the list
+ */
+async function processSinglePokemon(pokemon) {
+  try {
+    // Check cache first
+    const pokemonId = extractPokemonId(pokemon.url);
+    if (appState.pokemonCache[pokemonId]) {
+      console.log(`🎯 Cache hit for ${pokemon.name}`);
+      return appState.pokemonCache[pokemonId];
+    }
+
+    // Load from API
+    const response = await fetch(pokemon.url);
+    if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
+
+    const pokemonData = await response.json();
+
+    // Save to cache
+    appState.pokemonCache[pokemonData.id] = pokemonData;
+    return pokemonData;
+  } catch (error) {
+    console.error(`❌ Error loading ${pokemon.name}:`, error);
+    return null;
+  }
+}
+
+/**
  * Fetches detailed Pokémon data for a list
  * @param {Array} pokemonList - List with Pokémon URLs
  * @returns {Array} Array with detailed Pokémon data
  */
 export let fetchPokemonDetails = async (pokemonList) => {
-  const promises = pokemonList.map(async (pokemon) => {
-    try {
-      // Check cache first
-      const pokemonId = extractPokemonId(pokemon.url);
-      if (appState.pokemonCache[pokemonId]) {
-        console.log(`🎯 Cache hit for ${pokemon.name}`);
-        return appState.pokemonCache[pokemonId];
-      }
-
-      // Load from API
-      const response = await fetch(pokemon.url);
-      if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
-
-      const pokemonData = await response.json();
-
-      // Save to cache
-      appState.pokemonCache[pokemonData.id] = pokemonData;
-
-      return pokemonData;
-    } catch (error) {
-      console.error(`❌ Error loading ${pokemon.name}:`, error);
-      return null;
-    }
-  });
-
+  const promises = pokemonList.map(processSinglePokemon);
   const results = await Promise.all(promises);
   return results.filter((pokemon) => pokemon !== null);
 };
@@ -168,6 +171,41 @@ export let extractPokemonId = (url) => {
 };
 
 /**
+ * Searches in already loaded Pokémon
+ */
+function searchLoadedPokemon(cleanSearchTerm) {
+  return appState.pokemonList.filter(
+    (pokemon) =>
+      pokemon.name.toLowerCase().includes(cleanSearchTerm) ||
+      pokemon.id.toString() === cleanSearchTerm
+  );
+}
+
+/**
+ * Checks if search term warrants direct API call
+ */
+function shouldMakeDirectAPICall(cleanSearchTerm) {
+  const isNumericId = /^\d+$/.test(cleanSearchTerm);
+  const isLikelyCompleteName =
+    cleanSearchTerm.length >= 4 && !cleanSearchTerm.includes(" ");
+  const isKnownName = appState.allPokemonNames.some(
+    (p) => p.name === cleanSearchTerm
+  );
+
+  return isNumericId || (isLikelyCompleteName && isKnownName);
+}
+
+/**
+ * Performs direct API search for exact matches
+ */
+async function performDirectSearch(cleanSearchTerm) {
+  if (!shouldMakeDirectAPICall(cleanSearchTerm)) return [];
+
+  const directMatch = await fetchSinglePokemon(cleanSearchTerm);
+  return directMatch ? [directMatch] : [];
+}
+
+/**
  * Searches for Pokémon based on name or ID
  * @param {string} searchTerm - Search term
  * @returns {Array} Array with found Pokémon
@@ -176,35 +214,16 @@ export let searchPokemon = async (searchTerm) => {
   const results = [];
   const cleanSearchTerm = searchTerm.toLowerCase().trim();
 
-  // 1. First search in already loaded Pokémon (faster)
-  const filteredPokemon = appState.pokemonList.filter(
-    (pokemon) =>
-      pokemon.name.toLowerCase().includes(cleanSearchTerm) ||
-      pokemon.id.toString() === cleanSearchTerm
-  );
-  results.push(...filteredPokemon);
+  // 1. Search in already loaded Pokémon (faster)
+  results.push(...searchLoadedPokemon(cleanSearchTerm));
 
-  // 2. Only make direct API call if it's a complete ID or a probably complete name
-  const isNumericId = /^\d+$/.test(cleanSearchTerm);
-  const isLikelyCompleteName =
-    cleanSearchTerm.length >= 4 && !cleanSearchTerm.includes(" ");
-
-  // Additional validation: Only try known Pokémon names
-  const isKnownName = appState.allPokemonNames.some(
-    (p) => p.name === cleanSearchTerm
-  );
-
-  if (
-    (isNumericId || (isLikelyCompleteName && isKnownName)) &&
-    results.length === 0
-  ) {
-    const directMatch = await fetchSinglePokemon(cleanSearchTerm);
-    if (directMatch) {
-      results.push(directMatch);
-    }
+  // 2. Direct API call for exact matches
+  if (results.length === 0) {
+    const directResults = await performDirectSearch(cleanSearchTerm);
+    results.push(...directResults);
   }
 
-  // 3. If still no results, extended search in all names
+  // 3. Extended search if still no results
   if (results.length === 0 && cleanSearchTerm.length >= 2) {
     console.log(`🔍 Extended search for "${cleanSearchTerm}"`);
     const extendedResults = await performExtendedSearch(cleanSearchTerm);

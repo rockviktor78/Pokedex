@@ -34,44 +34,49 @@ export let initializeSearch = async () => {
 };
 
 /**
- * Sets up event listeners for search
+ * Sets up search input event listeners
  */
-export let setupSearchEventListeners = () => {
-  const searchInput = document.getElementById(ELEMENT_IDS.searchInput);
+function setupSearchInputListeners(searchInput) {
+  searchInput.addEventListener("input", handleSearchInput);
+  searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      handleSearchSubmit();
+    }
+  });
+  searchInput.addEventListener("focus", showAutocomplete);
+  searchInput.addEventListener("blur", () => {
+    setTimeout(hideAutocomplete, ANIMATIONS.autocompleteBlurDelay);
+  });
+}
+
+/**
+ * Sets up search button event listeners
+ */
+function setupSearchButtonListeners() {
   const searchButton = document.getElementById(ELEMENT_IDS.searchButton);
   const clearButton = document.getElementById(ELEMENT_IDS.clearSearch);
 
-  // Initialer Button-Status (disabled)
   if (searchButton) {
     updateSearchButtonState("");
-  }
-
-  if (searchInput) {
-    // Input event for live search
-    searchInput.addEventListener("input", handleSearchInput);
-
-    // Enter key for search (only if enough characters)
-    searchInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        handleSearchSubmit();
-      }
-    });
-
-    // Focus und Blur für Autocomplete
-    searchInput.addEventListener("focus", showAutocomplete);
-    searchInput.addEventListener("blur", () => {
-      // Delay um Klicks auf Autocomplete-Items zu ermöglichen
-      setTimeout(hideAutocomplete, ANIMATIONS.autocompleteBlurDelay);
-    });
-  }
-
-  if (searchButton) {
     searchButton.addEventListener("click", handleSearchSubmit);
   }
 
   if (clearButton) {
     clearButton.addEventListener("click", handleClearSearch);
   }
+}
+
+/**
+ * Sets up event listeners for search
+ */
+export let setupSearchEventListeners = () => {
+  const searchInput = document.getElementById(ELEMENT_IDS.searchInput);
+
+  if (searchInput) {
+    setupSearchInputListeners(searchInput);
+  }
+
+  setupSearchButtonListeners();
 };
 
 /**

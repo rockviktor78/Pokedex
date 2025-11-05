@@ -55,39 +55,41 @@ export let handlePokemonCardClick = async (pokemon) => {
 };
 
 /**
- * Öffnet das Pokémon-Modal mit Details
- * @param {Object} pokemon - Detaillierte Pokémon-Daten
+ * Shows modal with accessibility setup
+ */
+function showModalWithAccessibility(modal) {
+  modal.classList.remove("hidden");
+  modal.classList.add("visible");
+  modal.style.display = "flex";
+  modal.removeAttribute("inert");
+  document.body.style.overflow = "hidden";
+  modal.focus();
+}
+
+/**
+ * Sets up modal content and styling
+ */
+function setupModalContent(modalContent, pokemon) {
+  modalContent.innerHTML = createModalHTML(pokemon);
+  const primaryType = pokemon.types[0]?.type.name || "normal";
+  modalContent.className = `pokemon-detail ${primaryType}`;
+}
+
+/**
+ * Opens Pokemon modal with details
+ * @param {Object} pokemon - Pokemon data object
  */
 export let openPokemonModal = (pokemon) => {
   const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
   const modalContent = document.getElementById("pokemonDetailContent");
 
   if (modal && modalContent) {
-    // Remove hidden class and show modal
-    modal.classList.remove("hidden");
-    modal.classList.add("visible");
-    modal.style.display = "flex";
-
-    // Accessibility: Modal ist sichtbar und interaktiv - nur inert verwenden
-    modal.removeAttribute("inert");
-
-    modalContent.innerHTML = createModalHTML(pokemon);
-
-    // Füge Pokémon-Typ-Klasse hinzu für Hintergrundfarbe
-    const primaryType = pokemon.types[0]?.type.name || "normal";
-    modalContent.className = `pokemon-detail ${primaryType}`;
-
-    document.body.style.overflow = "hidden";
-
-    // Update navigation arrows
+    showModalWithAccessibility(modal);
+    setupModalContent(modalContent, pokemon);
     updateNavigationArrows();
-
-    // Fokus auf Modal für Accessibility
-    modal.focus();
-
-    console.log("✅ Modal geöffnet für:", pokemon.name);
+    console.log("✅ Modal opened for:", pokemon.name);
   } else {
-    console.error("❌ Modal-Elemente nicht gefunden!");
+    console.error("❌ Modal elements not found!");
   }
 };
 /**

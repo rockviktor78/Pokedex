@@ -74,7 +74,10 @@ export function createPokemonCardHTML(pokemon) {
 /**
  * Erstellt HTML für Modal-Inhalt
  */
-export function createModalHTML(pokemon) {
+/**
+ * Creates modal header HTML
+ */
+function createModalHeaderHTML(pokemon) {
   const primaryType = pokemon.types[0]?.type.name || POKEMON_TYPES.normal;
 
   return `
@@ -91,44 +94,52 @@ export function createModalHTML(pokemon) {
         CSS_CLASSES.modalClose
       }" onclick="window.closePokemonModal()">${UI_MESSAGES.closeModal}</button>
     </div>
-    
+  `;
+}
+
+/**
+ * Creates modal body HTML
+ */
+function createModalBodyHTML(pokemon) {
+  return `
     <div class="${CSS_CLASSES.modalBody}">
       <div class="${CSS_CLASSES.modalImageSection}">
-        <img 
-          src="${getBestPokemonImage(pokemon)}" 
-          alt="${pokemon.name}" 
-          class="${CSS_CLASSES.modalPokemonImage}"
-        >
+        <img src="${getBestPokemonImage(pokemon)}" alt="${
+    pokemon.name
+  }" class="${CSS_CLASSES.modalPokemonImage}">
       </div>
-      
       <div class="${CSS_CLASSES.modalInfoSection}">
-        <div class="${CSS_CLASSES.modalTypes}">
-          ${createModalTypesHTML(pokemon.types)}
-        </div>
-        
+        <div class="${CSS_CLASSES.modalTypes}">${createModalTypesHTML(
+    pokemon.types
+  )}</div>
         <div class="${CSS_CLASSES.modalStats}">
           <h3>${UI_MESSAGES.baseStats}</h3>
-          <div class="${CSS_CLASSES.statsGrid}">
-            ${createStatsHTML(pokemon.stats)}
-          </div>
+          <div class="${CSS_CLASSES.statsGrid}">${createStatsHTML(
+    pokemon.stats
+  )}</div>
         </div>
-        
         <div class="${CSS_CLASSES.modalPhysical}">
           <h3>${UI_MESSAGES.physicalProperties}</h3>
-          <div class="${CSS_CLASSES.physicalStats}">
-            ${createPhysicalStatsHTML(pokemon)}
-          </div>
+          <div class="${CSS_CLASSES.physicalStats}">${createPhysicalStatsHTML(
+    pokemon
+  )}</div>
         </div>
-        
         <div class="${CSS_CLASSES.modalAbilities}">
           <h3>${UI_MESSAGES.abilities}</h3>
-          <div class="${CSS_CLASSES.abilitiesList}">
-            ${createAbilitiesHTML(pokemon.abilities)}
-          </div>
+          <div class="${CSS_CLASSES.abilitiesList}">${createAbilitiesHTML(
+    pokemon.abilities
+  )}</div>
         </div>
       </div>
     </div>
   `;
+}
+
+/**
+ * Creates complete modal HTML
+ */
+export function createModalHTML(pokemon) {
+  return createModalHeaderHTML(pokemon) + createModalBodyHTML(pokemon);
 }
 
 /**
