@@ -80,14 +80,14 @@ export let setupSearchEventListeners = () => {
 };
 
 /**
- * Behandelt Eingabe im Suchfeld
+ * Handles input in the search field
  * @param {Event} e - Input Event
  */
 export let handleSearchInput = (e) => {
   const query = e.target.value.toLowerCase().trim();
   const searchButton = document.getElementById(ELEMENT_IDS.searchButton);
 
-  // Button State basierend auf Eingabelänge aktualisieren
+  // Update button state based on input length
   updateSearchButtonState(query);
 
   if (query.length > 0) {
@@ -99,7 +99,7 @@ export let handleSearchInput = (e) => {
 };
 
 /**
- * Aktualisiert den Status des Suchbuttons
+ * Updates the search button state
  * @param {string} query - Current search input
  */
 let updateSearchButtonState = (query) => {
@@ -134,11 +134,11 @@ export let handleSearchSubmit = async () => {
     return;
   }
 
-  // Mindestens 3 Zeichen erforderlich
+  // At least 3 characters required
   if (query.length < 3) {
     console.log("⚠️ Search cancelled: At least 3 characters required");
 
-    // Visuelles Feedback
+    // Visual feedback
     searchInput.style.borderColor = "#ff6b6b";
     searchInput.placeholder = "Mindestens 3 Zeichen eingeben...";
 
@@ -156,8 +156,8 @@ export let handleSearchSubmit = async () => {
 };
 
 /**
- * Führt die Pokémon-Suche durch
- * @param {string} query - Suchbegriff
+ * Perform the Pokémon search
+ * @param {string} query - Search term
  */
 export let performSearch = async (query) => {
   console.log(`🔍 Suche nach: "${query}"`);
@@ -171,7 +171,7 @@ export let performSearch = async (query) => {
     appState.currentSearchQuery = query;
     appState.searchResults = results; // Store search results for modal navigation
 
-    // Leere Container und zeige Ergebnisse
+    // Empty containers and show results
     clearPokemonContainer();
 
     if (results.length > 0) {
@@ -191,7 +191,7 @@ export let performSearch = async (query) => {
 };
 
 /**
- * Löscht die Suche und kehrt zur normalen Ansicht zurück
+ * Clears the search and returns to the normal view
  */
 export let handleClearSearch = async () => {
   console.log("🔄 Lösche Suche...");
@@ -201,13 +201,13 @@ export let handleClearSearch = async () => {
     searchInput.value = "";
   }
 
-  // Zurück zum normalen Modus
+  // Back to normal mode
   appState.isSearchMode = false;
   appState.currentSearchQuery = "";
   appState.searchResults = []; // Clear search results
   appState.currentOffset = 0;
 
-  // Container leeren und erste Pokémon laden
+  // Empty containers and show initial Pokémon
   clearPokemonContainer();
 
   // Dynamic import to avoid circular dependency
@@ -219,8 +219,8 @@ export let handleClearSearch = async () => {
 };
 
 /**
- * Aktualisiert Autocomplete-Vorschläge
- * @param {string} query - Suchbegriff
+ * Updates the autocomplete suggestions
+ * @param {string} query - Search term
  */
 export let updateAutocomplete = (query) => {
   const autocompleteContainer = document.getElementById(
@@ -228,7 +228,7 @@ export let updateAutocomplete = (query) => {
   );
   if (!autocompleteContainer || !appState.allPokemonNames) return;
 
-  // Finde passende Pokémon-Namen
+  // Find matching Pokémon names
   const matches = appState.allPokemonNames.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(query)
   );
@@ -237,8 +237,8 @@ export let updateAutocomplete = (query) => {
 };
 
 /**
- * Behandelt Auswahl eines Autocomplete-Items
- * @param {string} pokemonName - Ausgewählter Pokémon-Name
+ * Handles selection of an autocomplete item
+ * @param {string} pokemonName - Selected Pokémon name
  */
 export let selectAutocomplete = async (pokemonName) => {
   const searchInput = document.getElementById(ELEMENT_IDS.searchInput);
@@ -251,7 +251,7 @@ export let selectAutocomplete = async (pokemonName) => {
 };
 
 /**
- * Zeigt Autocomplete-Container
+ * Shows the autocomplete container
  */
 export let showAutocomplete = () => {
   const autocompleteContainer = document.getElementById(
@@ -263,7 +263,7 @@ export let showAutocomplete = () => {
 };
 
 /**
- * Versteckt Autocomplete-Container
+ * Hides the autocomplete container
  */
 export let hideAutocomplete = () => {
   const autocompleteContainer = document.getElementById(
@@ -275,7 +275,7 @@ export let hideAutocomplete = () => {
 };
 
 /**
- * Aktualisiert Such-Status-Anzeige
+ * Updates the search status display
  * @param {string} message - Status-Nachricht
  */
 export let updateSearchStatus = (message) => {
@@ -286,5 +286,5 @@ export let updateSearchStatus = (message) => {
   }
 };
 
-// Globale Funktionen für HTML onclick
+// Global functions for HTML onclick
 window.selectAutocomplete = selectAutocomplete;

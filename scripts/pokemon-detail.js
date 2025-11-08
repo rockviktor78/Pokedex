@@ -15,8 +15,8 @@ let currentPokemonIndex = 0;
 let currentPokemonList = [];
 
 /**
- * Behandelt Klick auf eine Pokémon-Karte
- * @param {Object} pokemon - Pokémon-Daten
+ * Treats clicking on a Pokémon card
+ * @param {Object} pokemon - Pokémon data
  */
 export let handlePokemonCardClick = async (pokemon) => {
   try {
@@ -93,7 +93,7 @@ export let openPokemonModal = (pokemon) => {
   }
 };
 /**
- * Schließt das Pokémon-Modal
+ * Closes the Pokémon Mode
  */
 export let closePokemonModal = () => {
   const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
@@ -102,7 +102,7 @@ export let closePokemonModal = () => {
     modal.classList.add("hidden");
     modal.style.display = "none";
 
-    // Accessibility: Modal ist versteckt und nicht interaktiv - nur inert verwenden
+    // Accessibility: The modal is hidden and not interactive - use only inertly.
     modal.setAttribute("inert", "");
 
     document.body.style.overflow = "auto";
@@ -112,7 +112,7 @@ export let closePokemonModal = () => {
 };
 
 /**
- * Navigiert zum vorherigen Pokémon
+ * Navigates to the previous Pokémon
  */
 export let goToPreviousPokemon = async () => {
   if (currentPokemonIndex > 0) {
@@ -122,7 +122,7 @@ export let goToPreviousPokemon = async () => {
 };
 
 /**
- * Navigiert zum nächsten Pokémon
+ * Navigates to the next Pokémon
  */
 export let goToNextPokemon = async () => {
   if (currentPokemonIndex < currentPokemonList.length - 1) {
@@ -132,8 +132,8 @@ export let goToNextPokemon = async () => {
 };
 
 /**
- * Lädt Pokémon an bestimmtem Index
- * @param {number} index - Index im aktuellen Pokémon-Array
+ * Loads Pokémon at a specific index
+ * @param {number} index - Index in the current Pokémon array
  */
 let loadPokemonAtIndex = async (index) => {
   try {
@@ -170,7 +170,7 @@ let loadPokemonAtIndex = async (index) => {
 };
 
 /**
- * Aktualisiert die Navigations-Pfeile
+ * Updates the navigation arrows
  */
 let updateNavigationArrows = () => {
   const prevButton = document.getElementById("prevPokemonButton");
@@ -206,7 +206,7 @@ let updateNavigationArrows = () => {
 };
 
 /**
- * Initialisiert Modal Event Listeners
+ * Initializes Modal Event Listeners
  */
 export let initializeModalEventListeners = () => {
   const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
@@ -219,7 +219,7 @@ export let initializeModalEventListeners = () => {
   if (modal) {
     console.log("✅ Modal gefunden");
 
-    // Schließen bei Klick außerhalb des Modals
+    // Close when clicked outside the modal
     modal.addEventListener("click", (e) => {
       if (e.target === modal) {
         console.log("🖱️ Klick außerhalb Modal");
@@ -227,7 +227,7 @@ export let initializeModalEventListeners = () => {
       }
     });
 
-    // Schließen mit Escape-Taste
+    // Close with Escape key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !modal.classList.contains("hidden")) {
         console.log("⌨️ Escape gedrückt");
@@ -274,12 +274,12 @@ export let initializeModalEventListeners = () => {
     console.error("❌ Next Button nicht gefunden!");
   }
 
-  // Globale Funktionen für Modal (für onclick)
+  // Global functions for modal (for onclick)
   window.closePokemonModal = closePokemonModal;
   window.goToPreviousPokemon = goToPreviousPokemon;
   window.goToNextPokemon = goToNextPokemon;
 
-  // Initial Accessibility Setup - Modal sollte geschlossen sein
+  // Initial Accessibility Setup - The modal should be closed.
   const modalElement = document.getElementById(ELEMENT_IDS.pokemonModal);
   if (modalElement) {
     modalElement.setAttribute("inert", "");

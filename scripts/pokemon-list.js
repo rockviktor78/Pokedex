@@ -99,7 +99,7 @@ export let createPokemonCard = (pokemon) => {
 };
 
 /**
- * Leert den Pokémon-Container
+ * Empty the Pokémon container
  */
 export let clearPokemonContainer = () => {
   const container = document.getElementById(ELEMENT_IDS.pokemonContainer);
@@ -109,12 +109,12 @@ export let clearPokemonContainer = () => {
 };
 
 /**
- * Behandelt Klick auf Load-More-Button
+ * Handles clicking the Load-More button
  */
 export let handleLoadMoreClick = () => {
   if (!appState.isLoading) {
     if (appState.isSearchMode) {
-      // Im Suchmodus keine weiteren Ergebnisse laden
+      // In search mode, do not load more results
       return;
     }
     loadMorePokemon();

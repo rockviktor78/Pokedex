@@ -21,7 +21,7 @@ import {
 function getBestPokemonImage(pokemon) {
   const sprites = pokemon.sprites;
 
-  // Hochauflösende Bilder (in Prioritätsreihenfolge)
+  // High-resolution images (in order of priority)
   if (sprites.other?.["official-artwork"]?.front_default) {
     return sprites.other["official-artwork"].front_default;
   }
@@ -72,7 +72,7 @@ export function createPokemonCardHTML(pokemon) {
 }
 
 /**
- * Erstellt HTML für Modal-Inhalt
+ * Creates HTML for modal content
  */
 /**
  * Creates modal header HTML
@@ -143,7 +143,7 @@ export function createModalHTML(pokemon) {
 }
 
 /**
- * Erstellt HTML für Modal-Typ-Anzeige
+ * Creates HTML for modal type display
  */
 function createModalTypesHTML(types) {
   return types
@@ -155,7 +155,7 @@ function createModalTypesHTML(types) {
 }
 
 /**
- * Erstellt HTML für Statistiken
+ * Creates HTML for stats
  */
 function createStatsHTML(stats) {
   return stats
@@ -180,7 +180,7 @@ function createStatsHTML(stats) {
 }
 
 /**
- * Erstellt HTML für physische Eigenschaften
+ * Creates HTML for physical properties
  */
 function createPhysicalStatsHTML(pokemon) {
   const height = (pokemon.height / API_CONFIG.heightDivisor).toFixed(1);
@@ -199,7 +199,7 @@ function createPhysicalStatsHTML(pokemon) {
 }
 
 /**
- * Erstellt HTML für Fähigkeiten
+ * Creates HTML for abilities
  */
 function createAbilitiesHTML(abilities) {
   return abilities
@@ -223,7 +223,7 @@ function createAbilitiesHTML(abilities) {
 // ===== UI TEMPLATES =====
 
 /**
- * Erstellt HTML für einzelnes Autocomplete-Item
+ * Creates HTML for a single autocomplete item
  */
 export function createAutocompleteItemHTML(pokemon, query) {
   const name = typeof pokemon === "string" ? pokemon : pokemon.name;
@@ -240,7 +240,7 @@ export function createAutocompleteItemHTML(pokemon, query) {
 }
 
 /**
- * Erstellt HTML für Autocomplete-Container mit Ergebnissen
+ * Creates HTML for autocomplete container with results
  */
 export function createAutocompleteListHTML(matches, query) {
   if (matches.length === 0) {
@@ -269,7 +269,7 @@ export function createErrorHTML(message = UI_MESSAGES.defaultError) {
 }
 
 /**
- * Erstellt Error-Container Element
+ * Creates error container element
  */
 export function createErrorContainer() {
   const container = document.createElement("div");
@@ -279,7 +279,7 @@ export function createErrorContainer() {
 }
 
 /**
- * Erstellt HTML für Toast-Benachrichtigung
+ * Creates HTML for toast notification
  */
 export function createToastHTML(message, type = "info") {
   const toast = document.createElement("div");
@@ -289,7 +289,7 @@ export function createToastHTML(message, type = "info") {
 }
 
 /**
- * Erstellt HTML für Such-Status-Anzeige
+ * Creates HTML for search status display
  */
 export function createSearchStatusHTML(count, query = "") {
   if (count === 0) {
@@ -299,7 +299,7 @@ export function createSearchStatusHTML(count, query = "") {
 }
 
 /**
- * Erstellt HTML für Loading-Indikator
+ * Creates HTML for loading indicator
  */
 export function createLoadingHTML(message = UI_MESSAGES.loadingPokemon) {
   return `
@@ -340,7 +340,7 @@ export function createRetryButtonHTML(onClickHandler = "window.retryAction") {
 }
 
 /**
- * Erstellt HTML für Skip-to-Content Link (Accessibility)
+ * Creates HTML for Skip-to-Content Link (Accessibility)
  */
 export function createSkipToContentHTML() {
   return `
@@ -351,7 +351,7 @@ export function createSkipToContentHTML() {
 }
 
 /**
- * Erstellt HTML für Breadcrumb-Navigation
+ * Creates HTML for breadcrumb navigation
  */
 export function createBreadcrumbHTML(breadcrumbs) {
   return `

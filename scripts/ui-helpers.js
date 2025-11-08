@@ -13,8 +13,8 @@ import {
 import { ELEMENT_IDS, UI_MESSAGES, ANIMATIONS } from "./constants.js";
 
 /**
- * Setzt den Loading-Status der App
- * @param {boolean} isLoading - Loading-Status
+ * Sets the loading status of the app
+ * @param {boolean} isLoading - Loading status
  */
 export let setLoadingState = (isLoading) => {
   appState.isLoading = isLoading;
@@ -22,8 +22,8 @@ export let setLoadingState = (isLoading) => {
 };
 
 /**
- * Aktualisiert Loading-UI-Elemente
- * @param {boolean} isLoading - Loading-Status
+ * Updated loading UI elements
+ * @param {boolean} isLoading - Loading status
  */
 export let updateLoadingUI = (isLoading) => {
   const loadingIndicator = document.getElementById(
@@ -59,7 +59,7 @@ export let showErrorMessage = (message = UI_MESSAGES.defaultError) => {
   errorContainer.innerHTML = createErrorHTML(message);
   errorContainer.style.display = "block";
 
-  // Auto-Hide nach 5 Sekunden
+  // Auto-hide after 5 seconds
   setTimeout(() => {
     hideErrorMessage();
   }, ANIMATIONS.errorAutoHideDelay);
@@ -76,13 +76,13 @@ export let hideErrorMessage = () => {
 };
 
 /**
- * Aktualisiert die Load-More-Button-Sichtbarkeit
+ * Updates the visibility of the load more button
  */
 export let updateLoadMoreButton = () => {
   const loadMoreButton = document.getElementById(ELEMENT_IDS.loadMoreButton);
   if (!loadMoreButton) return;
 
-  // Verstecke Button im Suchmodus
+  // Hidden button in search mode
   if (appState.isSearchMode) {
     loadMoreButton.style.display = "none";
   } else {
@@ -91,7 +91,7 @@ export let updateLoadMoreButton = () => {
 };
 
 /**
- * Scroll zum Top der Seite
+ * Scroll to the top of the page
  */
 export let scrollToTop = () => {
   window.scrollTo({
@@ -101,19 +101,19 @@ export let scrollToTop = () => {
 };
 
 /**
- * Formatiert Pokémon-Namen für Anzeige
- * @param {string} name - Pokémon-Name
- * @returns {string} Formatierter Name
+ * Formats Pokémon names for display
+ * @param {string} name - Pokémon name
+ * @returns {string} Formatted name
  */
 export let formatPokemonName = (name) => {
   return name.charAt(0).toUpperCase() + name.slice(1);
 };
 
 /**
- * Erstellt ein debounced Version einer Funktion
- * @param {Function} func - Zu debouncende Funktion
- * @param {number} wait - Wartezeit in Millisekunden
- * @returns {Function} Debounced Funktion
+ * Creates a debounced version of a function
+ * @param {Function} func - Function to debounce
+ * @param {number} wait - Wait time in milliseconds
+ * @returns {Function} Debounced function
  */
 export let debounce = (func, wait) => {
   let timeout;
@@ -128,9 +128,9 @@ export let debounce = (func, wait) => {
 };
 
 /**
- * Überprüft, ob ein Element im Viewport sichtbar ist
- * @param {HTMLElement} element - Zu überprüfendes Element
- * @returns {boolean} True wenn sichtbar
+ * Checks if an element is visible in the viewport
+ * @param {HTMLElement} element - Element to check
+ * @returns {boolean} True if visible
  */
 export let isElementInViewport = (element) => {
   const rect = element.getBoundingClientRect();
@@ -144,7 +144,7 @@ export let isElementInViewport = (element) => {
 };
 
 /**
- * Initialisiert Accessibility-Features
+ * Initializes accessibility features
  */
 export let initializeAccessibility = () => {
   // Skip-to-content Link
@@ -160,16 +160,16 @@ export let initializeAccessibility = () => {
     });
   }
 
-  // Keyboard Navigation für Pokémon-Karten
+  // Keyboard navigation for Pokémon cards
   document.addEventListener("keydown", handleKeyboardNavigation);
 };
 
 /**
- * Behandelt Tastatur-Navigation
+ * Handles keyboard navigation
  * @param {KeyboardEvent} e - Keyboard Event
  */
 export let handleKeyboardNavigation = (e) => {
-  // ESC um Modal zu schließen
+  // ESC to close modal
   if (e.key === "Escape") {
     const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
     if (modal && modal.style.display === "block") {
@@ -182,9 +182,9 @@ export let handleKeyboardNavigation = (e) => {
 };
 
 /**
- * Zeigt eine Toast-Benachrichtigung
- * @param {string} message - Nachricht
- * @param {string} type - Typ (success, error, info)
+ * Shows a toast notification
+ * @param {string} message - Message
+ * @param {string} type - Type (success, error, info)
  */
 export let showToast = (message, type = "info") => {
   const toast = createToastHTML(message, type);
@@ -196,7 +196,7 @@ export let showToast = (message, type = "info") => {
     ANIMATIONS.toastShowDelay
   );
 
-  // Auto-Remove nach 3 Sekunden
+  // Auto-remove after 3 seconds
   setTimeout(() => {
     toast.classList.remove("toast-show");
     setTimeout(() => {
@@ -207,5 +207,5 @@ export let showToast = (message, type = "info") => {
   }, ANIMATIONS.toastHideDelay);
 };
 
-// Globale Funktionen für HTML onclick
+// Global functions for HTML onclick
 window.hideErrorMessage = hideErrorMessage;
