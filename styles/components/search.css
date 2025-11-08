@@ -1,7 +1,5 @@
 /* ===== SEARCH COMPONENTS - MOBILE FIRST ===== */
 
-/* ===== SEARCH CONTAINER ===== */
-
 .search-container {
   width: 100%;
   max-width: var(--max-width);
@@ -15,8 +13,6 @@
 
 /* ===== SEARCH FORM ===== */
 /* Form wrapper removed - using direct flex container */
-
-/* ===== SEARCH INPUT ===== */
 
 .search-input {
   flex: 1;
@@ -32,7 +28,7 @@
   box-sizing: border-box;
 }
 
-/* Input Focus State */
+/* Input focus state */
 .search-input:focus {
   outline: none;
   border-color: var(--primary-color);
@@ -40,13 +36,11 @@
   background: var(--white);
 }
 
-/* Input Placeholder */
+/* Input placeholder */
 .search-input::placeholder {
   color: var(--muted-color);
   opacity: 1;
 }
-
-/* ===== SEARCH BUTTON ===== */
 
 .search-button {
   min-height: 3rem; /* 48px für Touch */
@@ -144,7 +138,6 @@
   background: transparent;
 }
 
-/* Search Status */
 .search-status {
   padding: var(--spacing-sm);
   text-align: center;
@@ -185,7 +178,6 @@
   transform: translateY(0);
 }
 
-/* Suggestion Item */
 .suggestion-item {
   padding: var(--spacing-sm) var(--spacing-md);
   border-bottom: 1px solid var(--border-color);
@@ -209,7 +201,6 @@
   background: var(--primary-light);
 }
 
-/* Suggestion Text */
 .suggestion-text {
   font-size: 0.9rem;
   color: var(--text-color);
@@ -266,7 +257,6 @@
   margin-right: var(--spacing-sm);
 }
 
-/* Filter Button */
 .filter-button {
   padding: var(--spacing-xs) var(--spacing-sm);
   background: var(--background-color);
@@ -409,7 +399,7 @@
   }
 
   .search-suggestions {
-    right: 4rem; /* Mehr Platz für größeren Button */
+    right: 4rem; /* More space for a larger button*/
     max-height: 16rem;
   }
 
@@ -434,7 +424,7 @@
   }
 
   .search-suggestions {
-    right: 4.5rem; /* Anpassung für Desktop Button */
+    right: 4.5rem; /* Adjustment for desktop button */
     max-height: 20rem;
   }
 
@@ -444,7 +434,7 @@
   }
 }
 
-/* Large Desktop (1200px+) - Hier können wir Text hinzufügen */
+/* Large Desktop (1200px+) - Here we can add text. */
 @media (min-width: 1200px) {
   .search-container {
     padding: 0;
@@ -467,7 +457,7 @@
   }
 
   .search-suggestions {
-    right: 0; /* Bei großen Screens über gesamte Breite */
+    right: 0; /* On large screens, full width */
   }
 
   .search-filters {

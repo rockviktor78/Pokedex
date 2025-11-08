@@ -133,7 +133,7 @@
   box-shadow: 0 0.125rem 0.25rem rgba(59, 130, 246, 0.2);
 }
 
-/* Responsive für kleine Bildschirme */
+/* Responsive for small screens */
 @media (max-width: 364px) {
   .header-container {
     padding: 0.75rem 0.5rem;
@@ -151,7 +151,7 @@
     font-size: 0.875rem;
     min-height: 2.5rem;
     flex: 1;
-    min-width: 0; /* Wichtig für Flex-Shrinking */
+    min-width: 0; /* Important for flex shrinking */
   }
 
   .search-button {

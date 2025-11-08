@@ -129,7 +129,7 @@
   height: 6rem;
   width: 100%;
 }
-/* Scrollbar */
+/* Scrollable */
 .modal-info-section::-webkit-scrollbar {
   width: 6px;
 }
@@ -210,7 +210,7 @@
 }
 /* RESPONSIVE DESIGN - MOBILE FIRST */
 
-/* Base Mobile (alle Bildschirme) */
+/* Base mobile (all screens) */
 .modal-info-section {
   padding-bottom: 1rem !important;
   margin-bottom: 1rem !important;
@@ -228,7 +228,7 @@
   padding-bottom: 1rem !important;
 }
 
-/* Small screens (ab 480px) */
+/* Small screens (from 480px) */
 @media (min-width: 480px) {
   .modal-info-section {
     max-height: 300px !important;
@@ -240,7 +240,7 @@
   }
 }
 
-/* Tablet (ab 768px) */
+/* Tablet (from 768px) */
 @media (min-width: 768px) {
   .modal-container {
     max-width: 600px;
@@ -292,7 +292,7 @@
   }
 }
 
-/* Desktop (ab 1024px) */
+/* Desktop (from 1024px) */
 @media (min-width: 1024px) {
   .modal-container {
     max-width: 700px;
@@ -333,7 +333,7 @@
   }
 }
 
-/* Landscape Orientierung */
+/* Landscape orientation */
 @media (orientation: landscape) and (max-height: 600px) {
   .modal-info-section {
     max-height: 200px !important;

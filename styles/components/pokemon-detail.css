@@ -1,12 +1,10 @@
 /* ===== POKEMON DETAIL STYLES - MOBILE FIRST ===== */
 
-/* Pokemon Detail Container */
 .pokemon-detail {
   max-width: 100%;
   width: 100%;
 }
 
-/* Modal-spezifische Pokemon Detail Styles */
 .modal-container .pokemon-detail {
   max-width: 100%;
   width: 100%;
@@ -16,7 +14,7 @@
   overflow: hidden;
 }
 
-/* Pokémon-Typ-basierte Hintergrundfarben für Modal */
+/* Pokémon-type-based background colors for modal */
 .modal-container .pokemon-detail.fire {
   background: linear-gradient(
     135deg,
@@ -161,7 +159,6 @@
   );
 }
 
-/* Pokemon Detail Header */
 .pokemon-detail-header {
   display: flex;
   flex-direction: column;
@@ -170,7 +167,7 @@
   margin-bottom: 2rem;
 }
 
-/* Modal-spezifische kleinere Header */
+/* Modal-specific smaller header styles */
 .modal-container .pokemon-detail-header {
   gap: 0.5rem;
   margin-bottom: 1rem;
@@ -186,7 +183,7 @@
   text-align: center;
 }
 
-/* Kleinerer Name im Modal */
+/* Smaller name in the modal */
 .modal-container .pokemon-detail-name {
   font-size: var(--font-size-lg);
   line-height: 1.2;
@@ -201,13 +198,12 @@
   border-radius: 0.5rem;
 }
 
-/* Kleinere ID im Modal */
+/* Smaller ID in the modal */
 .modal-container .pokemon-detail-id {
   font-size: 0.875rem;
   padding: 0.25rem 0.5rem;
 }
 
-/* Pokemon Detail Image */
 .pokemon-detail-image {
   width: 8rem;
   height: 8rem;
@@ -215,14 +211,13 @@
   margin: 1rem 0;
 }
 
-/* Kleineres Bild im Modal - Mobile First */
+/* Smaller image in the modal - mobile first */
 .modal-container .pokemon-detail-image {
   width: 4.5rem;
   height: 4.5rem;
   margin: 0.5rem 0;
 }
 
-/* Pokemon Detail Types */
 .pokemon-detail-types {
   display: flex;
   flex-wrap: wrap;
@@ -231,7 +226,7 @@
   margin: 1rem 0;
 }
 
-/* Kleinere Type Badges im Modal */
+/* Smaller type badges in the modal */
 .modal-container .pokemon-detail-types {
   gap: 0.375rem;
   margin: 0.5rem 0;
@@ -248,19 +243,18 @@
   text-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
 }
 
-/* Kleinere Type Badges im Modal */
+/* Smaller type badges in the modal */
 .modal-container .pokemon-detail-type {
   font-size: 0.8rem;
   padding: 0.25rem 0.5rem;
 }
 
-/* Pokemon Stats */
 .pokemon-stats {
   margin-top: 2rem;
   width: 100%;
 }
 
-/* Kompaktere Stats im Modal */
+/* Smaller stats in the modal */
 .modal-container .pokemon-stats {
   margin-top: 1rem;
 }
@@ -273,7 +267,7 @@
   margin-bottom: 1.5rem;
 }
 
-/* Kleinerer Stats-Titel im Modal */
+/* Smaller stats title in the modal */
 .modal-container .pokemon-stats-title {
   font-size: 1rem;
   margin-bottom: 0.75rem;
@@ -328,7 +322,6 @@
   transition: width 0.5s ease;
 }
 
-/* Pokemon Abilities */
 .pokemon-abilities {
   margin-top: 2rem;
   width: 100%;
@@ -359,7 +352,6 @@
   text-transform: capitalize;
 }
 
-/* Pokemon Physical Info */
 .pokemon-physical {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -388,7 +380,6 @@
   color: var(--color-gray-900);
 }
 
-/* Loading State for Detail */
 .pokemon-detail-loading {
   display: flex;
   flex-direction: column;
@@ -435,7 +426,7 @@
   }
 }
 
-/* Tablet - Modal Verbesserungen */
+/* Tablet - modal improvements */
 @media (min-width: 768px) {
   .modal-container .pokemon-detail-image {
     width: 6rem;
@@ -453,7 +444,7 @@
   }
 }
 
-/* Desktop - Modal Verbesserungen */
+/* Desktop - modal improvements */
 @media (min-width: 1024px) {
   .modal-container .pokemon-detail-image {
     width: 7rem;

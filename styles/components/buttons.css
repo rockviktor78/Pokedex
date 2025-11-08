@@ -1,6 +1,6 @@
 /* ===== BUTTON COMPONENTS - MOBILE FIRST ===== */
 
-/* Base Button Styles */
+/* Base button styles */
 .load-more-button,
 .retry-button {
   padding: 0.75rem 1.5rem;
@@ -19,7 +19,7 @@
   outline: none;
 }
 
-/* Load More Button */
+/* Load more button */
 .load-more-button {
   background-color: var(--color-primary);
   color: var(--color-white);
@@ -65,7 +65,7 @@
   box-shadow: 0 0.125rem 0.25rem rgba(239, 68, 68, 0.2);
 }
 
-/* Search Button (already defined in header.css, but ensuring consistency) */
+/* Search button (already defined in header.css, but ensuring consistency) */
 .search-button:focus-visible,
 .load-more-button:focus-visible,
 .retry-button:focus-visible {
@@ -73,7 +73,7 @@
   outline-offset: 0.125rem;
 }
 
-/* Loading State Text */
+/* Loading state text */
 .load-more-button:disabled {
   position: relative;
 }

@@ -1,5 +1,5 @@
 /**
- * Footer Component Styles
+ * Footer component styles
  * Mobile-First responsive footer design
  */
 
@@ -184,7 +184,7 @@
   }
 }
 
-/* Desktop Styles (1024px and up) */
+/* Desktop styles (1024px and up) */
 @media (min-width: 64rem) {
   .footer-content {
     grid-template-columns: 2fr 1fr 1fr;
@@ -207,7 +207,7 @@
   }
 }
 
-/* Large Desktop Styles (1200px and up) */
+/* Large desktop styles (1200px and up) */
 @media (min-width: 75rem) {
   .footer {
     padding: 4rem 0 2rem;

@@ -141,7 +141,7 @@
   background-color: var(--type-normal);
 }
 
-/* Pokemon Card Background Color (based on primary type) */
+/* Pokemon card background color (based on primary type) */
 .pokemon-card.bg-fire {
   background: linear-gradient(135deg, var(--type-fire), #fff);
 }
