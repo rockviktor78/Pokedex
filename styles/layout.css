@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Kosmos-Hintergrund mit animierten Sternen */
+/* Cosmos background with animated stars */
 body::before {
   content: "";
   position: fixed;
@@ -40,7 +40,7 @@ body::before {
   z-index: -1;
 }
 
-/* Größere Sterne für Desktop */
+/* Larger stars for desktop */
 body::after {
   content: "";
   position: fixed;
@@ -80,7 +80,7 @@ body::after {
   }
 }
 
-/* Zusätzliche Kosmos-Effekte */
+/* Additional cosmos effects */
 @keyframes twinkle {
   0%,
   100% {
@@ -91,7 +91,7 @@ body::after {
   }
 }
 
-/* Twinkle-Effekt für einzelne Sterne */
+/* Twinkle effect for individual stars */
 body::before {
   animation: cosmos-drift 60s linear infinite, twinkle 3s ease-in-out infinite;
 }
@@ -131,7 +131,7 @@ body::after {
 .main {
   flex: 1;
   padding: 1rem;
-  padding-top: 240px; /* Mehr Platz für den fixed header */
+  padding-top: 240px; /* More space for the fixed header */
   max-width: 100%;
   margin: 0 auto;
 }

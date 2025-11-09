@@ -68,14 +68,12 @@
     padding-top: 140px; /* Consistent spacing */
   }
 
-  /* Header container */
   .header-container {
     max-width: 75rem;
     margin: 0 auto;
     padding: 1.5rem 2rem;
   }
 
-  /* Modal larger */
   .modal-container {
     max-width: 28rem;
   }
