@@ -2,6 +2,8 @@
 
 Eine moderne, responsive Pokédex-Webanwendung, die die [PokéAPI](https://pokeapi.co/) nutzt, um detaillierte Informationen über Pokémon anzuzeigen.
 
+![Pokédex Screenshot](./assets/images/pokedex_screenshot,.png)
+
 ![Pokédex Banner](https://img.shields.io/badge/Pok%C3%A9mon-API-ffcc00?style=for-the-badge&logo=pokemon)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![CSS3](https://img.shields.io/badge/CSS3-Responsive-1572B6?style=for-the-badge&logo=css3)
@@ -9,6 +11,7 @@ Eine moderne, responsive Pokédex-Webanwendung, die die [PokéAPI](https://pokea
 ## 📋 Projekt-Checkliste
 
 ### ✅ 1. Git-Workflow
+
 - [x] GitHub Repository von Anfang an genutzt
 - [x] Regelmäßige Commits nach Coding-Sessions
 - [x] Klare, aussagekräftige Commit-Messages (z.B. "style: Refactor API for improved readability")
@@ -16,6 +19,7 @@ Eine moderne, responsive Pokédex-Webanwendung, die die [PokéAPI](https://pokea
 - [x] Repository ist aktuell und gepflegt
 
 ### ✅ 2. Allgemeine Anforderungen
+
 - [x] **20 Pokémon** werden initial geladen
 - [x] **Lazy-Loading**: Details werden erst beim Öffnen der Detailkarte geladen
 - [x] **Fetch-then-Render**: Daten werden geladen, dann gerendert
@@ -25,6 +29,7 @@ Eine moderne, responsive Pokédex-Webanwendung, die die [PokéAPI](https://pokea
 - [x] Eigenes, kreatives Design ohne Mockup
 
 ### ✅ 3. Kleine Pokémon-Karte (Listenansicht)
+
 - [x] **Name** (Großgeschrieben!)
 - [x] **Typ/en** mit Farb-Badges
 - [x] **Bild** des Pokémon (hochauflösend)
@@ -33,6 +38,7 @@ Eine moderne, responsive Pokédex-Webanwendung, die die [PokéAPI](https://pokea
 - [x] **Hover-Effekt** mit Scale-Animation
 
 ### ✅ 4. Große Ansicht (Overlay/Modal)
+
 - [x] Öffnet beim Klick auf kleine Karte
 - [x] **Transparentes Overlay** mit Backdrop-Filter
 - [x] Schließt beim Klick außerhalb der Karte
@@ -47,6 +53,7 @@ Eine moderne, responsive Pokédex-Webanwendung, die die [PokéAPI](https://pokea
 - [x] **Navigation**: Pfeile zum Wechseln zwischen Pokémon
 
 ### ✅ 5. Code-Qualität
+
 - [x] **Aussagekräftige Namen** für Funktionen und Variablen
 - [x] **camelCase** konsequent verwendet
 - [x] Code ist formatiert und einheitlich
@@ -55,6 +62,7 @@ Eine moderne, responsive Pokédex-Webanwendung, die die [PokéAPI](https://pokea
 - [x] **HTML Templates ausgelagert** in `templates.js`
 
 ### ✅ 6. Responsive Design
+
 - [x] **Bis 320px Breite** responsive ohne Scrollbalken
 - [x] **Content-Begrenzung** für große Monitore (max-width)
 - [x] **Mobile-First Ansatz** durchgängig implementiert
@@ -62,6 +70,7 @@ Eine moderne, responsive Pokédex-Webanwendung, die die [PokéAPI](https://pokea
 - [x] Touch-optimierte Bedienung
 
 ### ✅ 7. Sonstiges
+
 - [x] **Favicon** vorhanden (pokeball.svg)
 - [x] **Dokumenten-Titel**: "Pokédex - Explore the World of Pokémon"
 - [x] Hauptseite heißt **index.html**
@@ -75,6 +84,7 @@ Eine moderne, responsive Pokédex-Webanwendung, die die [PokéAPI](https://pokea
 ## 🚀 Features
 
 ### Kernfunktionen
+
 - ✨ **Moderne UI** mit Glasmorphismus-Effekten
 - 🔍 **Live-Suche** mit Autocomplete
 - 📱 **Vollständig Responsive** (320px - 1920px+)
@@ -84,7 +94,8 @@ Eine moderne, responsive Pokédex-Webanwendung, die die [PokéAPI](https://pokea
 - 🌙 **Smooth Animations** & Transitions
 
 ### Zusätzliche Features (Extras)
-- 🎯 **Intelligente Suche**: 
+
+- 🎯 **Intelligente Suche**:
   - 3-Zeichen-Minimum-Validierung
   - Autocomplete mit Top-10-Vorschlägen
   - Suche nach Name oder ID
@@ -156,13 +167,13 @@ export let fetchPokemonList = async (offset, limit) => {
   const url = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.pokemon}?offset=${offset}&limit=${limit}`;
   const response = await fetch(url);
   if (!response.ok) throw new Error(`API Error: ${response.status}`);
-  
+
   const data = await response.json();
   appState.currentOffset = offset;
-  
+
   const pokemonDetails = await fetchPokemonDetails(data.results);
   appState.pokemonList.push(...pokemonDetails);
-  
+
   console.log("📊 API data processed:", data.results.length, "Pokémon");
   return pokemonDetails;
 };
@@ -185,10 +196,18 @@ export function createStatsHTML(stats) { ... }
 /* Mobile First Approach */
 /* Base: 320px - 479px */
 
-@media (min-width: 480px) { /* Small Tablets */ }
-@media (min-width: 768px) { /* Tablets */ }
-@media (min-width: 1024px) { /* Desktop */ }
-@media (min-width: 1440px) { /* Large Desktop */ }
+@media (min-width: 480px) {
+  /* Small Tablets */
+}
+@media (min-width: 768px) {
+  /* Tablets */
+}
+@media (min-width: 1024px) {
+  /* Desktop */
+}
+@media (min-width: 1440px) {
+  /* Large Desktop */
+}
 ```
 
 ## 🎨 Design-Prinzipien
@@ -248,6 +267,7 @@ python3 -m http.server 8000
 ## 👨‍💻 Entwickler
 
 **Viktor Wilhelm**
+
 - GitHub: [@rockviktor78](https://github.com/rockviktor78)
 
 ## 📝 Lizenz
@@ -263,4 +283,3 @@ Dieses Projekt wurde für Lernzwecke erstellt. Pokémon und alle verwandten Char
 ---
 
 **⭐ Wenn dir dieses Projekt gefällt, gib ihm einen Stern auf GitHub!**
-
