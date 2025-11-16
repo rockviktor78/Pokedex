@@ -1,14 +1,15 @@
 /* ===== POKEMON CARD STYLES - MOBILE FIRST ===== */
 
 .pokemon-card {
-  background-color: var(--color-white);
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 0.125rem 1rem rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 0.125rem solid transparent;
-  min-height: 10rem;
+  border: 0.125rem solid rgba(255, 255, 255, 0.2);
+  min-height: 16rem;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -17,33 +18,35 @@
 
 .pokemon-card:hover {
   transform: translateY(-0.25rem);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  border-color: var(--color-gray-300);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.4);
+  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(255, 255, 255, 0.98);
 }
 
 .pokemon-card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .pokemon-name {
-  font-size: var(--font-size-xl);
+  font-size: 1.25rem;
   font-weight: var(--font-weight-bold);
   color: var(--color-gray-900);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
   margin: 0;
+  line-height: 1.2;
 }
 
 .pokemon-id {
-  font-size: var(--font-size-base);
+  font-size: 0.875rem;
   font-weight: var(--font-weight-medium);
   color: var(--color-gray-500);
   background-color: var(--color-gray-100);
   padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
+  border-radius: 0.5rem;
 }
 
 .pokemon-image-container {
@@ -51,12 +54,12 @@
   justify-content: center;
   align-items: center;
   margin: 1rem 0;
-  min-height: 6rem;
+  min-height: 10rem;
 }
 
 .pokemon-image {
-  width: 5rem;
-  height: 5rem;
+  width: 9rem;
+  height: 9rem;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
@@ -73,11 +76,11 @@
 }
 
 .pokemon-type {
-  font-size: var(--font-size-base);
+  font-size: 0.875rem;
   font-weight: var(--font-weight-medium);
   color: var(--color-white);
   padding: 0.375rem 0.75rem;
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   text-transform: capitalize;
   letter-spacing: var(--letter-spacing-normal);
   text-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
@@ -138,7 +141,7 @@
   background-color: var(--type-normal);
 }
 
-/* Pokemon Card Background Color (based on primary type) */
+/* Pokemon card background color (based on primary type) */
 .pokemon-card.bg-fire {
   background: linear-gradient(135deg, var(--type-fire), #fff);
 }

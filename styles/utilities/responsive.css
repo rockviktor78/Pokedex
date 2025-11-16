@@ -40,11 +40,12 @@
   /* Main padding */
   .main {
     padding: 1.5rem 2rem;
+    padding-top: 140px; /* More space for taller header */
   }
 
   /* Modal adjustments */
   .modal-container {
-    max-width: 32rem;
+    max-width: 25rem;
   }
 
   .pokemon-detail {
@@ -64,18 +65,17 @@
   .main {
     max-width: 75rem;
     padding: 2rem;
+    padding-top: 140px; /* Consistent spacing */
   }
 
-  /* Header container */
   .header-container {
     max-width: 75rem;
     margin: 0 auto;
     padding: 1.5rem 2rem;
   }
 
-  /* Modal larger */
   .modal-container {
-    max-width: 40rem;
+    max-width: 28rem;
   }
 
   /* Pokemon detail stats horizontal */
@@ -105,6 +105,7 @@
   /* Max width containment */
   .main {
     max-width: 90rem;
+    padding-top: 140px; /* Consistent spacing */
   }
 
   .header-container {
@@ -113,7 +114,7 @@
 
   /* Larger modal */
   .modal-container {
-    max-width: 48rem;
+    max-width: 38rem;
   }
 
   /* Search container larger */
@@ -132,6 +133,7 @@
   /* Ultra wide containment */
   .main {
     max-width: 100rem;
+    padding-top: 140px; /* Consistent spacing */
   }
 
   .header-container {

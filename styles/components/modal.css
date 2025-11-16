@@ -1,14 +1,9 @@
-/* ===== MODAL COMPONENTS - MOBILE FIRST ===== */
-
-/* Modal Overlay */
+/* MODAL COMPONENTS - MOBILE FIRST */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(0.125rem);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -17,57 +12,48 @@
   visibility: hidden;
   transition: all 0.3s ease;
 }
-
 .modal-overlay.visible {
   opacity: 1;
   visibility: visible;
 }
-
-.modal-overlay.closing {
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.modal-overlay.hidden {
+  display: none;
 }
-
-/* Modal Container */
 .modal-container {
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
   border-radius: var(--border-radius-lg);
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
-  max-width: 90vw;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.5);
+  max-width: 73vw;
   max-height: 90vh;
   width: 100%;
   margin: var(--spacing-md);
   display: flex;
   flex-direction: column;
+  position: relative;
   transform: scale(0.8) translateY(2rem);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
-
 .modal-overlay.visible .modal-container {
   transform: scale(1) translateY(0);
 }
-
-/* Modal Header */
 .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-md);
-  border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
+  min-height: 3rem;
 }
-
 .modal-title {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-color);
   margin: 0;
 }
-
-/* Close Button */
 .modal-close {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   border: none;
   background: var(--surface-color);
   border-radius: 50%;
@@ -77,26 +63,92 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  font-size: 1.5rem;
 }
-
 .modal-close:hover {
   background: var(--border-color);
   transform: scale(1.1);
 }
-
-/* Modal Content */
 .modal-content {
   flex: 1;
   overflow-y: auto;
   padding: 0;
 }
-
 .modal-body {
-  padding: var(--spacing-md);
+  padding: 0.75rem 0.75rem 2rem;
 }
-
-/* ===== MODAL NAVIGATION ===== */
-
+.modal-image-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.modal-pokemon-image {
+  width: 9rem;
+  height: 9rem;
+  object-fit: contain;
+  margin: 0.5rem auto;
+  display: block;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+.modal-pokemon-image:hover {
+  transform: scale(1.05);
+}
+.modal-info-section {
+  padding: 1rem 0.75rem;
+  max-height: 400px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0.5rem;
+  margin: 1rem 0.5rem 1rem;
+  padding-bottom: 1rem;
+}
+.modal-stats,
+.modal-physical,
+.modal-abilities {
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+.modal-stats:last-child,
+.modal-physical:last-child,
+.modal-abilities:last-child {
+  margin-bottom: 0;
+}
+.modal-info-section::after {
+  content: "";
+  display: block;
+  height: 6rem;
+  width: 100%;
+}
+/* Scrollable */
+.modal-info-section::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-info-section::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+.modal-info-section::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+.modal-info-section::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+.modal-info-section {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+}
 .modal-navigation {
   display: flex;
   align-items: center;
@@ -106,91 +158,213 @@
   background: var(--surface-color);
   flex-shrink: 0;
 }
-
 .nav-counter {
   font-size: 0.9rem;
   color: var(--text-color);
   font-weight: 500;
 }
-
-/* Navigation Arrows */
 .nav-arrow {
-  width: 2.5rem;
-  height: 2.5rem;
+  position: absolute;
+  bottom: 0.75rem;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid var(--border-color);
   background: var(--white);
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-color);
+  font-size: 0.875rem;
+  font-weight: bold;
+  z-index: 1001;
 }
-
-.nav-arrow:hover {
+.nav-arrow-prev {
+  left: 0.75rem;
+}
+.nav-arrow-next {
+  right: 0.75rem;
+}
+.nav-arrow:hover:not(:disabled) {
   background: var(--primary-color);
   color: var(--white);
   border-color: var(--primary-color);
-  transform: scale(1.1);
 }
-
+.nav-arrow:active:not(:disabled) {
+  opacity: 0.8;
+}
 .nav-arrow:disabled {
-  opacity: 0.5;
+  opacity: 0.3;
   cursor: not-allowed;
-  transform: none;
-}
-
-.nav-arrow:disabled:hover {
   background: var(--white);
   color: var(--text-color);
   border-color: var(--border-color);
-  transform: none;
+}
+.nav-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  pointer-events: none;
+}
+/* RESPONSIVE DESIGN - MOBILE FIRST */
+
+/* Base mobile (all screens) */
+.modal-info-section {
+  padding-bottom: 1rem !important;
+  margin-bottom: 1rem !important;
+  max-height: 170px !important;
+  margin-left: 1.5rem !important;
+  margin-right: 1.5rem !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+  padding-top: 0.5rem !important;
+}
+.modal-info-section::after {
+  height: 6rem !important;
+}
+.modal-body {
+  padding-bottom: 1rem !important;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
+/* Small screens (from 480px) */
+@media (min-width: 480px) {
+  .modal-info-section {
+    max-height: 300px !important;
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    padding-top: 0.75rem !important;
+  }
+}
 
-/* Tablet (768px+) */
+/* Tablet (from 768px) */
 @media (min-width: 768px) {
   .modal-container {
     max-width: 600px;
     margin: var(--spacing-xl);
   }
-
   .modal-header {
     padding: var(--spacing-lg);
   }
-
   .modal-body {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-lg) 1.5rem;
+    padding-bottom: 1.5rem !important;
   }
-
+  .modal-info-section {
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
+    margin-left: 3rem !important;
+    margin-right: 3rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-top: 1rem !important;
+  }
+  .modal-image-section {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .modal-pokemon-image {
+    width: 9rem;
+    height: 9rem;
+    margin: 0.75rem auto;
+  }
   .modal-navigation {
     padding: var(--spacing-lg);
   }
+  .nav-arrow {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.2rem;
+    bottom: 1.25rem;
+  }
+  .nav-arrow-prev {
+    left: 1.5rem;
+  }
+  .nav-arrow-next {
+    right: 1.5rem;
+  }
+  .nav-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
 }
 
-/* Desktop (1024px+) */
+/* Desktop (from 1024px) */
 @media (min-width: 1024px) {
   .modal-container {
     max-width: 700px;
   }
+  .modal-image-section {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .modal-info-section {
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
+    padding-top: 1rem !important;
+    margin-left: 4rem !important;
+    margin-right: 4rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+  .modal-pokemon-image {
+    width: 9rem;
+    height: 9rem;
+    margin: 1rem auto;
+  }
+  .nav-arrow {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.4rem;
+    bottom: 1.5rem;
+  }
+  .nav-arrow-prev {
+    left: 2rem;
+  }
+  .nav-arrow-next {
+    right: 2rem;
+  }
+  .nav-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
 }
 
-/* ===== ACCESSIBILITY ===== */
+/* Landscape orientation */
+@media (orientation: landscape) and (max-height: 600px) {
+  .modal-info-section {
+    max-height: 200px !important;
+    padding-top: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .modal-body {
+    padding-bottom: 1rem !important;
+  }
+  .modal-image-section {
+    padding: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  .modal-pokemon-image {
+    width: 5rem !important;
+    height: 5rem !important;
+    margin: 0.25rem auto !important;
+  }
+}
 
-/* High contrast mode */
+/* High contrast & reduced motion */
 @media (prefers-contrast: high) {
   .modal-overlay {
     background: rgba(0, 0, 0, 0.9);
   }
-
   .nav-arrow {
     border-width: 2px;
   }
 }
-
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .modal-overlay,
   .modal-container,
@@ -198,7 +372,6 @@
   .nav-arrow {
     transition: none;
   }
-
   .modal-overlay.visible .modal-container {
     transform: none;
   }
