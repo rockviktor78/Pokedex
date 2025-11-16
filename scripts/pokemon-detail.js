@@ -20,27 +20,21 @@ let currentPokemonList = [];
  */
 export let handlePokemonCardClick = async (pokemon) => {
   try {
-    console.log(`🔍 Öffne Details für ${pokemon.name}`);
-
     // Set current Pokemon list based on current mode
     if (appState.isSearchMode && appState.searchResults) {
       currentPokemonList = appState.searchResults;
-      console.log("📋 Verwende Suchergebnisse:", currentPokemonList.length);
     } else {
       currentPokemonList = appState.pokemonList;
-      console.log("📋 Verwende normale Liste:", currentPokemonList.length);
     }
 
     // Find current Pokemon index
     currentPokemonIndex = currentPokemonList.findIndex(
       (p) => p.id === pokemon.id
     );
-    console.log("📍 Pokemon Index:", currentPokemonIndex);
 
     // Use the pokemon directly if it has detailed data, otherwise fetch
     let detailedPokemon = pokemon;
     if (!pokemon.stats) {
-      console.log("🔄 Lade detaillierte Pokémon-Daten...");
       const response = await fetch(pokemon.url);
       if (!response.ok)
         throw new Error(`Fehler beim Laden von ${pokemon.name}`);
@@ -49,7 +43,6 @@ export let handlePokemonCardClick = async (pokemon) => {
 
     openPokemonModal(detailedPokemon);
   } catch (error) {
-    console.error("❌ Fehler beim Laden der Pokémon-Details:", error);
     showErrorMessage();
   }
 };
@@ -87,7 +80,6 @@ export let openPokemonModal = (pokemon) => {
     showModalWithAccessibility(modal);
     setupModalContent(modalContent, pokemon);
     updateNavigationArrows();
-    console.log("✅ Modal opened for:", pokemon.name);
   } else {
     console.error("❌ Modal elements not found!");
   }
@@ -106,8 +98,6 @@ export let closePokemonModal = () => {
     modal.setAttribute("inert", "");
 
     document.body.style.overflow = "auto";
-
-    console.log("✅ Modal geschlossen");
   }
 };
 
@@ -150,7 +140,6 @@ let loadPokemonAtIndex = async (index) => {
     // Use the pokemon directly if it has detailed data, otherwise fetch
     let detailedPokemon = pokemon;
     if (!pokemon.stats) {
-      console.log("🔄 Lade detaillierte Pokémon-Daten...");
       const response = await fetch(pokemon.url);
       if (!response.ok)
         throw new Error(`Fehler beim Laden von ${pokemon.name}`);
@@ -164,7 +153,6 @@ let loadPokemonAtIndex = async (index) => {
 
     updateNavigationArrows();
   } catch (error) {
-    console.error("❌ Fehler beim Laden des Pokémon:", error);
     showErrorMessage();
   }
 };
@@ -176,18 +164,9 @@ let updateNavigationArrows = () => {
   const prevButton = document.getElementById("prevPokemonButton");
   const nextButton = document.getElementById("nextPokemonButton");
 
-  console.log("🔄 Aktualisiere Navigation Arrows:", {
-    currentPokemonIndex,
-    listLength: currentPokemonList.length,
-  });
-
   if (prevButton) {
     prevButton.disabled = currentPokemonIndex <= 0;
     prevButton.style.opacity = currentPokemonIndex <= 0 ? "0.5" : "1";
-    console.log(
-      "⬅️ Previous Button:",
-      prevButton.disabled ? "disabled" : "enabled"
-    );
   } else {
     console.error("❌ Previous Button nicht gefunden!");
   }
@@ -196,10 +175,6 @@ let updateNavigationArrows = () => {
     nextButton.disabled = currentPokemonIndex >= currentPokemonList.length - 1;
     nextButton.style.opacity =
       currentPokemonIndex >= currentPokemonList.length - 1 ? "0.5" : "1";
-    console.log(
-      "➡️ Next Button:",
-      nextButton.disabled ? "disabled" : "enabled"
-    );
   } else {
     console.error("❌ Next Button nicht gefunden!");
   }
@@ -214,15 +189,10 @@ export let initializeModalEventListeners = () => {
   const nextButton = document.getElementById("nextPokemonButton");
   const closeButton = document.getElementById("closeModalButton");
 
-  console.log("🔧 Initialisiere Modal Event Listeners...");
-
   if (modal) {
-    console.log("✅ Modal gefunden");
-
     // Close when clicked outside the modal
     modal.addEventListener("click", (e) => {
       if (e.target === modal) {
-        console.log("🖱️ Klick außerhalb Modal");
         closePokemonModal();
       }
     });
@@ -230,7 +200,6 @@ export let initializeModalEventListeners = () => {
     // Close with Escape key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-        console.log("⌨️ Escape gedrückt");
         closePokemonModal();
       }
 
@@ -238,11 +207,9 @@ export let initializeModalEventListeners = () => {
       if (!modal.classList.contains("hidden")) {
         if (e.key === "ArrowLeft") {
           e.preventDefault();
-          console.log("⌨️ Pfeil links gedrückt");
           goToPreviousPokemon();
         } else if (e.key === "ArrowRight") {
           e.preventDefault();
-          console.log("⌨️ Pfeil rechts gedrückt");
           goToNextPokemon();
         }
       }
@@ -253,10 +220,8 @@ export let initializeModalEventListeners = () => {
 
   // Navigation button event listeners
   if (prevButton) {
-    console.log("✅ Previous Button gefunden");
     prevButton.addEventListener("click", (e) => {
       e.stopPropagation();
-      console.log("🖱️ Previous Button geklickt");
       goToPreviousPokemon();
     });
   } else {
@@ -264,10 +229,8 @@ export let initializeModalEventListeners = () => {
   }
 
   if (nextButton) {
-    console.log("✅ Next Button gefunden");
     nextButton.addEventListener("click", (e) => {
       e.stopPropagation();
-      console.log("🖱️ Next Button geklickt");
       goToNextPokemon();
     });
   } else {
@@ -284,6 +247,4 @@ export let initializeModalEventListeners = () => {
   if (modalElement) {
     modalElement.setAttribute("inert", "");
   }
-
-  console.log("✅ Modal Event Listeners initialisiert");
 };

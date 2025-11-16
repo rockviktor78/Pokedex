@@ -27,27 +27,18 @@ export const appState = {
  * Initializes the Pokédex App
  */
 let initializeApp = async () => {
-  console.log("🚀 Pokédx App starting...");
-
   try {
     // Initialize core modules
-    console.log("🔍 Initializing search...");
     await initializeSearch();
 
-    console.log("🎭 Initialize Modal Event Listeners...");
     initializeModalEventListeners();
 
-    console.log("♿ Initialize Accessibility...");
     initializeAccessibility();
 
-    console.log("🔧 Setup Core Event Listeners...");
     setupCoreEventListeners();
 
     // Load initial Pokemon
-    console.log("📦 Load initial Pokémon...");
     await loadInitialPokemon();
-
-    console.log("✅ App successfully initialized");
   } catch (error) {
     console.error("❌ Error during app initialization:", error);
   }
@@ -123,7 +114,6 @@ let setupCoreEventListeners = () => {
  */
 let handleLogoClick = async (e) => {
   e.preventDefault();
-  console.log("🏠 Logo clicked - Back to homepage");
 
   try {
     // If we're in search mode, reset search

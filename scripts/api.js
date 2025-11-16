@@ -28,7 +28,6 @@ export let fetchPokemonList = async (offset, limit) => {
   const pokemonDetails = await fetchPokemonDetails(data.results);
   appState.pokemonList.push(...pokemonDetails);
 
-  console.log("📊 API data processed:", data.results.length, "Pokémon");
   return pokemonDetails;
 };
 
@@ -40,7 +39,6 @@ async function processSinglePokemon(pokemon) {
     // Check cache first
     const pokemonId = extractPokemonId(pokemon.url);
     if (appState.pokemonCache[pokemonId]) {
-      console.log(`🎯 Cache hit for ${pokemon.name}`);
       return appState.pokemonCache[pokemonId];
     }
 
@@ -99,10 +97,6 @@ export let fetchSinglePokemon = async (identifier) => {
 
     return pokemon;
   } catch (error) {
-    // Only log unexpected errors
-    if (error.name !== "TypeError") {
-      console.warn(`Unexpected error for ${identifier}:`, error.message);
-    }
     return null;
   }
 };
@@ -123,7 +117,6 @@ export let loadAllPokemonNames = async () => {
     const data = await response.json();
     appState.allPokemonNames = data.results;
 
-    console.log("📋 All Pokémon names loaded:", data.results.length);
     return data.results;
   } catch (error) {
     console.error("❌ Error loading Pokémon names:", error);
@@ -225,7 +218,6 @@ export let searchPokemon = async (searchTerm) => {
 
   // 3. Extended search if still no results
   if (results.length === 0 && cleanSearchTerm.length >= 2) {
-    console.log(`🔍 Extended search for "${cleanSearchTerm}"`);
     const extendedResults = await performExtendedSearch(cleanSearchTerm);
     results.push(...extendedResults);
   }

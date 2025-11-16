@@ -14,15 +14,12 @@ import { CSS_CLASSES, ELEMENT_IDS } from "./constants.js";
  * Lädt die ersten Pokémon beim App-Start
  */
 export let loadInitialPokemon = async () => {
-  console.log("📦 Lade erste Pokémon...");
   setLoadingState(true);
 
   try {
     const pokemonDetails = await fetchPokemonList(0, appState.limit);
     renderPokemonCards(pokemonDetails);
-    console.log("✅ Erste Pokémon erfolgreich geladen");
   } catch (error) {
-    console.error("❌ Fehler beim Laden der ersten Pokémon:", error);
     showErrorMessage();
   } finally {
     setLoadingState(false);
@@ -33,16 +30,13 @@ export let loadInitialPokemon = async () => {
  * Lädt weitere Pokémon
  */
 export let loadMorePokemon = async () => {
-  console.log("📦 Lade weitere Pokémon...");
   setLoadingState(true);
 
   try {
     const newOffset = appState.currentOffset + appState.limit;
     const pokemonDetails = await fetchPokemonList(newOffset, appState.limit);
     renderPokemonCards(pokemonDetails);
-    console.log("✅ Weitere Pokémon erfolgreich geladen");
   } catch (error) {
-    console.error("❌ Fehler beim Laden weiterer Pokémon:", error);
     showErrorMessage();
   } finally {
     setLoadingState(false);
@@ -83,11 +77,9 @@ export let createPokemonCard = (pokemon) => {
 
   // Event Listener für Karten-Klick - Import aus pokemon-detail.js
   card.addEventListener("click", () => {
-    console.log("🖱️ Pokémon-Karte geklickt:", pokemon.name);
     // Dynamic import to avoid circular dependency
     import("./pokemon-detail.js")
       .then((module) => {
-        console.log("📦 Pokemon-detail Modul geladen");
         module.handlePokemonCardClick(pokemon);
       })
       .catch((error) => {

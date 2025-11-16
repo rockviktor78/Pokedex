@@ -18,16 +18,12 @@ import { ELEMENT_IDS, API_CONFIG, ANIMATIONS } from "./constants.js";
  * Initialisiert die Suchfunktionalität
  */
 export let initializeSearch = async () => {
-  console.log("🔍 Initializing search...");
-
   try {
     // Lade alle Pokémon-Namen für Autocomplete
     await loadAllPokemonNames();
 
     // Setup Event Listeners
     setupSearchEventListeners();
-
-    console.log("✅ Search successfully initialized");
   } catch (error) {
     console.error("❌ Error initializing search:", error);
   }
@@ -136,8 +132,6 @@ export let handleSearchSubmit = async () => {
 
   // At least 3 characters required
   if (query.length < 3) {
-    console.log("⚠️ Search cancelled: At least 3 characters required");
-
     // Visual feedback
     searchInput.style.borderColor = "#ff6b6b";
     searchInput.placeholder = "Mindestens 3 Zeichen eingeben...";
@@ -160,7 +154,6 @@ export let handleSearchSubmit = async () => {
  * @param {string} query - Search term
  */
 export let performSearch = async (query) => {
-  console.log(`🔍 Suche nach: "${query}"`);
   setLoadingState(true);
 
   try {
@@ -177,13 +170,10 @@ export let performSearch = async (query) => {
     if (results.length > 0) {
       renderPokemonCards(results);
       updateSearchStatus(createSearchStatusHTML(results.length, query));
-      console.log(`✅ ${results.length} Pokémon gefunden für "${query}"`);
     } else {
       updateSearchStatus(createSearchStatusHTML(0, query));
-      console.log(`❌ Keine Pokémon gefunden für "${query}"`);
     }
   } catch (error) {
-    console.error("❌ Fehler bei der Suche:", error);
     showErrorMessage();
   } finally {
     setLoadingState(false);
@@ -194,8 +184,6 @@ export let performSearch = async (query) => {
  * Clears the search and returns to the normal view
  */
 export let handleClearSearch = async () => {
-  console.log("🔄 Lösche Suche...");
-
   const searchInput = document.getElementById(ELEMENT_IDS.searchInput);
   if (searchInput) {
     searchInput.value = "";
