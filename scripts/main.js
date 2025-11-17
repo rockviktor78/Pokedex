@@ -8,6 +8,7 @@ import { initializeSearch } from "./search.js";
 import { loadInitialPokemon, handleLoadMoreClick } from "./pokemon-list.js";
 import { initializeModalEventListeners } from "./pokemon-detail.js";
 import { initializeAccessibility, updateLoadMoreButton } from "./ui-helpers.js";
+import { initializeFooter } from "./footer.js";
 
 // App State - Shared across modules
 export const appState = {
@@ -34,6 +35,8 @@ let initializeApp = async () => {
     initializeModalEventListeners();
 
     initializeAccessibility();
+
+    initializeFooter();
 
     setupCoreEventListeners();
 
