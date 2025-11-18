@@ -79,18 +79,29 @@ export let setupSearchEventListeners = () => {
  * Handles input in the search field
  * @param {Event} e - Input Event
  */
-export let handleSearchInput = (e) => {
+export let handleSearchInput = async (e) => {
   const query = e.target.value.toLowerCase().trim();
   const searchButton = document.getElementById(ELEMENT_IDS.searchButton);
 
   // Update button state based on input length
   updateSearchButtonState(query);
 
+  // If input is empty, restore initial Pokemon
+  if (query.length === 0) {
+    hideAutocomplete();
+    await handleClearSearch();
+    return;
+  }
+
+  // Show autocomplete for any input
   if (query.length > 0) {
     updateAutocomplete(query);
     showAutocomplete();
-  } else {
-    hideAutocomplete();
+  }
+
+  // Auto-search when 3 or more characters
+  if (query.length >= 3) {
+    await performSearch(query);
   }
 };
 
@@ -185,22 +196,30 @@ export let performSearch = async (query) => {
  */
 export let handleClearSearch = async () => {
   const searchInput = document.getElementById(ELEMENT_IDS.searchInput);
-  if (searchInput) {
+  if (searchInput && searchInput.value !== "") {
     searchInput.value = "";
   }
+
+  // Only reload if we were in search mode
+  if (!appState.isSearchMode) return;
 
   // Back to normal mode
   appState.isSearchMode = false;
   appState.currentSearchQuery = "";
   appState.searchResults = []; // Clear search results
-  appState.currentOffset = 0;
 
-  // Empty containers and show initial Pokémon
+  // Empty container and restore previously loaded Pokémon
   clearPokemonContainer();
 
-  // Dynamic import to avoid circular dependency
-  const { loadInitialPokemon } = await import("./pokemon-list.js");
-  await loadInitialPokemon();
+  // Show all previously loaded Pokémon from pokemonList
+  if (appState.pokemonList.length > 0) {
+    renderPokemonCards(appState.pokemonList);
+  } else {
+    // If no Pokémon were loaded before, load initial set
+    appState.currentOffset = 0;
+    const { loadInitialPokemon } = await import("./pokemon-list.js");
+    await loadInitialPokemon();
+  }
 
   updateSearchStatus("");
   hideAutocomplete();
