@@ -149,7 +149,6 @@ export let performExtendedSearch = async (searchTerm) => {
       results.push(details);
     }
   }
-
   return results;
 };
 
@@ -221,6 +220,5 @@ export let searchPokemon = async (searchTerm) => {
     const extendedResults = await performExtendedSearch(cleanSearchTerm);
     results.push(...extendedResults);
   }
-
   return results;
 };
