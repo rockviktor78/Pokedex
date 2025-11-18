@@ -33,80 +33,99 @@ function closeLegalModal(modalId) {
 }
 
 /**
- * Initializes footer event listeners
+ * Sets up open button event listeners
  */
-export function initializeFooter() {
+function setupOpenButtons() {
   const impressumButton = document.getElementById("impressumButton");
   const datenschutzButton = document.getElementById("datenschutzButton");
+
+  if (impressumButton) {
+    impressumButton.addEventListener("click", () =>
+      openLegalModal("impressumModal")
+    );
+  }
+  if (datenschutzButton) {
+    datenschutzButton.addEventListener("click", () =>
+      openLegalModal("datenschutzModal")
+    );
+  }
+}
+
+/**
+ * Sets up close button event listeners
+ */
+function setupCloseButtons() {
   const closeImpressumButton = document.getElementById("closeImpressumButton");
   const closeDatenschutzButton = document.getElementById(
     "closeDatenschutzButton"
   );
+
+  if (closeImpressumButton) {
+    closeImpressumButton.addEventListener("click", () =>
+      closeLegalModal("impressumModal")
+    );
+  }
+  if (closeDatenschutzButton) {
+    closeDatenschutzButton.addEventListener("click", () =>
+      closeLegalModal("datenschutzModal")
+    );
+  }
+}
+
+/**
+ * Sets up modal overlay click handlers
+ */
+function setupModalOverlays() {
   const impressumModal = document.getElementById("impressumModal");
   const datenschutzModal = document.getElementById("datenschutzModal");
 
-  // Open Impressum
-  if (impressumButton) {
-    impressumButton.addEventListener("click", () => {
-      openLegalModal("impressumModal");
-    });
-  }
-
-  // Open Datenschutz
-  if (datenschutzButton) {
-    datenschutzButton.addEventListener("click", () => {
-      openLegalModal("datenschutzModal");
-    });
-  }
-
-  // Close Impressum Button
-  if (closeImpressumButton) {
-    closeImpressumButton.addEventListener("click", () => {
-      closeLegalModal("impressumModal");
-    });
-  }
-
-  // Close Datenschutz Button
-  if (closeDatenschutzButton) {
-    closeDatenschutzButton.addEventListener("click", () => {
-      closeLegalModal("datenschutzModal");
-    });
-  }
-
-  // Close on overlay click
   if (impressumModal) {
     impressumModal.addEventListener("click", (e) => {
-      if (e.target === impressumModal) {
-        closeLegalModal("impressumModal");
-      }
+      if (e.target === impressumModal) closeLegalModal("impressumModal");
     });
   }
-
   if (datenschutzModal) {
     datenschutzModal.addEventListener("click", (e) => {
-      if (e.target === datenschutzModal) {
-        closeLegalModal("datenschutzModal");
-      }
+      if (e.target === datenschutzModal) closeLegalModal("datenschutzModal");
     });
   }
+}
 
-  // Close on Escape key
+/**
+ * Sets up keyboard escape handler
+ */
+function setupEscapeHandler() {
+  const impressumModal = document.getElementById("impressumModal");
+  const datenschutzModal = document.getElementById("datenschutzModal");
+
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      if (!impressumModal.classList.contains("hidden")) {
+      if (!impressumModal.classList.contains("hidden"))
         closeLegalModal("impressumModal");
-      }
-      if (!datenschutzModal.classList.contains("hidden")) {
+      if (!datenschutzModal.classList.contains("hidden"))
         closeLegalModal("datenschutzModal");
-      }
     }
   });
+}
 
-  // Initialize inert attribute
-  if (impressumModal) {
-    impressumModal.setAttribute("inert", "");
-  }
-  if (datenschutzModal) {
-    datenschutzModal.setAttribute("inert", "");
-  }
+/**
+ * Initializes inert attributes for modals
+ */
+function initializeInertAttributes() {
+  const impressumModal = document.getElementById("impressumModal");
+  const datenschutzModal = document.getElementById("datenschutzModal");
+
+  if (impressumModal) impressumModal.setAttribute("inert", "");
+  if (datenschutzModal) datenschutzModal.setAttribute("inert", "");
+}
+
+/**
+ * Initializes footer event listeners
+ */
+export function initializeFooter() {
+  setupOpenButtons();
+  setupCloseButtons();
+  setupModalOverlays();
+  setupEscapeHandler();
+  initializeInertAttributes();
 }
