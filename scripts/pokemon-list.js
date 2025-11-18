@@ -82,8 +82,8 @@ export let createPokemonCard = (pokemon) => {
       .then((module) => {
         module.handlePokemonCardClick(pokemon);
       })
-      .catch((error) => {
-        console.error("❌ Fehler beim Laden des pokemon-detail Moduls:", error);
+      .catch(() => {
+        // Error handled silently
       });
   });
 

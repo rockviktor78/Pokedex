@@ -25,7 +25,7 @@ export let initializeSearch = async () => {
     // Setup Event Listeners
     setupSearchEventListeners();
   } catch (error) {
-    console.error("❌ Error initializing search:", error);
+    // Error handled silently
   }
 };
 

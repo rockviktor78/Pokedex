@@ -52,7 +52,6 @@ async function processSinglePokemon(pokemon) {
     appState.pokemonCache[pokemonData.id] = pokemonData;
     return pokemonData;
   } catch (error) {
-    console.error(`❌ Error loading ${pokemon.name}:`, error);
     return null;
   }
 }
@@ -119,7 +118,6 @@ export let loadAllPokemonNames = async () => {
 
     return data.results;
   } catch (error) {
-    console.error("❌ Error loading Pokémon names:", error);
     return [];
   }
 };

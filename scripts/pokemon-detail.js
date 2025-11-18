@@ -80,8 +80,6 @@ export let openPokemonModal = (pokemon) => {
     showModalWithAccessibility(modal);
     setupModalContent(modalContent, pokemon);
     updateNavigationArrows();
-  } else {
-    console.error("❌ Modal elements not found!");
   }
 };
 /**
@@ -167,16 +165,12 @@ let updateNavigationArrows = () => {
   if (prevButton) {
     prevButton.disabled = currentPokemonIndex <= 0;
     prevButton.style.opacity = currentPokemonIndex <= 0 ? "0.5" : "1";
-  } else {
-    console.error("❌ Previous Button nicht gefunden!");
   }
 
   if (nextButton) {
     nextButton.disabled = currentPokemonIndex >= currentPokemonList.length - 1;
     nextButton.style.opacity =
       currentPokemonIndex >= currentPokemonList.length - 1 ? "0.5" : "1";
-  } else {
-    console.error("❌ Next Button nicht gefunden!");
   }
 };
 
@@ -214,8 +208,6 @@ export let initializeModalEventListeners = () => {
         }
       }
     });
-  } else {
-    console.error("❌ Modal nicht gefunden!");
   }
 
   // Navigation button event listeners
@@ -224,8 +216,6 @@ export let initializeModalEventListeners = () => {
       e.stopPropagation();
       goToPreviousPokemon();
     });
-  } else {
-    console.error("❌ Previous Button nicht gefunden!");
   }
 
   if (nextButton) {
@@ -233,8 +223,6 @@ export let initializeModalEventListeners = () => {
       e.stopPropagation();
       goToNextPokemon();
     });
-  } else {
-    console.error("❌ Next Button nicht gefunden!");
   }
 
   // Global functions for modal (for onclick)

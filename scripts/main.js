@@ -43,7 +43,7 @@ let initializeApp = async () => {
     // Load initial Pokemon
     await loadInitialPokemon();
   } catch (error) {
-    console.error("❌ Error during app initialization:", error);
+    
   }
 };
 
@@ -128,7 +128,6 @@ let handleLogoClick = async (e) => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   } catch (error) {
-    console.error("❌ Error during logo click:", error);
     // Fallback: Simply scroll to top
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -139,12 +138,11 @@ let handleLogoClick = async (e) => {
  */
 export let handleGlobalError = (event) => {
   try {
-    console.error("Global error:", event.error);
     // Show user-friendly error message
     const { showErrorMessage } = import("./ui-helpers.js");
     showErrorMessage?.("An unexpected error occurred. Please try again.");
   } catch (error) {
-    console.error("Error in global error handler:", error);
+    // Error handled silently
   }
 };
 
@@ -154,7 +152,6 @@ export let handleGlobalError = (event) => {
 let setupGlobalErrorHandling = () => {
   window.addEventListener("error", handleGlobalError);
   window.addEventListener("unhandledrejection", (event) => {
-    console.error("Unhandled promise rejection:", event.reason);
     handleGlobalError({ error: event.reason });
   });
 };
