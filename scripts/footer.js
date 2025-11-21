@@ -1,12 +1,19 @@
 /**
- * Footer Module
- * Handles legal modals (Impressum & Datenschutz)
+ * @fileoverview Footer Legal Modals Module
+ * @description Verwaltet die rechtlichen Modals (Impressum & Datenschutz).
+ * Implementiert Modal-Öffnen/Schließen, Keyboard-Navigation und Accessibility-Features.
+ * @module footer
  */
 
+// Import dependencies
 import { ELEMENT_IDS } from "./constants.js";
 
 /**
- * Opens a legal modal
+ * Öffnet ein rechtliches Modal (Impressum oder Datenschutz)
+ * Deaktiviert Body-Scroll und setzt Modal-Focus für Accessibility
+ * @function openLegalModal
+ * @param {string} modalId - ID des zu öffnenden Modals
+ * @returns {void}
  */
 function openLegalModal(modalId) {
   const modal = document.getElementById(modalId);
@@ -20,7 +27,11 @@ function openLegalModal(modalId) {
 }
 
 /**
- * Closes a legal modal
+ * Schließt ein rechtliches Modal
+ * Reaktiviert Body-Scroll und setzt inert-Attribut für Accessibility
+ * @function closeLegalModal
+ * @param {string} modalId - ID des zu schließenden Modals
+ * @returns {void}
  */
 function closeLegalModal(modalId) {
   const modal = document.getElementById(modalId);

@@ -1,6 +1,9 @@
 /**
- * PokéAPI Integration Module
- * Handles all API communication with PokéAPI
+ * @fileoverview PokéAPI Integration Module
+ * @description Verwaltet alle API-Kommunikation mit der PokéAPI.
+ * Enthält Funktionen zum Laden von Pokémon-Listen, Details und Suche.
+ * Implementiert Caching-Strategie für Performance-Optimierung.
+ * @module api
  */
 
 // Import dependencies
@@ -8,10 +11,13 @@ import { appState } from "./main.js";
 import { API_CONFIG } from "./constants.js";
 
 /**
- * Fetches Pokémon list from the API
- * @param {number} offset - Start index
- * @param {number} limit - Number of Pokémon
- * @returns {Array} Array with Pokémon data
+ * Lädt eine paginierte Liste von Pokémon von der PokéAPI
+ * @async
+ * @function fetchPokemonList
+ * @param {number} offset - Startindex für Pagination
+ * @param {number} limit - Anzahl der zu ladenden Pokémon
+ * @returns {Promise<Array>} Promise mit Array von Pokémon-Objekten inkl. Details
+ * @throws {Error} Bei fehlgeschlagenem API-Aufruf
  */
 export let fetchPokemonList = async (offset, limit) => {
   const url = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.pokemon}?offset=${offset}&limit=${limit}`;
@@ -32,7 +38,12 @@ export let fetchPokemonList = async (offset, limit) => {
 };
 
 /**
- * Processes a single Pokémon from the list
+ * Verarbeitet ein einzelnes Pokémon aus der Liste
+ * Prüft zuerst den Cache, lädt bei Bedarf von API
+ * @async
+ * @function processSinglePokemon
+ * @param {Object} pokemon - Pokémon-Basis-Objekt mit name und url
+ * @returns {Promise<Object|null>} Promise mit vollständigen Pokémon-Daten oder null bei Fehler
  */
 async function processSinglePokemon(pokemon) {
   try {

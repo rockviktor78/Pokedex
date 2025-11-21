@@ -1,13 +1,20 @@
 /**
- * Pokédex App - Main Entry Point
- * Mobile-First Single Page Application with Modular Architecture
+ * @fileoverview Pokédex App Main Entry Point
+ * @description Haupteinstiegspunkt der Pokédex Single Page Application.
+ * Koordiniert die Initialisierung aller Module, verwaltet den globalen App-State,
+ * und orchestriert Event-Handling sowie Navigation.
+ * @module main
  */
 
-// Import modules
-import { initializeSearch } from "./search.js";
-import { loadInitialPokemon, handleLoadMoreClick } from "./pokemon-list.js";
+// Import dependencies
+import { handleClearSearch, initializeSearch } from "./search.js";
+import { handleLoadMoreClick, loadInitialPokemon } from "./pokemon-list.js";
 import { initializeModalEventListeners } from "./pokemon-detail.js";
-import { initializeAccessibility, updateLoadMoreButton } from "./ui-helpers.js";
+import {
+  initializeAccessibility,
+  showErrorMessage,
+  updateLoadMoreButton,
+} from "./ui-helpers.js";
 import { initializeFooter } from "./footer.js";
 
 // App State - Shared across modules
@@ -25,30 +32,28 @@ export const appState = {
 };
 
 /**
- * Initializes the Pokédex App
+ * Initialisiert die Pokédex-Anwendung
+ * Lädt alle notwendigen Module, richtet Event-Listener ein und lädt initiale Pokémon-Daten
+ * @async
+ * @function initializeApp
+ * @returns {Promise<void>} Promise das sich auflöst wenn Initialisierung abgeschlossen ist
  */
 let initializeApp = async () => {
   try {
-    // Initialize core modules
     await initializeSearch();
-
     initializeModalEventListeners();
-
     initializeAccessibility();
-
     initializeFooter();
-
     setupCoreEventListeners();
-
-    // Load initial Pokemon
     await loadInitialPokemon();
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 };
 
 /**
- * Sets up load more button event listener
+ * Richtet Event-Listener für den "Load More" Button ein
+ * Verhindert Mehrfachklicks während des Ladens und im Such-Modus
+ * @function setupLoadMoreButton
+ * @returns {void}
  */
 let setupLoadMoreButton = () => {
   const loadMoreButton = document.getElementById("loadMoreButton");
@@ -121,7 +126,6 @@ let handleLogoClick = async (e) => {
   try {
     // If we're in search mode, reset search
     if (appState.isSearchMode) {
-      const { handleClearSearch } = await import("./search.js");
       await handleClearSearch();
     } else {
       // Scroll to top
@@ -139,7 +143,6 @@ let handleLogoClick = async (e) => {
 export let handleGlobalError = (event) => {
   try {
     // Show user-friendly error message
-    const { showErrorMessage } = import("./ui-helpers.js");
     showErrorMessage?.("An unexpected error occurred. Please try again.");
   } catch (error) {
     // Error handled silently
