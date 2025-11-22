@@ -15,14 +15,17 @@ import {
 import { ELEMENT_IDS, API_CONFIG, ANIMATIONS } from "./constants.js";
 
 /**
- * Initialisiert die Suchfunktionalität
+ * Initializes the search functionality
+ * @async
+ * @function initializeSearch
+ * @returns {Promise<void>}
  */
 export let initializeSearch = async () => {
   try {
-    // Lade alle Pokémon-Namen für Autocomplete
+    // Load all Pokémon names for autocomplete
     await loadAllPokemonNames();
 
-    // Setup Event Listeners
+    // Setup event listeners
     setupSearchEventListeners();
   } catch (error) {
     // Error handled silently
@@ -145,9 +148,9 @@ export let handleSearchSubmit = async () => {
   if (query.length < 3) {
     // Visual feedback
     searchInput.style.borderColor = "#ff6b6b";
-    searchInput.placeholder = "Mindestens 3 Zeichen eingeben...";
+    searchInput.placeholder = "Enter at least 3 characters...";
 
-    // Reset nach 2 Sekunden
+    // Reset after 2 seconds
     setTimeout(() => {
       searchInput.style.borderColor = "";
       searchInput.placeholder = "Pokémon suchen...";
@@ -170,12 +173,12 @@ export let performSearch = async (query) => {
   try {
     const results = await searchPokemon(query);
 
-    // Setze App in Suchmodus
+    // Set app to search mode
     appState.isSearchMode = true;
     appState.currentSearchQuery = query;
     appState.searchResults = results; // Store search results for modal navigation
 
-    // Empty containers and show results
+    // Clear containers and show results
     clearPokemonContainer();
 
     if (results.length > 0) {
@@ -283,7 +286,9 @@ export let hideAutocomplete = () => {
 
 /**
  * Updates the search status display
- * @param {string} message - Status-Nachricht
+ * @function updateSearchStatus
+ * @param {string} message - Status message
+ * @returns {void}
  */
 export let updateSearchStatus = (message) => {
   const statusElement = document.getElementById(ELEMENT_IDS.searchStatus);

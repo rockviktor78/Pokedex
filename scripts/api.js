@@ -1,8 +1,8 @@
 /**
  * @fileoverview PokéAPI Integration Module
- * @description Verwaltet alle API-Kommunikation mit der PokéAPI.
- * Enthält Funktionen zum Laden von Pokémon-Listen, Details und Suche.
- * Implementiert Caching-Strategie für Performance-Optimierung.
+ * @description Manages all API communication with the PokéAPI.
+ * Contains functions for loading Pokémon lists, details, and search.
+ * Implements caching strategy for performance optimization.
  * @module api
  */
 
@@ -11,13 +11,13 @@ import { appState } from "./main.js";
 import { API_CONFIG } from "./constants.js";
 
 /**
- * Lädt eine paginierte Liste von Pokémon von der PokéAPI
+ * Loads a paginated list of Pokémon from the PokéAPI
  * @async
  * @function fetchPokemonList
- * @param {number} offset - Startindex für Pagination
- * @param {number} limit - Anzahl der zu ladenden Pokémon
- * @returns {Promise<Array>} Promise mit Array von Pokémon-Objekten inkl. Details
- * @throws {Error} Bei fehlgeschlagenem API-Aufruf
+ * @param {number} offset - Start index for pagination
+ * @param {number} limit - Number of Pokémon to load
+ * @returns {Promise<Array>} Promise with array of Pokémon objects including details
+ * @throws {Error} On failed API call
  */
 export let fetchPokemonList = async (offset, limit) => {
   const url = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.pokemon}?offset=${offset}&limit=${limit}`;
@@ -38,12 +38,12 @@ export let fetchPokemonList = async (offset, limit) => {
 };
 
 /**
- * Verarbeitet ein einzelnes Pokémon aus der Liste
- * Prüft zuerst den Cache, lädt bei Bedarf von API
+ * Processes a single Pokémon from the list
+ * Checks cache first, loads from API if needed
  * @async
  * @function processSinglePokemon
- * @param {Object} pokemon - Pokémon-Basis-Objekt mit name und url
- * @returns {Promise<Object|null>} Promise mit vollständigen Pokémon-Daten oder null bei Fehler
+ * @param {Object} pokemon - Pokémon base object with name and url
+ * @returns {Promise<Object|null>} Promise with complete Pokémon data or null on error
  */
 async function processSinglePokemon(pokemon) {
   try {

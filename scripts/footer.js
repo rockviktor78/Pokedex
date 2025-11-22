@@ -1,18 +1,40 @@
 /**
- * @fileoverview Footer Legal Modals Module
- * @description Verwaltet die rechtlichen Modals (Impressum & Datenschutz).
- * Implementiert Modal-Öffnen/Schließen, Keyboard-Navigation und Accessibility-Features.
+ * @fileoverview Footer Legal Modals Logic Module
+ * @description Manages the logic for legal modals (Impressum & Privacy Policy).
+ * Implements modal opening/closing, keyboard navigation, and accessibility features.
+ * Coordinates rendering and event handling for footer and modals.
  * @module footer
  */
 
 // Import dependencies
+import {
+  createDatenschutzModalHTML,
+  createFooterHTML,
+  createImpressumModalHTML,
+} from "./footer-templates.js";
 import { ELEMENT_IDS } from "./constants.js";
 
 /**
- * Öffnet ein rechtliches Modal (Impressum oder Datenschutz)
- * Deaktiviert Body-Scroll und setzt Modal-Focus für Accessibility
+ * Renders footer and modals into the DOM
+ * @function renderFooter
+ * @returns {void}
+ */
+function renderFooter() {
+  const body = document.body;
+
+  // Insert footer
+  body.insertAdjacentHTML("beforeend", createFooterHTML());
+
+  // Insert modals
+  body.insertAdjacentHTML("beforeend", createImpressumModalHTML());
+  body.insertAdjacentHTML("beforeend", createDatenschutzModalHTML());
+}
+
+/**
+ * Opens a legal modal (Impressum or Privacy Policy)
+ * Disables body scroll and sets modal focus for accessibility
  * @function openLegalModal
- * @param {string} modalId - ID des zu öffnenden Modals
+ * @param {string} modalId - ID of the modal to open
  * @returns {void}
  */
 function openLegalModal(modalId) {
@@ -27,10 +49,10 @@ function openLegalModal(modalId) {
 }
 
 /**
- * Schließt ein rechtliches Modal
- * Reaktiviert Body-Scroll und setzt inert-Attribut für Accessibility
+ * Closes a legal modal
+ * Re-enables body scroll and sets inert attribute for accessibility
  * @function closeLegalModal
- * @param {string} modalId - ID des zu schließenden Modals
+ * @param {string} modalId - ID of the modal to close
  * @returns {void}
  */
 function closeLegalModal(modalId) {
@@ -44,7 +66,9 @@ function closeLegalModal(modalId) {
 }
 
 /**
- * Sets up open button event listeners
+ * Sets up event listeners for open buttons
+ * @function setupOpenButtons
+ * @returns {void}
  */
 function setupOpenButtons() {
   const impressumButton = document.getElementById("impressumButton");
@@ -63,7 +87,9 @@ function setupOpenButtons() {
 }
 
 /**
- * Sets up close button event listeners
+ * Sets up event listeners for close buttons
+ * @function setupCloseButtons
+ * @returns {void}
  */
 function setupCloseButtons() {
   const closeImpressumButton = document.getElementById("closeImpressumButton");
@@ -84,7 +110,10 @@ function setupCloseButtons() {
 }
 
 /**
- * Sets up modal overlay click handlers
+ * Sets up click handlers for modal overlays
+ * Closes modal when clicking outside the container
+ * @function setupModalOverlays
+ * @returns {void}
  */
 function setupModalOverlays() {
   const impressumModal = document.getElementById("impressumModal");
@@ -103,7 +132,9 @@ function setupModalOverlays() {
 }
 
 /**
- * Sets up keyboard escape handler
+ * Sets up escape key handler for modals
+ * @function setupEscapeHandler
+ * @returns {void}
  */
 function setupEscapeHandler() {
   const impressumModal = document.getElementById("impressumModal");
@@ -121,6 +152,9 @@ function setupEscapeHandler() {
 
 /**
  * Initializes inert attributes for modals
+ * Prevents focus on hidden modals for accessibility
+ * @function initializeInertAttributes
+ * @returns {void}
  */
 function initializeInertAttributes() {
   const impressumModal = document.getElementById("impressumModal");
@@ -131,9 +165,13 @@ function initializeInertAttributes() {
 }
 
 /**
- * Initializes footer event listeners
+ * Initializes footer and legal modals
+ * Generates HTML and sets up event listeners
+ * @function initializeFooter
+ * @returns {void}
  */
 export function initializeFooter() {
+  renderFooter();
   setupOpenButtons();
   setupCloseButtons();
   setupModalOverlays();

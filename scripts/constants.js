@@ -1,6 +1,7 @@
 /**
- * Application Constants
- * CSS classes, element IDs, and other constant values
+ * @fileoverview Application Constants
+ * @description CSS classes, element IDs, and other constant values
+ * @module constants
  */
 
 // ===== CSS CLASSES =====

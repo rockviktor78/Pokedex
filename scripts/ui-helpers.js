@@ -1,6 +1,7 @@
 /**
- * UI Helper Functions Module
- * Handles common UI operations and utilities
+ * @fileoverview UI Helper Functions Module
+ * @description Handles common UI operations and utilities
+ * @module ui-helpers
  */
 
 // Import dependencies
@@ -14,6 +15,7 @@ import { ELEMENT_IDS, UI_MESSAGES, ANIMATIONS } from "./constants.js";
 
 /**
  * Sets the loading status of the app
+ * @function setLoadingState
  * @param {boolean} isLoading - Loading status
  */
 export let setLoadingState = (isLoading) => {
@@ -22,7 +24,8 @@ export let setLoadingState = (isLoading) => {
 };
 
 /**
- * Updated loading UI elements
+ * Updates loading UI elements
+ * @function updateLoadingUI
  * @param {boolean} isLoading - Loading status
  */
 export let updateLoadingUI = (isLoading) => {
@@ -45,10 +48,11 @@ export let updateLoadingUI = (isLoading) => {
 
 /**
  * Shows an error message
+ * @function showErrorMessage
  * @param {string} message - Error message (optional)
  */
 export let showErrorMessage = (message = UI_MESSAGES.defaultError) => {
-  // Erstelle oder aktualisiere Error-Container
+  // Create or update error container
   let errorContainer = document.getElementById(ELEMENT_IDS.errorContainer);
 
   if (!errorContainer) {
@@ -67,6 +71,7 @@ export let showErrorMessage = (message = UI_MESSAGES.defaultError) => {
 
 /**
  * Hides the error message
+ * @function hideErrorMessage
  */
 export let hideErrorMessage = () => {
   const errorContainer = document.getElementById(ELEMENT_IDS.errorContainer);
@@ -77,12 +82,13 @@ export let hideErrorMessage = () => {
 
 /**
  * Updates the visibility of the load more button
+ * @function updateLoadMoreButton
  */
 export let updateLoadMoreButton = () => {
   const loadMoreButton = document.getElementById(ELEMENT_IDS.loadMoreButton);
   if (!loadMoreButton) return;
 
-  // Hidden button in search mode
+  // Hide button in search mode
   if (appState.isSearchMode) {
     loadMoreButton.style.display = "none";
   } else {
@@ -91,7 +97,8 @@ export let updateLoadMoreButton = () => {
 };
 
 /**
- * Scroll to the top of the page
+ * Scrolls to the top of the page
+ * @function scrollToTop
  */
 export let scrollToTop = () => {
   window.scrollTo({
@@ -102,6 +109,7 @@ export let scrollToTop = () => {
 
 /**
  * Formats Pokémon names for display
+ * @function formatPokemonName
  * @param {string} name - Pokémon name
  * @returns {string} Formatted name
  */
@@ -111,6 +119,7 @@ export let formatPokemonName = (name) => {
 
 /**
  * Creates a debounced version of a function
+ * @function debounce
  * @param {Function} func - Function to debounce
  * @param {number} wait - Wait time in milliseconds
  * @returns {Function} Debounced function
@@ -129,6 +138,7 @@ export let debounce = (func, wait) => {
 
 /**
  * Checks if an element is visible in the viewport
+ * @function isElementInViewport
  * @param {HTMLElement} element - Element to check
  * @returns {boolean} True if visible
  */
@@ -145,6 +155,7 @@ export let isElementInViewport = (element) => {
 
 /**
  * Initializes accessibility features
+ * @function initializeAccessibility
  */
 export let initializeAccessibility = () => {
   // Skip-to-content Link
@@ -166,6 +177,7 @@ export let initializeAccessibility = () => {
 
 /**
  * Handles keyboard navigation
+ * @function handleKeyboardNavigation
  * @param {KeyboardEvent} e - Keyboard Event
  */
 export let handleKeyboardNavigation = (e) => {
@@ -183,6 +195,7 @@ export let handleKeyboardNavigation = (e) => {
 
 /**
  * Shows a toast notification
+ * @function showToast
  * @param {string} message - Message
  * @param {string} type - Type (success, error, info)
  */
