@@ -79,6 +79,27 @@ export let fetchPokemonDetails = async (pokemonList) => {
 };
 
 /**
+ * Fetches Pokémon species data (description, category, etc.)
+ * @async
+ * @function fetchPokemonSpecies
+ * @param {number} pokemonId - Pokémon ID
+ * @returns {Promise<Object|null>} Promise with species data or null on error
+ */
+export let fetchPokemonSpecies = async (pokemonId) => {
+  try {
+    const url = `${API_CONFIG.baseUrl}species/${pokemonId}`;
+    const response = await fetch(url);
+
+    if (!response.ok) return null;
+
+    const speciesData = await response.json();
+    return speciesData;
+  } catch (error) {
+    return null;
+  }
+};
+
+/**
  * Fetches a single Pokémon from the API
  * @param {string} identifier - Name or ID
  * @returns {Object|null} Pokémon data or null

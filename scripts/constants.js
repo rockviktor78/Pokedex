@@ -45,6 +45,10 @@ export const CSS_CLASSES = {
   abilitiesList: "abilities-list",
   abilityItem: "ability-item",
   hiddenAbility: "hidden-ability",
+  modalDescription: "modal-description",
+  descriptionText: "description-text",
+  modalCategory: "modal-category",
+  categoryBadge: "category-badge",
 
   // Search Classes
   autocompleteItem: "autocomplete-item",
@@ -143,6 +147,11 @@ export const UI_MESSAGES = {
   height: "Height:",
   weight: "Weight:",
   hiddenAbilityLabel: " (hidden)",
+
+  // Additional Info
+  description: "Description",
+  category: "Category:",
+  baseExperience: "Base Experience:",
 };
 
 // ===== API CONSTANTS =====
