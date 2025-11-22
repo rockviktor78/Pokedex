@@ -1,6 +1,7 @@
 /**
- * Pokémon Detail Modal Module
- * Handles Pokemon detail view and modal functionality
+ * @fileoverview Pokémon Detail Modal Module
+ * @description Handles Pokemon detail view and modal functionality
+ * @module pokemon-detail
  */
 
 // Import dependencies
@@ -15,7 +16,9 @@ let currentPokemonIndex = 0;
 let currentPokemonList = [];
 
 /**
- * Treats clicking on a Pokémon card
+ * Handles clicking on a Pokémon card
+ * @async
+ * @function handlePokemonCardClick
  * @param {Object} pokemon - Pokémon data
  */
 export let handlePokemonCardClick = async (pokemon) => {
@@ -36,8 +39,7 @@ export let handlePokemonCardClick = async (pokemon) => {
     let detailedPokemon = pokemon;
     if (!pokemon.stats) {
       const response = await fetch(pokemon.url);
-      if (!response.ok)
-        throw new Error(`Fehler beim Laden von ${pokemon.name}`);
+      if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
       detailedPokemon = await response.json();
     }
 
@@ -49,6 +51,8 @@ export let handlePokemonCardClick = async (pokemon) => {
 
 /**
  * Shows modal with accessibility setup
+ * @function showModalWithAccessibility
+ * @param {HTMLElement} modal - Modal element
  */
 function showModalWithAccessibility(modal) {
   modal.classList.remove("hidden");
@@ -61,6 +65,9 @@ function showModalWithAccessibility(modal) {
 
 /**
  * Sets up modal content and styling
+ * @function setupModalContent
+ * @param {HTMLElement} modalContent - Modal content element
+ * @param {Object} pokemon - Pokémon data object
  */
 function setupModalContent(modalContent, pokemon) {
   modalContent.innerHTML = createModalHTML(pokemon);
@@ -70,6 +77,7 @@ function setupModalContent(modalContent, pokemon) {
 
 /**
  * Opens Pokemon modal with details
+ * @function openPokemonModal
  * @param {Object} pokemon - Pokemon data object
  */
 export let openPokemonModal = (pokemon) => {
@@ -83,7 +91,8 @@ export let openPokemonModal = (pokemon) => {
   }
 };
 /**
- * Closes the Pokémon Mode
+ * Closes the Pokémon modal
+ * @function closePokemonModal
  */
 export let closePokemonModal = () => {
   const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
@@ -92,7 +101,7 @@ export let closePokemonModal = () => {
     modal.classList.add("hidden");
     modal.style.display = "none";
 
-    // Accessibility: The modal is hidden and not interactive - use only inertly.
+    // Accessibility: Modal is hidden and not interactive
     modal.setAttribute("inert", "");
 
     document.body.style.overflow = "auto";
@@ -101,6 +110,8 @@ export let closePokemonModal = () => {
 
 /**
  * Navigates to the previous Pokémon
+ * @async
+ * @function goToPreviousPokemon
  */
 export let goToPreviousPokemon = async () => {
   if (currentPokemonIndex > 0) {
@@ -111,6 +122,8 @@ export let goToPreviousPokemon = async () => {
 
 /**
  * Navigates to the next Pokémon
+ * @async
+ * @function goToNextPokemon
  */
 export let goToNextPokemon = async () => {
   if (currentPokemonIndex < currentPokemonList.length - 1) {
@@ -121,6 +134,8 @@ export let goToNextPokemon = async () => {
 
 /**
  * Loads Pokémon at a specific index
+ * @async
+ * @function loadPokemonAtIndex
  * @param {number} index - Index in the current Pokémon array
  */
 let loadPokemonAtIndex = async (index) => {
@@ -132,15 +147,14 @@ let loadPokemonAtIndex = async (index) => {
     const modalContent = document.getElementById("pokemonDetailContent");
     if (modalContent) {
       modalContent.innerHTML =
-        '<div class="pokemon-detail-loading"><div class="spinner"></div><p>Lade Pokémon...</p></div>';
+        '<div class="pokemon-detail-loading"><div class="spinner"></div><p>Loading Pokémon...</p></div>';
     }
 
     // Use the pokemon directly if it has detailed data, otherwise fetch
     let detailedPokemon = pokemon;
     if (!pokemon.stats) {
       const response = await fetch(pokemon.url);
-      if (!response.ok)
-        throw new Error(`Fehler beim Laden von ${pokemon.name}`);
+      if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
       detailedPokemon = await response.json();
     }
 
@@ -156,7 +170,8 @@ let loadPokemonAtIndex = async (index) => {
 };
 
 /**
- * Updates the navigation arrows
+ * Updates the navigation arrows visibility and state
+ * @function updateNavigationArrows
  */
 let updateNavigationArrows = () => {
   const prevButton = document.getElementById("prevPokemonButton");
@@ -176,6 +191,7 @@ let updateNavigationArrows = () => {
 
 /**
  * Initializes Modal Event Listeners
+ * @function initializeModalEventListeners
  */
 export let initializeModalEventListeners = () => {
   const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
@@ -184,7 +200,7 @@ export let initializeModalEventListeners = () => {
   const closeButton = document.getElementById("closeModalButton");
 
   if (modal) {
-    // Close when clicked outside the modal
+    // Close modal when clicking outside
     modal.addEventListener("click", (e) => {
       if (e.target === modal) {
         closePokemonModal();

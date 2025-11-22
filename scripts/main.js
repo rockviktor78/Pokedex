@@ -1,8 +1,8 @@
 /**
  * @fileoverview Pokédex App Main Entry Point
- * @description Haupteinstiegspunkt der Pokédex Single Page Application.
- * Koordiniert die Initialisierung aller Module, verwaltet den globalen App-State,
- * und orchestriert Event-Handling sowie Navigation.
+ * @description Main entry point of the Pokédex Single Page Application.
+ * Coordinates the initialization of all modules, manages the global app state,
+ * and orchestrates event handling and navigation.
  * @module main
  */
 
@@ -32,11 +32,11 @@ export const appState = {
 };
 
 /**
- * Initialisiert die Pokédex-Anwendung
- * Lädt alle notwendigen Module, richtet Event-Listener ein und lädt initiale Pokémon-Daten
+ * Initializes the Pokédex application
+ * Loads all necessary modules, sets up event listeners, and loads initial Pokémon data
  * @async
  * @function initializeApp
- * @returns {Promise<void>} Promise das sich auflöst wenn Initialisierung abgeschlossen ist
+ * @returns {Promise<void>} Promise that resolves when initialization is complete
  */
 let initializeApp = async () => {
   try {
@@ -50,8 +50,8 @@ let initializeApp = async () => {
 };
 
 /**
- * Richtet Event-Listener für den "Load More" Button ein
- * Verhindert Mehrfachklicks während des Ladens und im Such-Modus
+ * Sets up event listener for the "Load More" button
+ * Prevents multiple clicks while loading and in search mode
  * @function setupLoadMoreButton
  * @returns {void}
  */

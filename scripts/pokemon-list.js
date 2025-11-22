@@ -11,7 +11,10 @@ import { createPokemonCardHTML } from "./templates.js";
 import { CSS_CLASSES, ELEMENT_IDS } from "./constants.js";
 
 /**
- * Lädt die ersten Pokémon beim App-Start
+ * Loads the first Pokémon on app start
+ * @async
+ * @function loadInitialPokemon
+ * @returns {Promise<void>}
  */
 export let loadInitialPokemon = async () => {
   setLoadingState(true);
@@ -27,7 +30,10 @@ export let loadInitialPokemon = async () => {
 };
 
 /**
- * Lädt weitere Pokémon
+ * Loads more Pokémon
+ * @async
+ * @function loadMorePokemon
+ * @returns {Promise<void>}
  */
 export let loadMorePokemon = async () => {
   setLoadingState(true);
@@ -44,8 +50,10 @@ export let loadMorePokemon = async () => {
 };
 
 /**
- * Rendert Pokémon-Karten im Container
- * @param {Array} pokemonArray - Array mit Pokémon-Daten
+ * Renders Pokémon cards in the container
+ * @function renderPokemonCards
+ * @param {Array} pokemonArray - Array with Pokémon data
+ * @returns {void}
  */
 export let renderPokemonCards = (pokemonArray) => {
   const container = document.getElementById(ELEMENT_IDS.pokemonContainer);
@@ -58,16 +66,17 @@ export let renderPokemonCards = (pokemonArray) => {
 };
 
 /**
- * Erstellt eine einzelne Pokémon-Karte
- * @param {Object} pokemon - Pokémon-Daten von der API
- * @returns {HTMLElement} Pokémon-Karten-Element
+ * Creates a single Pokémon card
+ * @function createPokemonCard
+ * @param {Object} pokemon - Pokémon data from the API
+ * @returns {HTMLElement} Pokémon card element
  */
 export let createPokemonCard = (pokemon) => {
   const card = document.createElement("div");
   card.className = CSS_CLASSES.pokemonCard;
   card.setAttribute("data-pokemon-id", pokemon.id);
 
-  // Primärtyp für Hintergrundfarbe
+  // Primary type for background color
   const primaryType = pokemon.types[0]?.type.name;
   if (primaryType) {
     card.classList.add(`${CSS_CLASSES.backgroundPrefix}${primaryType}`);
@@ -75,7 +84,7 @@ export let createPokemonCard = (pokemon) => {
 
   card.innerHTML = createPokemonCardHTML(pokemon);
 
-  // Event Listener für Karten-Klick - Import aus pokemon-detail.js
+  // Event listener for card click - Import from pokemon-detail.js
   card.addEventListener("click", () => {
     // Dynamic import to avoid circular dependency
     import("./pokemon-detail.js")
