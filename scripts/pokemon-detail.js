@@ -6,9 +6,9 @@
 
 // Import dependencies
 import { appState } from "./main.js";
-import { fetchPokemonDetails } from "./api.js";
+import { fetchPokemonDetails, fetchEvolutionChain } from "./api.js";
 import { showErrorMessage } from "./ui-helpers.js";
-import { createModalHTML } from "./templates.js";
+import { createModalHTML, createEvolutionsTabHTML, createLoadingHTML } from "./templates.js";
 import { ELEMENT_IDS } from "./constants.js";
 
 // Current Pokemon index for navigation
@@ -76,6 +76,25 @@ function setupModalContent(modalContent, pokemon) {
 }
 
 /**
+ * Asynchronously loads and populates the evolution data for the current Pokémon.
+ * @async
+ * @param {Object} pokemon - The detailed Pokémon data object.
+ */
+async function loadEvolutionData(pokemon) {
+    const evolutionTabPane = document.getElementById('Evolutions');
+    if (!evolutionTabPane) return;
+
+    try {
+        evolutionTabPane.innerHTML = createLoadingHTML('Loading evolutions...');
+        
+        const evolutionChain = await fetchEvolutionChain(pokemon.species.url);
+        evolutionTabPane.innerHTML = createEvolutionsTabHTML(evolutionChain);
+    } catch (error) {
+        evolutionTabPane.innerHTML = '<p>Could not load evolution data.</p>';
+    }
+}
+
+/**
  * Opens Pokemon modal with details
  * @function openPokemonModal
  * @param {Object} pokemon - Pokemon data object
@@ -88,6 +107,7 @@ export let openPokemonModal = (pokemon) => {
     showModalWithAccessibility(modal);
     setupModalContent(modalContent, pokemon);
     updateNavigationArrows();
+    loadEvolutionData(pokemon); // Asynchronously load evolution data
   }
 };
 /**
@@ -139,34 +159,29 @@ export let goToNextPokemon = async () => {
  * @param {number} index - Index in the current Pokémon array
  */
 let loadPokemonAtIndex = async (index) => {
-  try {
-    const pokemon = currentPokemonList[index];
-    if (!pokemon) return;
-
-    // Show loading state in modal
     const modalContent = document.getElementById("pokemonDetailContent");
-    if (modalContent) {
-      modalContent.innerHTML =
-        '<div class="pokemon-detail-loading"><div class="spinner"></div><p>Loading Pokémon...</p></div>';
-    }
+    if (!modalContent) return;
 
-    // Use the pokemon directly if it has detailed data, otherwise fetch
-    let detailedPokemon = pokemon;
-    if (!pokemon.stats) {
-      const response = await fetch(pokemon.url);
-      if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
-      detailedPokemon = await response.json();
-    }
+    try {
+        const pokemon = currentPokemonList[index];
+        if (!pokemon) return;
 
-    // Update modal content
-    if (modalContent) {
-      modalContent.innerHTML = createModalHTML(detailedPokemon);
-    }
+        modalContent.innerHTML = createLoadingHTML('Loading Pokémon...');
 
-    updateNavigationArrows();
-  } catch (error) {
-    showErrorMessage();
-  }
+        let detailedPokemon = pokemon;
+        if (!pokemon.stats) {
+            const response = await fetch(pokemon.url);
+            if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
+            detailedPokemon = await response.json();
+        }
+
+        setupModalContent(modalContent, detailedPokemon);
+        updateNavigationArrows();
+        await loadEvolutionData(detailedPokemon);
+
+    } catch (error) {
+        showErrorMessage();
+    }
 };
 
 /**
@@ -188,6 +203,27 @@ let updateNavigationArrows = () => {
       currentPokemonIndex >= currentPokemonList.length - 1 ? "0.5" : "1";
   }
 };
+
+
+/**
+ * Switches between tabs in the Pokémon modal
+ * @param {Event} event - The click event
+ * @param {string} tabName - The name of the tab to switch to
+ */
+window.switchTab = (event, tabName) => {
+    // Hide all tab panes
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    tabPanes.forEach(pane => pane.classList.remove('active'));
+
+    // Deactivate all tab links
+    const tabLinks = document.querySelectorAll('.tab-link');
+    tabLinks.forEach(link => link.classList.remove('active'));
+
+    // Show the selected tab pane and activate the link
+    document.getElementById(tabName).classList.add('active');
+    event.currentTarget.classList.add('active');
+};
+
 
 /**
  * Initializes Modal Event Listeners
