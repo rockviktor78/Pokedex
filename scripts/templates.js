@@ -101,7 +101,130 @@ function createModalHeaderHTML(pokemon) {
 }
 
 /**
- * Creates modal body HTML
+ * Creates the HTML for the "About" tab content
+ * @param {Object} pokemon - Pokémon data object
+ * @returns {string} HTML string for the "About" tab
+ */
+function createAboutTabHTML(pokemon) {
+    return `
+        <div class="modal-tab-content">
+            <h3>${UI_MESSAGES.physicalProperties}</h3>
+            <div class="${CSS_CLASSES.physicalStats}">${createPhysicalStatsHTML(pokemon)}</div>
+        </div>
+    `;
+}
+
+
+/**
+ * Creates the HTML for the "Base Stats" tab content
+ * @param {Object} pokemon - Pokémon data object
+ * @returns {string} HTML string for the "Base Stats" tab
+ */
+function createBaseStatsTabHTML(pokemon) {
+    return `
+        <div class="modal-tab-content">
+            <h3>${UI_MESSAGES.baseStats}</h3>
+            <div class="${CSS_CLASSES.statsGrid}">${createStatsHTML(pokemon.stats)}</div>
+        </div>
+    `;
+}
+
+
+/**
+ * Creates the HTML for the "Abilities" tab content
+ * @param {Object} pokemon - Pokémon data object
+ * @returns {string} HTML string for the "Abilities" tab
+ */
+function createAbilitiesTabHTML(pokemon) {
+    return `
+        <div class="modal-tab-content">
+            <h3>${UI_MESSAGES.abilities}</h3>
+            <div class="${CSS_CLASSES.abilitiesList}">${createAbilitiesHTML(pokemon.abilities)}</div>
+        </div>
+    `;
+}
+
+
+/**
+ * Creates the HTML for the "Evolutions" tab content by parsing the evolution chain.
+ * @param {Object} evolutionChain - The raw evolution chain data from the API.
+ * @returns {string} HTML string for the "Evolutions" tab content.
+ */
+export function createEvolutionsTabHTML(evolutionChain) {
+    if (!evolutionChain || !evolutionChain.chain) {
+        return '<div class="modal-tab-content"><p>No evolution data available for this Pokémon.</p></div>';
+    }
+
+    // Recursive function to parse the chain
+    const parseChain = (chainNode) => {
+        const parts = chainNode.species.url.split('/').filter(Boolean);
+        const pokemonId = parts[parts.length - 1];
+        const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
+
+        let html = `
+            <div class="evolution-stage">
+                <img src="${imageUrl}" alt="${chainNode.species.name}" class="evolution-image">
+                <span class="evolution-name">${chainNode.species.name}</span>
+            </div>
+        `;
+
+        if (chainNode.evolves_to.length > 0) {
+            html += '<div class="evolution-arrow">→</div>';
+            // Handle multiple evolutions (e.g., Eevee)
+            const nextStages = chainNode.evolves_to.map(nextNode => parseChain(nextNode)).join('');
+            html += `<div class="next-evolution-stages">${nextStages}</div>`;
+        }
+
+        return html;
+    };
+
+    const evolutionHTML = parseChain(evolutionChain.chain);
+
+    return `
+        <div class="modal-tab-content">
+            <h3>Evolutions</h3>
+            <div class="evolution-chain-container">${evolutionHTML}</div>
+        </div>
+    `;
+}
+
+
+/**
+ * Creates the HTML for the tab navigation
+ * @returns {string} HTML string for the tab navigation
+ */
+function createTabNavigationHTML() {
+    return `
+        <div class="tab-nav">
+            <button class="tab-link active" onclick="switchTab(event, 'About')">1</button>
+            <button class="tab-link" onclick="switchTab(event, 'Base Stats')">2</button>
+            <button class="tab-link" onclick="switchTab(event, 'Abilities')">3</button>
+            <button class="tab-link" onclick="switchTab(event, 'Evolutions')">4</button>
+        </div>
+    `;
+}
+
+
+/**
+ * Creates the HTML for all tab content panes
+ * @param {Object} pokemon - Pokémon data object
+ * @returns {string} HTML string for all tab panes
+ */
+function createTabContentHTML(pokemon) {
+    // The Evolutions tab is now populated asynchronously, so we leave it empty initially.
+    return `
+        <div class="tab-content">
+            <div id="About" class="tab-pane active">${createAboutTabHTML(pokemon)}</div>
+            <div id="Base Stats" class="tab-pane">${createBaseStatsTabHTML(pokemon)}</div>
+            <div id="Abilities" class="tab-pane">${createAbilitiesTabHTML(pokemon)}</div>
+            <div id="Evolutions" class="tab-pane"></div>
+        </div>
+    `;
+}
+
+
+/**
+ * Creates modal body HTML with a tabbed interface
  * @function createModalBodyHTML
  * @param {Object} pokemon - Pokémon data object
  * @returns {string} Modal body HTML string
@@ -110,32 +233,12 @@ function createModalBodyHTML(pokemon) {
   return `
     <div class="${CSS_CLASSES.modalBody}">
       <div class="${CSS_CLASSES.modalImageSection}">
-        <img src="${getBestPokemonImage(pokemon)}" alt="${
-    pokemon.name
-  }" class="${CSS_CLASSES.modalPokemonImage}">
+        <img src="${getBestPokemonImage(pokemon)}" alt="${pokemon.name}" class="${CSS_CLASSES.modalPokemonImage}">
       </div>
       <div class="${CSS_CLASSES.modalInfoSection}">
-        <div class="${CSS_CLASSES.modalTypes}">${createModalTypesHTML(
-    pokemon.types
-  )}</div>
-        <div class="${CSS_CLASSES.modalStats}">
-          <h3>${UI_MESSAGES.baseStats}</h3>
-          <div class="${CSS_CLASSES.statsGrid}">${createStatsHTML(
-    pokemon.stats
-  )}</div>
-        </div>
-        <div class="${CSS_CLASSES.modalPhysical}">
-          <h3>${UI_MESSAGES.physicalProperties}</h3>
-          <div class="${CSS_CLASSES.physicalStats}">${createPhysicalStatsHTML(
-    pokemon
-  )}</div>
-        </div>
-        <div class="${CSS_CLASSES.modalAbilities}">
-          <h3>${UI_MESSAGES.abilities}</h3>
-          <div class="${CSS_CLASSES.abilitiesList}">${createAbilitiesHTML(
-    pokemon.abilities
-  )}</div>
-        </div>
+        <div class="${CSS_CLASSES.modalTypes}">${createModalTypesHTML(pokemon.types)}</div>
+        ${createTabNavigationHTML()}
+        ${createTabContentHTML(pokemon)}
       </div>
     </div>
   `;

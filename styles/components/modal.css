@@ -208,7 +208,120 @@
   height: 0.875rem;
   pointer-events: none;
 }
+
+
+/* Tab Navigation Styles */
+.tab-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.tab-link {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: var(--text-color-light);
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-link.active {
+    color: var(--text-color);
+    font-weight: bold;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-content {
+    padding-top: 0.5rem;
+}
+
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.modal-tab-content h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+
+/* Evolution Chain Styles */
+.evolution-chain-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    gap: 1rem;
+}
+
+.evolution-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.evolution-arrow {
+    font-size: 1.5rem;
+    color: var(--text-color-light);
+}
+
+.next-evolution-stages {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.evolution-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.evolution-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+
+
+
 /* RESPONSIVE DESIGN - MOBILE FIRST */
+
+/* Very small screens (below 380px) */
+@media (max-width: 380px) {
+    .modal-info-section {
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+    }
+    .tab-nav {
+        gap: 0.2rem;
+    }
+    .tab-link {
+        padding: 0.5rem 0.6rem; /* Reduce horizontal padding */
+    }
+    .evolution-chain-container,
+    .next-evolution-stages {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .evolution-arrow {
+        transform: rotate(90deg);
+    }
+}
 
 /* Base mobile (all screens) */
 .modal-info-section {

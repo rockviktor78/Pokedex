@@ -100,6 +100,30 @@ export let fetchPokemonSpecies = async (pokemonId) => {
 };
 
 /**
+ * Fetches the complete evolution chain for a Pokémon.
+ * @async
+ * @param {string} pokemonSpeciesUrl - The URL for the Pokémon's species data.
+ * @returns {Promise<Object|null>} A promise that resolves to the evolution chain object, or null on error.
+ */
+export let fetchEvolutionChain = async (pokemonSpeciesUrl) => {
+    try {
+        const speciesResponse = await fetch(pokemonSpeciesUrl);
+        if (!speciesResponse.ok) return null;
+
+        const speciesData = await speciesResponse.json();
+        const evolutionChainUrl = speciesData.evolution_chain.url;
+
+        const evolutionResponse = await fetch(evolutionChainUrl);
+        if (!evolutionResponse.ok) return null;
+
+        return await evolutionResponse.json();
+    } catch (error) {
+        console.error("Failed to fetch evolution chain:", error);
+        return null;
+    }
+};
+
+/**
  * Fetches a single Pokémon from the API
  * @param {string} identifier - Name or ID
  * @returns {Object|null} Pokémon data or null
