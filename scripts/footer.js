@@ -11,7 +11,7 @@ import {
   createDatenschutzModalHTML,
   createFooterHTML,
   createImpressumModalHTML,
-} from "./footer-templates.js";
+} from "./templates/footer-templates.js";
 import { ELEMENT_IDS } from "./constants.js";
 
 /**
