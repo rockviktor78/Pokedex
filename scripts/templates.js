@@ -101,49 +101,14 @@ function createModalHeaderHTML(pokemon) {
 }
 
 /**
- * Creates the HTML for the "About" tab content
- * @param {Object} pokemon - Pokémon data object
- * @returns {string} HTML string for the "About" tab
+ * Creates the inner content for a tab pane.
+ * @param {string} title - The title of the tab.
+ * @param {string} contentHTML - The HTML content of the tab.
+ * @returns {string} HTML string for the tab's inner content.
  */
-function createAboutTabHTML(pokemon) {
-    return `
-        <div class="modal-tab-content">
-            <h3>${UI_MESSAGES.physicalProperties}</h3>
-            <div class="${CSS_CLASSES.physicalStats}">${createPhysicalStatsHTML(pokemon)}</div>
-        </div>
-    `;
+function createTabPaneContent(title, contentHTML) {
+    return `<div class="modal-tab-content"><h3>${title}</h3>${contentHTML}</div>`;
 }
-
-
-/**
- * Creates the HTML for the "Base Stats" tab content
- * @param {Object} pokemon - Pokémon data object
- * @returns {string} HTML string for the "Base Stats" tab
- */
-function createBaseStatsTabHTML(pokemon) {
-    return `
-        <div class="modal-tab-content">
-            <h3>${UI_MESSAGES.baseStats}</h3>
-            <div class="${CSS_CLASSES.statsGrid}">${createStatsHTML(pokemon.stats)}</div>
-        </div>
-    `;
-}
-
-
-/**
- * Creates the HTML for the "Abilities" tab content
- * @param {Object} pokemon - Pokémon data object
- * @returns {string} HTML string for the "Abilities" tab
- */
-function createAbilitiesTabHTML(pokemon) {
-    return `
-        <div class="modal-tab-content">
-            <h3>${UI_MESSAGES.abilities}</h3>
-            <div class="${CSS_CLASSES.abilitiesList}">${createAbilitiesHTML(pokemon.abilities)}</div>
-        </div>
-    `;
-}
-
 
 /**
  * Creates the HTML for the "Evolutions" tab content by parsing the evolution chain.
@@ -211,12 +176,24 @@ function createTabNavigationHTML() {
  * @returns {string} HTML string for all tab panes
  */
 function createTabContentHTML(pokemon) {
-    // The Evolutions tab is now populated asynchronously, so we leave it empty initially.
+    const aboutContent = createTabPaneContent(
+        UI_MESSAGES.physicalProperties,
+        `<div class="${CSS_CLASSES.physicalStats}">${createPhysicalStatsHTML(pokemon)}</div>`
+    );
+    const statsContent = createTabPaneContent(
+        UI_MESSAGES.baseStats,
+        `<div class="${CSS_CLASSES.statsGrid}">${createStatsHTML(pokemon.stats)}</div>`
+    );
+    const abilitiesContent = createTabPaneContent(
+        UI_MESSAGES.abilities,
+        `<div class="${CSS_CLASSES.abilitiesList}">${createAbilitiesHTML(pokemon.abilities)}</div>`
+    );
+
     return `
         <div class="tab-content">
-            <div id="About" class="tab-pane active">${createAboutTabHTML(pokemon)}</div>
-            <div id="Base Stats" class="tab-pane">${createBaseStatsTabHTML(pokemon)}</div>
-            <div id="Abilities" class="tab-pane">${createAbilitiesTabHTML(pokemon)}</div>
+            <div id="About" class="tab-pane active">${aboutContent}</div>
+            <div id="Base Stats" class="tab-pane">${statsContent}</div>
+            <div id="Abilities" class="tab-pane">${abilitiesContent}</div>
             <div id="Evolutions" class="tab-pane"></div>
         </div>
     `;
