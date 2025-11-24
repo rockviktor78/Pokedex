@@ -8,7 +8,11 @@
 import { appState } from "./main.js";
 import { fetchPokemonDetails, fetchEvolutionChain } from "./api.js";
 import { showErrorMessage } from "./ui-helpers.js";
-import { createModalHTML, createEvolutionsTabHTML, createLoadingHTML } from "./templates.js";
+import {
+  createModalHTML,
+  createEvolutionsTabHTML,
+} from "./templates/modal-template.js";
+import { createLoadingHTML } from "./templates/ui-elements-template.js";
 import { ELEMENT_IDS } from "./constants.js";
 
 // Current Pokemon index for navigation
