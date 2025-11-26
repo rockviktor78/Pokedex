@@ -5,8 +5,7 @@
 - Large Desktop: 1200px+
 */
 
-@media (min-width: 768px) {
-  
+@media (min-width: 48em) {
   .header-container {
     flex-direction: row;
     justify-content: space-between;
@@ -26,17 +25,17 @@
   .search-container {
     max-width: 24rem;
   }
-  
+
   .pokemon-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
-  
+
   .main {
     padding: 1.5rem 2rem;
-    padding-top: 140px; 
+    padding-top: 140px;
   }
-  
+
   .modal-container {
     max-width: 25rem;
   }
@@ -46,8 +45,7 @@
   }
 }
 
-@media (min-width: 1024px) {
-  
+@media (min-width: 64em) {
   .pokemon-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
@@ -56,7 +54,7 @@
   .main {
     max-width: 75rem;
     padding: 2rem;
-    padding-top: 140px; 
+    padding-top: 140px;
   }
 
   .header-container {
@@ -84,8 +82,7 @@
   }
 }
 
-@media (min-width: 1200px) {
-  
+@media (min-width: 75em) {
   .pokemon-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
@@ -93,7 +90,7 @@
 
   .main {
     max-width: 90rem;
-    padding-top: 140px; 
+    padding-top: 140px;
   }
 
   .header-container {
@@ -109,15 +106,14 @@
   }
 }
 
-@media (min-width: 1440px) {
-  
+@media (min-width: 90em) {
   .pokemon-grid {
     grid-template-columns: repeat(5, 1fr);
   }
 
   .main {
     max-width: 100rem;
-    padding-top: 140px; 
+    padding-top: 140px;
   }
 
   .header-container {
@@ -126,7 +122,6 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  
   .pokemon-card:hover {
     transform: translateY(-0.5rem);
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
@@ -140,7 +135,6 @@
     transform: translateY(-0.125rem);
   }
 }
-
 
 @media print {
   .header,

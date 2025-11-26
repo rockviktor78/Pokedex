@@ -590,7 +590,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 64em) {
   .footer {
     padding: 4rem 2rem 2.5rem;
   }

@@ -414,7 +414,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48em) {
   .modal-container .pokemon-detail-image {
     width: 6rem;
     height: 6rem;
@@ -431,7 +431,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 64em) {
   .modal-container .pokemon-detail-image {
     width: 7rem;
     height: 7rem;
