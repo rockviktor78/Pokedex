@@ -1,5 +1,3 @@
-
-
 .pokemon-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -89,110 +87,141 @@
 .pokemon-type.type-fire {
   background-color: var(--type-fire);
 }
+
 .pokemon-type.type-water {
   background-color: var(--type-water);
 }
+
 .pokemon-type.type-grass {
   background-color: var(--type-grass);
 }
+
 .pokemon-type.type-electric {
   background-color: var(--type-electric);
 }
+
 .pokemon-type.type-psychic {
   background-color: var(--type-psychic);
 }
+
 .pokemon-type.type-ice {
   background-color: var(--type-ice);
 }
+
 .pokemon-type.type-dragon {
   background-color: var(--type-dragon);
 }
+
 .pokemon-type.type-dark {
   background-color: var(--type-dark);
 }
 .pokemon-type.type-fighting {
   background-color: var(--type-fighting);
 }
+
 .pokemon-type.type-poison {
   background-color: var(--type-poison);
 }
 .pokemon-type.type-ground {
   background-color: var(--type-ground);
 }
+
 .pokemon-type.type-flying {
   background-color: var(--type-flying);
 }
+
 .pokemon-type.type-bug {
   background-color: var(--type-bug);
 }
+
 .pokemon-type.type-rock {
   background-color: var(--type-rock);
 }
+
 .pokemon-type.type-ghost {
   background-color: var(--type-ghost);
 }
+
 .pokemon-type.type-steel {
   background-color: var(--type-steel);
 }
+
 .pokemon-type.type-fairy {
   background-color: var(--type-fairy);
 }
+
 .pokemon-type.type-normal {
   background-color: var(--type-normal);
 }
 
-
 .pokemon-card.bg-fire {
   background: linear-gradient(135deg, var(--type-fire), #fff);
 }
+
 .pokemon-card.bg-water {
   background: linear-gradient(135deg, var(--type-water), #fff);
 }
+
 .pokemon-card.bg-grass {
   background: linear-gradient(135deg, var(--type-grass), #fff);
 }
+
 .pokemon-card.bg-electric {
   background: linear-gradient(135deg, var(--type-electric), #fff);
 }
+
 .pokemon-card.bg-psychic {
   background: linear-gradient(135deg, var(--type-psychic), #fff);
 }
+
 .pokemon-card.bg-ice {
   background: linear-gradient(135deg, var(--type-ice), #fff);
 }
+
 .pokemon-card.bg-dragon {
   background: linear-gradient(135deg, var(--type-dragon), #fff);
 }
+
 .pokemon-card.bg-dark {
   background: linear-gradient(135deg, var(--type-dark), #fff);
 }
+
 .pokemon-card.bg-fighting {
   background: linear-gradient(135deg, var(--type-fighting), #fff);
 }
+
 .pokemon-card.bg-poison {
   background: linear-gradient(135deg, var(--type-poison), #fff);
 }
+
 .pokemon-card.bg-ground {
   background: linear-gradient(135deg, var(--type-ground), #fff);
 }
+
 .pokemon-card.bg-flying {
   background: linear-gradient(135deg, var(--type-flying), #fff);
 }
+
 .pokemon-card.bg-bug {
   background: linear-gradient(135deg, var(--type-bug), #fff);
 }
+
 .pokemon-card.bg-rock {
   background: linear-gradient(135deg, var(--type-rock), #fff);
 }
+
 .pokemon-card.bg-ghost {
   background: linear-gradient(135deg, var(--type-ghost), #fff);
 }
+
 .pokemon-card.bg-steel {
   background: linear-gradient(135deg, var(--type-steel), #fff);
 }
+
 .pokemon-card.bg-fairy {
   background: linear-gradient(135deg, var(--type-fairy), #fff);
 }
+
 .pokemon-card.bg-normal {
   background: linear-gradient(135deg, var(--type-normal), #fff);
 }

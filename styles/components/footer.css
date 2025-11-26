@@ -159,7 +159,6 @@
   line-height: 1.3;
 }
 
-
 .footer-links {
   display: flex;
   justify-content: center;
@@ -231,7 +230,6 @@
   opacity: 1;
 }
 
-
 .legal-modal-container {
   background: linear-gradient(
     135deg,
@@ -258,7 +256,6 @@
     opacity: 1;
   }
 }
-
 
 .legal-modal-close {
   position: sticky;
@@ -293,7 +290,6 @@
   outline: 3px solid var(--type-water);
   outline-offset: 2px;
 }
-
 
 .legal-modal-content {
   padding: 1rem;
@@ -353,7 +349,6 @@
   font-weight: 600;
   color: #222;
 }
-
 
 .legal-modal-container::-webkit-scrollbar {
   width: 6px;
@@ -497,7 +492,6 @@
   }
 }
 
-
 @media (min-width: 48rem) {
   .footer {
     padding: 3rem 1.5rem 2rem;
@@ -596,8 +590,7 @@
   }
 }
 
-
-@media (min-width: 64rem) {
+@media (min-width: 1024px) {
   .footer {
     padding: 4rem 2rem 2.5rem;
   }
@@ -654,7 +647,6 @@
   }
 }
 
-
 @media (min-width: 75rem) {
   .footer {
     padding: 5rem 3rem 3rem;
@@ -704,7 +696,6 @@
   }
 }
 
-
 @media (prefers-color-scheme: dark) {
   .footer {
     background: linear-gradient(135deg, #000000 0%, var(--color-gray-900) 100%);
@@ -716,7 +707,6 @@
   }
 }
 
-
 @media (prefers-reduced-motion: reduce) {
   .footer {
     animation: none;
@@ -726,7 +716,6 @@
     transition: none;
   }
 }
-
 
 @keyframes fadeInUp {
   from {
@@ -738,7 +727,6 @@
     transform: translateY(0);
   }
 }
-
 
 @media (prefers-contrast: high) {
   .footer {

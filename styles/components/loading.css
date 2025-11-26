@@ -1,5 +1,3 @@
-
-
 .loading-spinner {
   padding: 2rem;
   text-align: center;
@@ -110,7 +108,6 @@
   margin: 0;
   max-width: 20rem;
 }
-
 
 .pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;

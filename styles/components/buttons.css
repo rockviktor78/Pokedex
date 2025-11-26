@@ -1,6 +1,3 @@
-
-
-
 .load-more-button,
 .retry-button {
   padding: 0.75rem 1.5rem;
@@ -18,7 +15,6 @@
   text-decoration: none;
   outline: none;
 }
-
 
 .load-more-button {
   background-color: var(--primary-color);
@@ -64,14 +60,12 @@
   box-shadow: 0 0.125rem 0.25rem rgba(239, 68, 68, 0.2);
 }
 
-
 .search-button:focus-visible,
 .load-more-button:focus-visible,
 .retry-button:focus-visible {
   outline: 0.125rem solid var(--primary-color);
   outline-offset: 0.125rem;
 }
-
 
 .load-more-button:disabled::after {
   content: "";
