@@ -159,7 +159,7 @@
   line-height: 1.3;
 }
 
-/* Footer Legal Links */
+
 .footer-links {
   display: flex;
   justify-content: center;
@@ -231,7 +231,7 @@
   opacity: 1;
 }
 
-/* Legal Modal Container (Mobile 320px+) */
+
 .legal-modal-container {
   background: linear-gradient(
     135deg,
@@ -259,7 +259,7 @@
   }
 }
 
-/* Legal Modal Close Button (Mobile 320px+) */
+
 .legal-modal-close {
   position: sticky;
   top: 0.5rem;
@@ -294,7 +294,7 @@
   outline-offset: 2px;
 }
 
-/* Legal Modal Content (Mobile 320px+) */
+
 .legal-modal-content {
   padding: 1rem;
   color: #333;
@@ -354,7 +354,7 @@
   color: #222;
 }
 
-/* Scroll Behavior for Modal */
+
 .legal-modal-container::-webkit-scrollbar {
   width: 6px;
 }
@@ -497,7 +497,7 @@
   }
 }
 
-/* Tablet Styles (768px and up) */
+
 @media (min-width: 48rem) {
   .footer {
     padding: 3rem 1.5rem 2rem;
@@ -596,7 +596,7 @@
   }
 }
 
-/* Desktop styles (1024px and up) */
+
 @media (min-width: 64rem) {
   .footer {
     padding: 4rem 2rem 2.5rem;
@@ -654,7 +654,7 @@
   }
 }
 
-/* Large desktop styles (1200px and up) */
+
 @media (min-width: 75rem) {
   .footer {
     padding: 5rem 3rem 3rem;
@@ -704,7 +704,7 @@
   }
 }
 
-/* Dark mode enhancements */
+
 @media (prefers-color-scheme: dark) {
   .footer {
     background: linear-gradient(135deg, #000000 0%, var(--color-gray-900) 100%);
@@ -716,7 +716,7 @@
   }
 }
 
-/* Reduced motion support */
+
 @media (prefers-reduced-motion: reduce) {
   .footer {
     animation: none;
@@ -727,7 +727,7 @@
   }
 }
 
-/* Animation keyframes */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -739,7 +739,7 @@
   }
 }
 
-/* High contrast mode support */
+
 @media (prefers-contrast: high) {
   .footer {
     background: var(--color-black);

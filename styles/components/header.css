@@ -1,4 +1,4 @@
-/* ===== HEADER STYLES - MOBILE FIRST ===== */
+
 
 .header-logo {
   display: flex;
@@ -65,7 +65,7 @@
 
 
 
-/* Responsive for small screens */
+
 @media (max-width: 364px) {
   .header-container {
     padding: 0.75rem 0.5rem;

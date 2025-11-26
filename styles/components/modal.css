@@ -1,4 +1,4 @@
-/* MODAL COMPONENTS - MOBILE FIRST */
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -129,7 +129,7 @@
   height: 6rem;
   width: 100%;
 }
-/* Scrollable */
+
 .modal-info-section::-webkit-scrollbar {
   width: 6px;
 }
@@ -210,7 +210,7 @@
 }
 
 
-/* Tab Navigation Styles */
+
 .tab-nav {
     display: flex;
     justify-content: center;
@@ -256,12 +256,12 @@
 }
 
 
-/* Evolution Chain Styles */
+
 .evolution-chain-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    flex-wrap: wrap; 
     gap: 1rem;
 }
 
@@ -299,9 +299,9 @@
 
 
 
-/* RESPONSIVE DESIGN - MOBILE FIRST */
 
-/* Very small screens (below 380px) */
+
+
 @media (max-width: 380px) {
     .modal-info-section {
         margin-left: 0.5rem !important;
@@ -311,7 +311,7 @@
         gap: 0.2rem;
     }
     .tab-link {
-        padding: 0.5rem 0.6rem; /* Reduce horizontal padding */
+        padding: 0.5rem 0.6rem; 
     }
     .evolution-chain-container,
     .next-evolution-stages {
@@ -323,7 +323,7 @@
     }
 }
 
-/* Base mobile (all screens) */
+
 .modal-info-section {
   padding-bottom: 1rem !important;
   margin-bottom: 1rem !important;
@@ -341,7 +341,7 @@
   padding-bottom: 1rem !important;
 }
 
-/* Small screens (from 480px) */
+
 @media (min-width: 480px) {
   .modal-info-section {
     max-height: 300px !important;
@@ -353,7 +353,7 @@
   }
 }
 
-/* Tablet (from 768px) */
+
 @media (min-width: 768px) {
   .modal-container {
     max-width: 600px;
@@ -405,7 +405,7 @@
   }
 }
 
-/* Desktop (from 1024px) */
+
 @media (min-width: 1024px) {
   .modal-container {
     max-width: 700px;
@@ -446,7 +446,7 @@
   }
 }
 
-/* Landscape orientation */
+
 @media (orientation: landscape) and (max-height: 600px) {
   .modal-info-section {
     max-height: 200px !important;
@@ -469,7 +469,7 @@
   }
 }
 
-/* High contrast & reduced motion */
+
 @media (prefers-contrast: high) {
   .modal-overlay {
     background: rgba(0, 0, 0, 0.9);

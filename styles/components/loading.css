@@ -1,4 +1,4 @@
-/* ===== LOADING COMPONENTS - MOBILE FIRST ===== */
+
 
 .loading-spinner {
   padding: 2rem;
@@ -111,7 +111,7 @@
   max-width: 20rem;
 }
 
-/* Pulse Effect for Individual Elements */
+
 .pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

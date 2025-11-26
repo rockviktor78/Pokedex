@@ -6,7 +6,6 @@
  * @module main
  */
 
-// Import dependencies
 import { handleClearSearch, initializeSearch } from "./search.js";
 import { handleLoadMoreClick, loadInitialPokemon } from "./pokemon-list.js";
 import { initializeModalEventListeners } from "./pokemon-detail.js";
@@ -17,7 +16,6 @@ import {
 } from "./ui-helpers.js";
 import { initializeFooter } from "./footer.js";
 
-// App State - Shared across modules
 export const appState = {
   pokemonList: [],
   currentOffset: 0,
@@ -28,7 +26,7 @@ export const appState = {
   searchResults: [],
   isSearchMode: false,
   currentSearchQuery: "",
-  allPokemonNames: [], // Cache for autocompletion
+  allPokemonNames: [],
 };
 
 /**
@@ -124,15 +122,12 @@ let handleLogoClick = async (e) => {
   e.preventDefault();
 
   try {
-    // If we're in search mode, reset search
     if (appState.isSearchMode) {
       await handleClearSearch();
     } else {
-      // Scroll to top
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   } catch (error) {
-    // Fallback: Simply scroll to top
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 };
@@ -142,11 +137,8 @@ let handleLogoClick = async (e) => {
  */
 export let handleGlobalError = (event) => {
   try {
-    // Show user-friendly error message
     showErrorMessage?.("An unexpected error occurred. Please try again.");
-  } catch (error) {
-    // Error handled silently
-  }
+  } catch (error) {}
 };
 
 /**
@@ -159,7 +151,6 @@ let setupGlobalErrorHandling = () => {
   });
 };
 
-// Start app when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   setupGlobalErrorHandling();
   initializeApp();

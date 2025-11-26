@@ -1,4 +1,3 @@
-// Import constants for styling and UI
 import {
   CSS_CLASSES,
   POKEMON_TYPES,
@@ -59,7 +58,6 @@ export function createEvolutionsTabHTML(evolutionChain) {
     return '<div class="modal-tab-content"><p>No evolution data available for this Pokémon.</p></div>';
   }
 
-  // Recursive function to parse the chain
   const parseChain = (chainNode) => {
     const parts = chainNode.species.url.split("/").filter(Boolean);
     const pokemonId = parts[parts.length - 1];
@@ -67,16 +65,13 @@ export function createEvolutionsTabHTML(evolutionChain) {
 
     let html = `
             <div class="evolution-stage">
-                <img src="${imageUrl}" alt="${
-      chainNode.species.name
-    }" class="evolution-image">
+                <img src="${imageUrl}" alt="${chainNode.species.name}" class="evolution-image">
                 <span class="evolution-name">${chainNode.species.name}</span>
             </div>
         `;
 
     if (chainNode.evolves_to.length > 0) {
       html += '<div class="evolution-arrow">→</div>';
-      // Handle multiple evolutions (e.g., Eevee)
       const nextStages = chainNode.evolves_to
         .map((nextNode) => parseChain(nextNode))
         .join("");
@@ -119,9 +114,9 @@ function createTabNavigationHTML() {
 function createTabContentHTML(pokemon) {
   const aboutContent = createTabPaneContent(
     UI_MESSAGES.physicalProperties,
-    `<div class="${
-      CSS_CLASSES.physicalStats
-    }">${createPhysicalStatsHTML(pokemon)}</div>`
+    `<div class="${CSS_CLASSES.physicalStats}">${createPhysicalStatsHTML(
+      pokemon
+    )}</div>`
   );
   const statsContent = createTabPaneContent(
     UI_MESSAGES.baseStats,
@@ -156,9 +151,9 @@ function createModalBodyHTML(pokemon) {
   return `
     <div class="${CSS_CLASSES.modalBody}">
       <div class="${CSS_CLASSES.modalImageSection}">
-        <img src="${getBestPokemonImage(
-          pokemon
-        )}" alt="${pokemon.name}" class="${CSS_CLASSES.modalPokemonImage}">
+        <img src="${getBestPokemonImage(pokemon)}" alt="${
+    pokemon.name
+  }" class="${CSS_CLASSES.modalPokemonImage}">
       </div>
       <div class="${CSS_CLASSES.modalInfoSection}">
         <div class="${CSS_CLASSES.modalTypes}">${createModalTypesHTML(

@@ -3,7 +3,6 @@
  * Handles Pokemon card rendering and list management
  */
 
-// Import dependencies
 import { appState } from "./main.js";
 import { fetchPokemonList } from "./api.js";
 import { setLoadingState, showErrorMessage } from "./ui-helpers.js";
@@ -76,7 +75,6 @@ export let createPokemonCard = (pokemon) => {
   card.className = CSS_CLASSES.pokemonCard;
   card.setAttribute("data-pokemon-id", pokemon.id);
 
-  // Primary type for background color
   const primaryType = pokemon.types[0]?.type.name;
   if (primaryType) {
     card.classList.add(`${CSS_CLASSES.backgroundPrefix}${primaryType}`);
@@ -84,16 +82,12 @@ export let createPokemonCard = (pokemon) => {
 
   card.innerHTML = createPokemonCardHTML(pokemon);
 
-  // Event listener for card click - Import from pokemon-detail.js
   card.addEventListener("click", () => {
-    // Dynamic import to avoid circular dependency
     import("./pokemon-detail.js")
       .then((module) => {
         module.handlePokemonCardClick(pokemon);
       })
-      .catch(() => {
-        // Error handled silently
-      });
+      .catch(() => {});
   });
 
   return card;
@@ -115,7 +109,6 @@ export let clearPokemonContainer = () => {
 export let handleLoadMoreClick = () => {
   if (!appState.isLoading) {
     if (appState.isSearchMode) {
-      // In search mode, do not load more results
       return;
     }
     loadMorePokemon();

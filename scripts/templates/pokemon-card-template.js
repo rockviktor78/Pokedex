@@ -1,4 +1,3 @@
-// Import constants for styling and UI
 import { CSS_CLASSES, API_CONFIG } from "../constants.js";
 
 /**
@@ -9,7 +8,6 @@ import { CSS_CLASSES, API_CONFIG } from "../constants.js";
 export function getBestPokemonImage(pokemon) {
   const sprites = pokemon.sprites;
 
-  // High-resolution images (in order of priority)
   if (sprites.other?.["official-artwork"]?.front_default) {
     return sprites.other["official-artwork"].front_default;
   }
@@ -23,7 +21,6 @@ export function getBestPokemonImage(pokemon) {
     return sprites.front_default;
   }
 
-  // Fallback to a placeholder
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
 }
 
@@ -37,9 +34,7 @@ export function createPokemonCardHTML(pokemon) {
   const typeElements = pokemon.types
     .map(
       (typeInfo) =>
-        `<span class="${CSS_CLASSES.pokemonType} ${
-          CSS_CLASSES.typePrefix
-        }${typeInfo.type.name}">${typeInfo.type.name}</span>`
+        `<span class="${CSS_CLASSES.pokemonType} ${CSS_CLASSES.typePrefix}${typeInfo.type.name}">${typeInfo.type.name}</span>`
     )
     .join("");
 

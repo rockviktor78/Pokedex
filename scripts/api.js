@@ -6,7 +6,6 @@
  * @module api
  */
 
-// Import dependencies
 import { appState } from "./main.js";
 import { API_CONFIG } from "./constants.js";
 
@@ -30,7 +29,6 @@ export let fetchPokemonList = async (offset, limit) => {
   const data = await response.json();
   appState.currentOffset = offset;
 
-  // Process Pokemon data and add to list
   const pokemonDetails = await fetchPokemonDetails(data.results);
   appState.pokemonList.push(...pokemonDetails);
 
@@ -47,19 +45,16 @@ export let fetchPokemonList = async (offset, limit) => {
  */
 async function processSinglePokemon(pokemon) {
   try {
-    // Check cache first
     const pokemonId = extractPokemonId(pokemon.url);
     if (appState.pokemonCache[pokemonId]) {
       return appState.pokemonCache[pokemonId];
     }
 
-    // Load from API
     const response = await fetch(pokemon.url);
     if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
 
     const pokemonData = await response.json();
 
-    // Save to cache
     appState.pokemonCache[pokemonData.id] = pokemonData;
     return pokemonData;
   } catch (error) {
@@ -106,21 +101,20 @@ export let fetchPokemonSpecies = async (pokemonId) => {
  * @returns {Promise<Object|null>} A promise that resolves to the evolution chain object, or null on error.
  */
 export let fetchEvolutionChain = async (pokemonSpeciesUrl) => {
-    try {
-        const speciesResponse = await fetch(pokemonSpeciesUrl);
-        if (!speciesResponse.ok) return null;
+  try {
+    const speciesResponse = await fetch(pokemonSpeciesUrl);
+    if (!speciesResponse.ok) return null;
 
-        const speciesData = await speciesResponse.json();
-        const evolutionChainUrl = speciesData.evolution_chain.url;
+    const speciesData = await speciesResponse.json();
+    const evolutionChainUrl = speciesData.evolution_chain.url;
 
-        const evolutionResponse = await fetch(evolutionChainUrl);
-        if (!evolutionResponse.ok) return null;
+    const evolutionResponse = await fetch(evolutionChainUrl);
+    if (!evolutionResponse.ok) return null;
 
-        return await evolutionResponse.json();
-    } catch (error) {
-        console.error("Failed to fetch evolution chain:", error);
-        return null;
-    }
+    return await evolutionResponse.json();
+  } catch (error) {
+    return null;
+  }
 };
 
 /**
@@ -130,7 +124,6 @@ export let fetchEvolutionChain = async (pokemonSpeciesUrl) => {
  */
 export let fetchSinglePokemon = async (identifier) => {
   try {
-    // Check cache first
     const numericId = parseInt(identifier);
     if (!isNaN(numericId) && appState.pokemonCache[numericId]) {
       return appState.pokemonCache[numericId];
@@ -142,12 +135,11 @@ export let fetchSinglePokemon = async (identifier) => {
     const response = await fetch(url);
 
     if (!response.ok) {
-      return null; // Return quietly instead of throwing error
+      return null;
     }
 
     const pokemon = await response.json();
 
-    // Cache the Pokémon
     appState.pokemonCache[pokemon.id] = pokemon;
 
     return pokemon;
@@ -186,17 +178,14 @@ export let loadAllPokemonNames = async () => {
 export let performExtendedSearch = async (searchTerm) => {
   const results = [];
 
-  // Load all Pokémon names if not available yet
   if (appState.allPokemonNames.length === 0) {
     await loadAllPokemonNames();
   }
 
-  // Filter names that contain the search term
   const matchingNames = appState.allPokemonNames
     .filter((pokemon) => pokemon.name.toLowerCase().includes(searchTerm))
-    .slice(0, 10); // Limit to 10 results
+    .slice(0, 10);
 
-  // Load details for found names
   for (const pokemon of matchingNames) {
     const details = await fetchSinglePokemon(pokemon.name);
     if (details) {
@@ -260,16 +249,13 @@ export let searchPokemon = async (searchTerm) => {
   const results = [];
   const cleanSearchTerm = searchTerm.toLowerCase().trim();
 
-  // 1. Search in already loaded Pokémon (faster)
   results.push(...searchLoadedPokemon(cleanSearchTerm));
 
-  // 2. Direct API call for exact matches
   if (results.length === 0) {
     const directResults = await performDirectSearch(cleanSearchTerm);
     results.push(...directResults);
   }
 
-  // 3. Extended search if still no results
   if (results.length === 0 && cleanSearchTerm.length >= 2) {
     const extendedResults = await performExtendedSearch(cleanSearchTerm);
     results.push(...extendedResults);

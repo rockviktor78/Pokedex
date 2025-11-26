@@ -4,7 +4,6 @@
  * @module pokemon-detail
  */
 
-// Import dependencies
 import { appState } from "./main.js";
 import { fetchPokemonDetails, fetchEvolutionChain } from "./api.js";
 import { showErrorMessage } from "./ui-helpers.js";
@@ -15,7 +14,6 @@ import {
 import { createLoadingHTML } from "./templates/ui-elements-template.js";
 import { ELEMENT_IDS } from "./constants.js";
 
-// Current Pokemon index for navigation
 let currentPokemonIndex = 0;
 let currentPokemonList = [];
 
@@ -27,19 +25,16 @@ let currentPokemonList = [];
  */
 export let handlePokemonCardClick = async (pokemon) => {
   try {
-    // Set current Pokemon list based on current mode
     if (appState.isSearchMode && appState.searchResults) {
       currentPokemonList = appState.searchResults;
     } else {
       currentPokemonList = appState.pokemonList;
     }
 
-    // Find current Pokemon index
     currentPokemonIndex = currentPokemonList.findIndex(
       (p) => p.id === pokemon.id
     );
 
-    // Use the pokemon directly if it has detailed data, otherwise fetch
     let detailedPokemon = pokemon;
     if (!pokemon.stats) {
       const response = await fetch(pokemon.url);
@@ -85,17 +80,17 @@ function setupModalContent(modalContent, pokemon) {
  * @param {Object} pokemon - The detailed Pokémon data object.
  */
 async function loadEvolutionData(pokemon) {
-    const evolutionTabPane = document.getElementById('Evolutions');
-    if (!evolutionTabPane) return;
+  const evolutionTabPane = document.getElementById("Evolutions");
+  if (!evolutionTabPane) return;
 
-    try {
-        evolutionTabPane.innerHTML = createLoadingHTML('Loading evolutions...');
-        
-        const evolutionChain = await fetchEvolutionChain(pokemon.species.url);
-        evolutionTabPane.innerHTML = createEvolutionsTabHTML(evolutionChain);
-    } catch (error) {
-        evolutionTabPane.innerHTML = '<p>Could not load evolution data.</p>';
-    }
+  try {
+    evolutionTabPane.innerHTML = createLoadingHTML("Loading evolutions...");
+
+    const evolutionChain = await fetchEvolutionChain(pokemon.species.url);
+    evolutionTabPane.innerHTML = createEvolutionsTabHTML(evolutionChain);
+  } catch (error) {
+    evolutionTabPane.innerHTML = "<p>Could not load evolution data.</p>";
+  }
 }
 
 /**
@@ -111,7 +106,7 @@ export let openPokemonModal = (pokemon) => {
     showModalWithAccessibility(modal);
     setupModalContent(modalContent, pokemon);
     updateNavigationArrows();
-    loadEvolutionData(pokemon); // Asynchronously load evolution data
+    loadEvolutionData(pokemon);
   }
 };
 /**
@@ -125,7 +120,6 @@ export let closePokemonModal = () => {
     modal.classList.add("hidden");
     modal.style.display = "none";
 
-    // Accessibility: Modal is hidden and not interactive
     modal.setAttribute("inert", "");
 
     document.body.style.overflow = "auto";
@@ -163,29 +157,28 @@ export let goToNextPokemon = async () => {
  * @param {number} index - Index in the current Pokémon array
  */
 let loadPokemonAtIndex = async (index) => {
-    const modalContent = document.getElementById("pokemonDetailContent");
-    if (!modalContent) return;
+  const modalContent = document.getElementById("pokemonDetailContent");
+  if (!modalContent) return;
 
-    try {
-        const pokemon = currentPokemonList[index];
-        if (!pokemon) return;
+  try {
+    const pokemon = currentPokemonList[index];
+    if (!pokemon) return;
 
-        modalContent.innerHTML = createLoadingHTML('Loading Pokémon...');
+    modalContent.innerHTML = createLoadingHTML("Loading Pokémon...");
 
-        let detailedPokemon = pokemon;
-        if (!pokemon.stats) {
-            const response = await fetch(pokemon.url);
-            if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
-            detailedPokemon = await response.json();
-        }
-
-        setupModalContent(modalContent, detailedPokemon);
-        updateNavigationArrows();
-        await loadEvolutionData(detailedPokemon);
-
-    } catch (error) {
-        showErrorMessage();
+    let detailedPokemon = pokemon;
+    if (!pokemon.stats) {
+      const response = await fetch(pokemon.url);
+      if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
+      detailedPokemon = await response.json();
     }
+
+    setupModalContent(modalContent, detailedPokemon);
+    updateNavigationArrows();
+    await loadEvolutionData(detailedPokemon);
+  } catch (error) {
+    showErrorMessage();
+  }
 };
 
 /**
@@ -208,26 +201,24 @@ let updateNavigationArrows = () => {
   }
 };
 
-
 /**
  * Switches between tabs in the Pokémon modal
  * @param {Event} event - The click event
  * @param {string} tabName - The name of the tab to switch to
  */
 window.switchTab = (event, tabName) => {
-    // Hide all tab panes
-    const tabPanes = document.querySelectorAll('.tab-pane');
-    tabPanes.forEach(pane => pane.classList.remove('active'));
+  // Hide all tab panes
+  const tabPanes = document.querySelectorAll(".tab-pane");
+  tabPanes.forEach((pane) => pane.classList.remove("active"));
 
-    // Deactivate all tab links
-    const tabLinks = document.querySelectorAll('.tab-link');
-    tabLinks.forEach(link => link.classList.remove('active'));
+  // Deactivate all tab links
+  const tabLinks = document.querySelectorAll(".tab-link");
+  tabLinks.forEach((link) => link.classList.remove("active"));
 
-    // Show the selected tab pane and activate the link
-    document.getElementById(tabName).classList.add('active');
-    event.currentTarget.classList.add('active');
+  // Show the selected tab pane and activate the link
+  document.getElementById(tabName).classList.add("active");
+  event.currentTarget.classList.add("active");
 };
-
 
 /**
  * Initializes Modal Event Listeners
@@ -240,20 +231,17 @@ export let initializeModalEventListeners = () => {
   const closeButton = document.getElementById("closeModalButton");
 
   if (modal) {
-    // Close modal when clicking outside
     modal.addEventListener("click", (e) => {
       if (e.target === modal) {
         closePokemonModal();
       }
     });
 
-    // Close with Escape key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !modal.classList.contains("hidden")) {
         closePokemonModal();
       }
 
-      // Arrow key navigation
       if (!modal.classList.contains("hidden")) {
         if (e.key === "ArrowLeft") {
           e.preventDefault();
@@ -266,7 +254,6 @@ export let initializeModalEventListeners = () => {
     });
   }
 
-  // Navigation button event listeners
   if (prevButton) {
     prevButton.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -281,12 +268,10 @@ export let initializeModalEventListeners = () => {
     });
   }
 
-  // Global functions for modal (for onclick)
   window.closePokemonModal = closePokemonModal;
   window.goToPreviousPokemon = goToPreviousPokemon;
   window.goToNextPokemon = goToNextPokemon;
 
-  // Initial Accessibility Setup - The modal should be closed.
   const modalElement = document.getElementById(ELEMENT_IDS.pokemonModal);
   if (modalElement) {
     modalElement.setAttribute("inert", "");

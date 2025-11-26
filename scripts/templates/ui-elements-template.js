@@ -1,4 +1,3 @@
-// Import constants for styling and UI
 import {
   CSS_CLASSES,
   UI_MESSAGES,
@@ -21,9 +20,7 @@ export function createAutocompleteItemHTML(pokemon, query) {
   );
 
   return `
-    <div class="${
-      CSS_CLASSES.autocompleteItem
-    }" onclick="window.selectAutocomplete('${name}')">
+    <div class="${CSS_CLASSES.autocompleteItem}" onclick="window.selectAutocomplete('${name}')">
       ${highlightedName}
     </div>
   `;
@@ -59,9 +56,7 @@ export function createErrorHTML(message = UI_MESSAGES.defaultError) {
       <div class="${CSS_CLASSES.errorContent}">
         <span class="${CSS_CLASSES.errorIcon}">⚠️</span>
         <span class="${CSS_CLASSES.errorText}">${message}</span>
-        <button class="${
-          CSS_CLASSES.errorClose
-        }" onclick="window.hideErrorMessage()">${UI_MESSAGES.closeModal}</button>
+        <button class="${CSS_CLASSES.errorClose}" onclick="window.hideErrorMessage()">${UI_MESSAGES.closeModal}</button>
       </div>
     </div>
   `;

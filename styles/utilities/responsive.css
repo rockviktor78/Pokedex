@@ -1,6 +1,6 @@
-/* ===== RESPONSIVE UTILITIES - MOBILE FIRST ===== */
 
-/* Breakpoint Variables (for reference) */
+
+
 /*
 - Mobile: 320px - 767px (default, no media query needed)
 - Tablet: 768px - 1023px
@@ -8,9 +8,9 @@
 - Large Desktop: 1200px+
 */
 
-/* ===== TABLET STYLES (768px+) ===== */
+
 @media (min-width: 768px) {
-  /* Header adjustments */
+  
   .header-container {
     flex-direction: row;
     justify-content: space-between;
@@ -31,19 +31,19 @@
     max-width: 24rem;
   }
 
-  /* Pokemon Grid - 2 columns */
+  
   .pokemon-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
 
-  /* Main padding */
+  
   .main {
     padding: 1.5rem 2rem;
-    padding-top: 140px; /* More space for taller header */
+    padding-top: 140px; 
   }
 
-  /* Modal adjustments */
+  
   .modal-container {
     max-width: 25rem;
   }
@@ -53,19 +53,19 @@
   }
 }
 
-/* ===== DESKTOP STYLES (1024px+) ===== */
+
 @media (min-width: 1024px) {
-  /* Pokemon Grid - 3 columns */
+  
   .pokemon-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
   }
 
-  /* Main content max-width */
+  
   .main {
     max-width: 75rem;
     padding: 2rem;
-    padding-top: 140px; /* Consistent spacing */
+    padding-top: 140px; 
   }
 
   .header-container {
@@ -78,7 +78,7 @@
     max-width: 28rem;
   }
 
-  /* Pokemon detail stats horizontal */
+  
   .pokemon-stat {
     flex-direction: row;
     align-items: center;
@@ -94,46 +94,46 @@
   }
 }
 
-/* ===== LARGE DESKTOP STYLES (1200px+) ===== */
+
 @media (min-width: 1200px) {
-  /* Pokemon Grid - 4 columns */
+  
   .pokemon-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
   }
 
-  /* Max width containment */
+  
   .main {
     max-width: 90rem;
-    padding-top: 140px; /* Consistent spacing */
+    padding-top: 140px; 
   }
 
   .header-container {
     max-width: 90rem;
   }
 
-  /* Larger modal */
+  
   .modal-container {
     max-width: 38rem;
   }
 
-  /* Search container larger */
+  
   .search-container {
     max-width: 28rem;
   }
 }
 
-/* ===== ULTRA WIDE SCREENS (1440px+) ===== */
+
 @media (min-width: 1440px) {
-  /* Pokemon Grid - 5 columns */
+  
   .pokemon-grid {
     grid-template-columns: repeat(5, 1fr);
   }
 
-  /* Ultra wide containment */
+  
   .main {
     max-width: 100rem;
-    padding-top: 140px; /* Consistent spacing */
+    padding-top: 140px; 
   }
 
   .header-container {
@@ -141,9 +141,9 @@
   }
 }
 
-/* ===== HOVER STATES (only on devices that support hover) ===== */
+
 @media (hover: hover) and (pointer: fine) {
-  /* Enhanced hover effects for mouse users */
+  
   .pokemon-card:hover {
     transform: translateY(-0.5rem);
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
@@ -158,7 +158,7 @@
   }
 }
 
-/* ===== PRINT STYLES ===== */
+
 @media print {
   .header,
   .load-more-container,
@@ -186,7 +186,7 @@
   }
 }
 
-/* ===== REDUCED MOTION ===== */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -203,7 +203,7 @@
   }
 }
 
-/* ===== HIGH CONTRAST MODE ===== */
+
 @media (prefers-contrast: high) {
   .pokemon-card {
     border: 0.125rem solid var(--color-gray-900);

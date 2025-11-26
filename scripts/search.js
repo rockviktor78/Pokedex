@@ -3,7 +3,6 @@
  * Handles all search-related features including autocomplete
  */
 
-// Import dependencies
 import { appState } from "./main.js";
 import { searchPokemon, loadAllPokemonNames } from "./api.js";
 import { clearPokemonContainer, renderPokemonCards } from "./pokemon-list.js";
@@ -22,14 +21,10 @@ import { ELEMENT_IDS, API_CONFIG, ANIMATIONS } from "./constants.js";
  */
 export let initializeSearch = async () => {
   try {
-    // Load all Pokémon names for autocomplete
     await loadAllPokemonNames();
 
-    // Setup event listeners
     setupSearchEventListeners();
-  } catch (error) {
-    // Error handled silently
-  }
+  } catch (error) {}
 };
 
 /**
@@ -86,23 +81,19 @@ export let handleSearchInput = async (e) => {
   const query = e.target.value.toLowerCase().trim();
   const searchButton = document.getElementById(ELEMENT_IDS.searchButton);
 
-  // Update button state based on input length
   updateSearchButtonState(query);
 
-  // If input is empty, restore initial Pokemon
   if (query.length === 0) {
     hideAutocomplete();
     await handleClearSearch();
     return;
   }
 
-  // Show autocomplete for any input
   if (query.length > 0) {
     updateAutocomplete(query);
     showAutocomplete();
   }
 
-  // Auto-search when 3 or more characters
   if (query.length >= 3) {
     await performSearch(query);
   }
@@ -122,7 +113,6 @@ let updateSearchButtonState = (query) => {
   searchButton.style.opacity = isValid ? "1" : "0.5";
   searchButton.style.cursor = isValid ? "pointer" : "not-allowed";
 
-  // Tooltip for better UX
   if (isValid) {
     searchButton.title = "Start search";
   } else {
@@ -144,13 +134,10 @@ export let handleSearchSubmit = async () => {
     return;
   }
 
-  // At least 3 characters required
   if (query.length < 3) {
-    // Visual feedback
     searchInput.style.borderColor = "#ff6b6b";
     searchInput.placeholder = "Enter at least 3 characters...";
 
-    // Reset after 2 seconds
     setTimeout(() => {
       searchInput.style.borderColor = "";
       searchInput.placeholder = "Pokémon suchen...";
@@ -173,12 +160,10 @@ export let performSearch = async (query) => {
   try {
     const results = await searchPokemon(query);
 
-    // Set app to search mode
     appState.isSearchMode = true;
     appState.currentSearchQuery = query;
-    appState.searchResults = results; // Store search results for modal navigation
+    appState.searchResults = results;
 
-    // Clear containers and show results
     clearPokemonContainer();
 
     if (results.length > 0) {
@@ -203,22 +188,17 @@ export let handleClearSearch = async () => {
     searchInput.value = "";
   }
 
-  // Only reload if we were in search mode
   if (!appState.isSearchMode) return;
 
-  // Back to normal mode
   appState.isSearchMode = false;
   appState.currentSearchQuery = "";
-  appState.searchResults = []; // Clear search results
+  appState.searchResults = [];
 
-  // Empty container and restore previously loaded Pokémon
   clearPokemonContainer();
 
-  // Show all previously loaded Pokémon from pokemonList
   if (appState.pokemonList.length > 0) {
     renderPokemonCards(appState.pokemonList);
   } else {
-    // If no Pokémon were loaded before, load initial set
     appState.currentOffset = 0;
     const { loadInitialPokemon } = await import("./pokemon-list.js");
     await loadInitialPokemon();
@@ -238,7 +218,6 @@ export let updateAutocomplete = (query) => {
   );
   if (!autocompleteContainer || !appState.allPokemonNames) return;
 
-  // Find matching Pokémon names
   const matches = appState.allPokemonNames.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(query)
   );
@@ -298,5 +277,4 @@ export let updateSearchStatus = (message) => {
   }
 };
 
-// Global functions for HTML onclick
 window.selectAutocomplete = selectAutocomplete;

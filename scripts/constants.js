@@ -4,11 +4,7 @@
  * @module constants
  */
 
-// ===== CSS CLASSES =====
-
-// Pokemon Card Classes
 export const CSS_CLASSES = {
-  // Pokemon Cards
   pokemonCard: "pokemon-card",
   pokemonCardHeader: "pokemon-card-header",
   pokemonName: "pokemon-name",
@@ -18,7 +14,6 @@ export const CSS_CLASSES = {
   pokemonTypes: "pokemon-types",
   pokemonType: "pokemon-type",
 
-  // Modal Classes
   modalHeader: "modal-header",
   modalTitleSection: "modal-title-section",
   modalPokemonName: "modal-pokemon-name",
@@ -50,11 +45,9 @@ export const CSS_CLASSES = {
   modalCategory: "modal-category",
   categoryBadge: "category-badge",
 
-  // Search Classes
   autocompleteItem: "autocomplete-item",
   noResults: "no-results",
 
-  // UI Classes
   errorContainer: "error-container",
   errorMessage: "error-message",
   errorContent: "error-content",
@@ -64,14 +57,11 @@ export const CSS_CLASSES = {
   toast: "toast",
   toastShow: "toast-show",
 
-  // Type Background Classes
   typePrefix: "type-",
   backgroundPrefix: "bg-",
 };
 
-// ===== ELEMENT IDS =====
 export const ELEMENT_IDS = {
-  // Core Elements
   pokemonContainer: "pokemonContainer",
   loadMoreButton: "loadMoreButton",
   searchInput: "searchInput",
@@ -82,7 +72,6 @@ export const ELEMENT_IDS = {
   loadingIndicator: "loadingIndicator",
   errorContainer: "errorContainer",
 
-  // Modal Elements
   pokemonModal: "pokemonModal",
   modalContent: "modalContent",
   closeModalButton: "closeModalButton",
@@ -90,7 +79,6 @@ export const ELEMENT_IDS = {
   nextPokemonButton: "nextPokemonButton",
 };
 
-// ===== POKEMON TYPES =====
 export const POKEMON_TYPES = {
   normal: "normal",
   fire: "fire",
@@ -112,7 +100,6 @@ export const POKEMON_TYPES = {
   fairy: "fairy",
 };
 
-// ===== STAT TRANSLATIONS =====
 export const STAT_TRANSLATIONS = {
   hp: "HP",
   attack: "Attack",
@@ -122,25 +109,19 @@ export const STAT_TRANSLATIONS = {
   speed: "Speed",
 };
 
-// ===== UI MESSAGES =====
 export const UI_MESSAGES = {
-  // Search Messages
   noResultsFound: "No Pokémon found",
   noSuggestions: "No suggestions",
 
-  // Loading Messages
   loading: "Loading...",
   loadingPokemon: "Loading Pokémon...",
   loadMore: "Load more",
 
-  // Error Messages
   defaultError: "An error occurred. Please try again later.",
   retryButton: "Retry",
 
-  // Modal Messages
   closeModal: "×",
 
-  // Stats Section
   baseStats: "Base Stats",
   physicalProperties: "Physical Properties",
   abilities: "Abilities",
@@ -148,13 +129,11 @@ export const UI_MESSAGES = {
   weight: "Weight:",
   hiddenAbilityLabel: " (hidden)",
 
-  // Additional Info
   description: "Description",
   category: "Category:",
   baseExperience: "Base Experience:",
 };
 
-// ===== API CONSTANTS =====
 export const API_CONFIG = {
   baseUrl: "https://pokeapi.co/api/v2/",
   endpoints: {
@@ -168,7 +147,6 @@ export const API_CONFIG = {
   weightDivisor: 10,
 };
 
-// ===== ACCESSIBILITY =====
 export const ARIA_LABELS = {
   pokemonCard: "Pokémon details",
   closeModal: "Close Pokémon details",
@@ -177,7 +155,6 @@ export const ARIA_LABELS = {
   loadMore: "Load more Pokémon",
 };
 
-// ===== ANIMATION CONSTANTS =====
 export const ANIMATIONS = {
   toastShowDelay: 100,
   toastHideDelay: 3000,

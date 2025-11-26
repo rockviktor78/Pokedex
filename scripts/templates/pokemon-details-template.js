@@ -1,4 +1,3 @@
-// Import constants for styling and UI
 import {
   CSS_CLASSES,
   STAT_TRANSLATIONS,
@@ -16,9 +15,7 @@ export function createModalTypesHTML(types) {
   return types
     .map(
       (typeInfo) =>
-        `<span class="${CSS_CLASSES.pokemonType} ${
-          CSS_CLASSES.typePrefix
-        }${typeInfo.type.name}">${typeInfo.type.name}</span>`
+        `<span class="${CSS_CLASSES.pokemonType} ${CSS_CLASSES.typePrefix}${typeInfo.type.name}">${typeInfo.type.name}</span>`
     )
     .join("");
 }
@@ -41,13 +38,9 @@ export function createStatsHTML(stats) {
 
       return `
         <div class="${CSS_CLASSES.statItem}">
-          <span class="${CSS_CLASSES.statName}">${translatedName}: ${
-        stat.base_stat
-      }</span>
+          <span class="${CSS_CLASSES.statName}">${translatedName}: ${stat.base_stat}</span>
           <div class="${CSS_CLASSES.statBarContainer}">
-            <div class="${
-              CSS_CLASSES.statBar
-            }" style="width: ${statWidth}%"></div>
+            <div class="${CSS_CLASSES.statBar}" style="width: ${statWidth}%"></div>
           </div>
         </div>
       `;

@@ -4,7 +4,6 @@
  * @module ui-helpers
  */
 
-// Import dependencies
 import { appState } from "./main.js";
 import {
   createErrorHTML,
@@ -52,7 +51,6 @@ export let updateLoadingUI = (isLoading) => {
  * @param {string} message - Error message (optional)
  */
 export let showErrorMessage = (message = UI_MESSAGES.defaultError) => {
-  // Create or update error container
   let errorContainer = document.getElementById(ELEMENT_IDS.errorContainer);
 
   if (!errorContainer) {
@@ -63,7 +61,6 @@ export let showErrorMessage = (message = UI_MESSAGES.defaultError) => {
   errorContainer.innerHTML = createErrorHTML(message);
   errorContainer.style.display = "block";
 
-  // Auto-hide after 5 seconds
   setTimeout(() => {
     hideErrorMessage();
   }, ANIMATIONS.errorAutoHideDelay);
@@ -88,7 +85,6 @@ export let updateLoadMoreButton = () => {
   const loadMoreButton = document.getElementById(ELEMENT_IDS.loadMoreButton);
   if (!loadMoreButton) return;
 
-  // Hide button in search mode
   if (appState.isSearchMode) {
     loadMoreButton.style.display = "none";
   } else {
@@ -158,7 +154,6 @@ export let isElementInViewport = (element) => {
  * @function initializeAccessibility
  */
 export let initializeAccessibility = () => {
-  // Skip-to-content Link
   const skipLink = document.querySelector(".skip-to-content");
   if (skipLink) {
     skipLink.addEventListener("click", (e) => {
@@ -171,7 +166,6 @@ export let initializeAccessibility = () => {
     });
   }
 
-  // Keyboard navigation for Pokémon cards
   document.addEventListener("keydown", handleKeyboardNavigation);
 };
 
@@ -181,11 +175,9 @@ export let initializeAccessibility = () => {
  * @param {KeyboardEvent} e - Keyboard Event
  */
 export let handleKeyboardNavigation = (e) => {
-  // ESC to close modal
   if (e.key === "Escape") {
     const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
     if (modal && modal.style.display === "block") {
-      // Dynamic import to avoid circular dependency
       import("./pokemon-detail.js").then((module) => {
         module.closePokemonModal();
       });
@@ -203,13 +195,11 @@ export let showToast = (message, type = "info") => {
   const toast = createToastHTML(message, type);
   document.body.appendChild(toast);
 
-  // Animation
   setTimeout(
     () => toast.classList.add("toast-show"),
     ANIMATIONS.toastShowDelay
   );
 
-  // Auto-remove after 3 seconds
   setTimeout(() => {
     toast.classList.remove("toast-show");
     setTimeout(() => {
@@ -220,5 +210,4 @@ export let showToast = (message, type = "info") => {
   }, ANIMATIONS.toastHideDelay);
 };
 
-// Global functions for HTML onclick
 window.hideErrorMessage = hideErrorMessage;

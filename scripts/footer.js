@@ -6,7 +6,6 @@
  * @module footer
  */
 
-// Import dependencies
 import {
   createDatenschutzModalHTML,
   createFooterHTML,
@@ -22,10 +21,8 @@ import { ELEMENT_IDS } from "./constants.js";
 function renderFooter() {
   const body = document.body;
 
-  // Insert footer
   body.insertAdjacentHTML("beforeend", createFooterHTML());
 
-  // Insert modals
   body.insertAdjacentHTML("beforeend", createImpressumModalHTML());
   body.insertAdjacentHTML("beforeend", createDatenschutzModalHTML());
 }
