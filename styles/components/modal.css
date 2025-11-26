@@ -269,6 +269,7 @@
 .tab-pane {
   display: none;
   animation: fadeIn 0.3s ease-in-out;
+  min-height: 20rem;
 }
 
 .tab-pane.active {
