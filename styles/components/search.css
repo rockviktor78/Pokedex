@@ -32,7 +32,7 @@
 .search-input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: var(--shadow-outline);
   background: var(--white);
 }
 
@@ -474,7 +474,7 @@
   }
 
   .search-input:focus {
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+    box-shadow: var(--shadow-outline-high-contrast);
   }
 
   .suggestion-item.highlighted {
