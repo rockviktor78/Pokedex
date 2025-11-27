@@ -22,7 +22,7 @@
     margin-right: 1rem;
   }
 
-  .search-container {
+  .header .search-container {
     max-width: 24rem;
   }
 
@@ -101,7 +101,7 @@
     max-width: 38rem;
   }
 
-  .search-container {
+  .header .search-container {
     max-width: 28rem;
   }
 }

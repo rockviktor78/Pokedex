@@ -357,6 +357,7 @@
 
 @media (min-width: 48em) {
   .search-container {
+    width: auto;
     padding: 0 var(--spacing-lg);
     gap: var(--spacing-md);
   }
@@ -389,9 +390,8 @@
 }
 
 @media (min-width: 64em) {
-  .search-container {
+  .header .search-container {
     max-width: 32rem;
-    margin: 0 auto;
   }
 
   .search-button {
@@ -409,7 +409,7 @@
 }
 
 @media (min-width: 75em) {
-  .search-container {
+  .header .search-container {
     padding: 0;
     max-width: 36rem;
   }
