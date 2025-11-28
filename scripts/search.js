@@ -20,8 +20,8 @@ import { ELEMENT_IDS, API_CONFIG, ANIMATIONS } from "./constants.js";
  * @returns {Promise<void>}
  */
 export let initializeSearch = async () => {
-    await loadAllPokemonNames();
-    setupSearchEventListeners();
+  await loadAllPokemonNames();
+  setupSearchEventListeners();
 };
 
 /**
@@ -41,23 +41,6 @@ function setupSearchInputListeners(searchInput) {
 }
 
 /**
- * Sets up search button event listeners
- */
-function setupSearchButtonListeners() {
-  const searchButton = document.getElementById(ELEMENT_IDS.searchButton);
-  const clearButton = document.getElementById(ELEMENT_IDS.clearSearch);
-
-  if (searchButton) {
-    updateSearchButtonState("");
-    searchButton.addEventListener("click", handleSearchSubmit);
-  }
-
-  if (clearButton) {
-    clearButton.addEventListener("click", handleClearSearch);
-  }
-}
-
-/**
  * Sets up event listeners for search
  */
 export let setupSearchEventListeners = () => {
@@ -66,8 +49,6 @@ export let setupSearchEventListeners = () => {
   if (searchInput) {
     setupSearchInputListeners(searchInput);
   }
-
-  setupSearchButtonListeners();
 };
 
 /**
@@ -76,9 +57,6 @@ export let setupSearchEventListeners = () => {
  */
 export let handleSearchInput = async (e) => {
   const query = e.target.value.toLowerCase().trim();
-  const searchButton = document.getElementById(ELEMENT_IDS.searchButton);
-
-  updateSearchButtonState(query);
 
   if (query.length === 0) {
     hideAutocomplete();
@@ -93,27 +71,6 @@ export let handleSearchInput = async (e) => {
 
   if (query.length >= 3) {
     await performSearch(query);
-  }
-};
-
-/**
- * Updates the search button state
- * @param {string} query - Current search input
- */
-let updateSearchButtonState = (query) => {
-  const searchButton = document.getElementById(ELEMENT_IDS.searchButton);
-  if (!searchButton) return;
-
-  const isValid = query.length >= 3;
-
-  searchButton.disabled = !isValid;
-  searchButton.style.opacity = isValid ? "1" : "0.5";
-  searchButton.style.cursor = isValid ? "pointer" : "not-allowed";
-
-  if (isValid) {
-    searchButton.title = "Start search";
-  } else {
-    searchButton.title = `At least 3 characters required (${query.length}/3)`;
   }
 };
 

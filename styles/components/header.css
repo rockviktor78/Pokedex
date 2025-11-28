@@ -103,8 +103,8 @@
 }
 
 .header .search-container {
-  max-width: 20rem;
-  margin: 0;
+  max-width: 16rem;
+  margin: 0 auto;
   padding: 0;
   position: static;
 }

@@ -77,14 +77,6 @@ export function createFooterHTML() {
               Datenschutz
             </button>
           </div>
-          <button
-            id="scrollToTopButton"
-            class="scroll-to-top"
-            type="button"
-            aria-label="Nach oben scrollen"
-          >
-            ↑
-          </button>
         </div>
       </div>
     </footer>

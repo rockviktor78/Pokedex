@@ -130,10 +130,6 @@
   .load-more-button:hover:not(:disabled) {
     transform: translateY(-0.125rem);
   }
-
-  .search-button:hover:not(:disabled) {
-    transform: translateY(-0.125rem);
-  }
 }
 
 @media print {
