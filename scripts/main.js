@@ -37,14 +37,12 @@ export const appState = {
  * @returns {Promise<void>} Promise that resolves when initialization is complete
  */
 let initializeApp = async () => {
-  try {
-    await initializeSearch();
-    initializeModalEventListeners();
-    initializeAccessibility();
-    initializeFooter();
-    setupCoreEventListeners();
-    await loadInitialPokemon();
-  } catch (error) {}
+  await initializeSearch();
+  initializeModalEventListeners();
+  initializeAccessibility();
+  initializeFooter();
+  setupCoreEventListeners();
+  await loadInitialPokemon();
 };
 
 /**
@@ -85,7 +83,8 @@ let setupNavigationListeners = () => {
 let setupScrollButton = () => {
   const scrollToTopButton = document.getElementById("scrollToTopButton");
   if (scrollToTopButton) {
-    scrollToTopButton.addEventListener("click", () => {
+    scrollToTopButton.addEventListener("click", (e) => {
+      e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }

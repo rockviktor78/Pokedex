@@ -20,11 +20,8 @@ import { ELEMENT_IDS, API_CONFIG, ANIMATIONS } from "./constants.js";
  * @returns {Promise<void>}
  */
 export let initializeSearch = async () => {
-  try {
     await loadAllPokemonNames();
-
     setupSearchEventListeners();
-  } catch (error) {}
 };
 
 /**
