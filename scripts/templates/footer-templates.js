@@ -16,7 +16,7 @@ export function createFooterHTML() {
       <div class="footer-container">
         <div class="footer-content">
           <div class="footer-section">
-            <h4 class="footer-title">Pokédx</h4>
+            <h4 class="footer-title">Pokédex</h4>
             <p class="footer-description">
               Entdecke die Welt der Pokémon mit unserer interaktiven Pokédx-App.
               Durchsuche Hunderte von Pokémon und erfahre alles über ihre
