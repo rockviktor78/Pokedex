@@ -340,6 +340,8 @@
 @media (min-width: 64em) {
   .header .search-container {
     max-width: 32rem;
+    margin-left: auto;
+    margin-right: 2rem;
   }
 
   .search-suggestions {
@@ -356,6 +358,8 @@
   .header .search-container {
     padding: 0;
     max-width: 36rem;
+    margin-left: auto;
+    margin-right: 3rem;
   }
 
   .search-button {

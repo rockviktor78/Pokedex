@@ -12,6 +12,7 @@ import {
   createSearchStatusHTML,
 } from "./templates/ui-elements-template.js";
 import { ELEMENT_IDS, API_CONFIG, ANIMATIONS } from "./constants.js";
+import { showNotification } from "./components/notification.js";
 
 /**
  * Initializes the search functionality
@@ -125,6 +126,7 @@ export let performSearch = async (query) => {
       updateSearchStatus(createSearchStatusHTML(results.length, query));
     } else {
       updateSearchStatus(createSearchStatusHTML(0, query));
+      showNotification("", query);
     }
   } catch (error) {
     showErrorMessage();
