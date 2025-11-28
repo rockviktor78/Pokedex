@@ -101,12 +101,17 @@ async function loadEvolutionData(pokemon) {
 export let openPokemonModal = (pokemon) => {
   const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
   const modalContent = document.getElementById("pokemonDetailContent");
+  const scrollToTopButton = document.getElementById("scrollToTopButton");
 
   if (modal && modalContent) {
     showModalWithAccessibility(modal);
     setupModalContent(modalContent, pokemon);
     updateNavigationArrows();
     loadEvolutionData(pokemon);
+
+    if (scrollToTopButton) {
+      scrollToTopButton.style.display = "none";
+    }
   }
 };
 /**
@@ -115,6 +120,8 @@ export let openPokemonModal = (pokemon) => {
  */
 export let closePokemonModal = () => {
   const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
+  const scrollToTopButton = document.getElementById("scrollToTopButton");
+
   if (modal) {
     modal.classList.remove("visible");
     modal.classList.add("hidden");
@@ -123,6 +130,10 @@ export let closePokemonModal = () => {
     modal.setAttribute("inert", "");
 
     document.body.style.overflow = "auto";
+
+    if (scrollToTopButton) {
+      scrollToTopButton.style.display = "block";
+    }
   }
 };
 
