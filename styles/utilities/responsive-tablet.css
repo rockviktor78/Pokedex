@@ -1,0 +1,134 @@
+/* Tablet Responsive Styles - min-width: 48em (768px) */
+
+@media (min-width: 48em) {
+  .header-container {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+  }
+
+  .header-title {
+    order: -1;
+    margin-right: auto;
+  }
+
+  .header-logo {
+    order: -2;
+    margin-right: 1rem;
+  }
+
+  .header .search-container {
+    max-width: 24rem;
+  }
+
+  .pokemon-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .main {
+    padding: 1.5rem 2rem;
+    padding-top: 140px;
+  }
+
+  .modal-container {
+    max-width: 600px;
+    margin: var(--spacing-xl);
+  }
+
+  .modal-header {
+    padding: var(--spacing-lg);
+  }
+
+  .modal-body {
+    padding: var(--spacing-lg) var(--spacing-lg) 1.5rem;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .modal-info-section {
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
+    margin-left: 3rem !important;
+    margin-right: 3rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-top: 1rem !important;
+  }
+
+  .modal-image-section {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-pokemon-image {
+    width: 9rem;
+    height: 9rem;
+    margin: 0.75rem auto;
+  }
+
+  .modal-navigation {
+    padding: var(--spacing-lg);
+  }
+
+  .nav-arrow {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.2rem;
+    bottom: 1.25rem;
+  }
+
+  .nav-arrow-prev {
+    left: 1.5rem;
+  }
+
+  .nav-arrow-next {
+    right: 1.5rem;
+  }
+
+  .nav-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .pokemon-detail {
+    padding: 3rem 2.5rem 2rem;
+  }
+
+  .modal-container .pokemon-detail-image {
+    width: 6rem;
+    height: 6rem;
+    margin: 0.75rem 0;
+  }
+
+  .modal-container .pokemon-detail-name {
+    font-size: var(--font-size-xl);
+  }
+
+  .modal-container .pokemon-detail-id {
+    font-size: var(--font-size-base);
+    padding: 0.375rem 0.75rem;
+  }
+
+  .search-container {
+    width: auto;
+    padding: 0 var(--spacing-lg);
+    gap: var(--spacing-md);
+  }
+
+  .search-input {
+    font-size: 1.125rem;
+  }
+
+  .search-suggestions {
+    right: 4rem;
+    max-height: 16rem;
+  }
+
+  .suggestion-item {
+    padding: var(--spacing-md);
+  }
+
+  .search-filters {
+    justify-content: center;
+  }
+}

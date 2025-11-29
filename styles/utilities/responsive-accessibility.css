@@ -1,0 +1,123 @@
+/* Accessibility & Special Media Queries */
+
+@media (hover: hover) and (pointer: fine) {
+  .pokemon-card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  }
+
+  .load-more-button:hover:not(:disabled) {
+    transform: translateY(-0.125rem);
+  }
+}
+
+@media print {
+  .header,
+  .load-more-container,
+  .loading-spinner,
+  .error-message,
+  .modal-overlay,
+  .search-container {
+    display: none !important;
+  }
+
+  .pokemon-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .pokemon-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 0.0625rem solid var(--color-gray-300);
+  }
+
+  body {
+    background-color: white;
+    color: black;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .spinner {
+    animation: none;
+    border-top-color: var(--color-primary);
+  }
+
+  .modal-overlay {
+    animation: none;
+  }
+
+  .modal-container {
+    animation: none;
+  }
+
+  .tab-pane {
+    animation: none;
+  }
+
+  .search-suggestions,
+  .filter-button {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .pokemon-card {
+    border: 0.125rem solid var(--color-gray-900);
+  }
+
+  .pokemon-type {
+    border: 0.0625rem solid var(--color-gray-900);
+  }
+
+  .search-input {
+    border-width: 3px;
+  }
+
+  .search-input:focus {
+    box-shadow: var(--shadow-outline-high-contrast);
+  }
+
+  .modal-container {
+    border: 0.1875rem solid var(--color-gray-900);
+  }
+
+  .tab-link {
+    border: 0.125rem solid currentColor;
+  }
+
+  .tab-link.active {
+    border-bottom: 0.25rem solid var(--modal-accent-color);
+  }
+
+  .suggestion-item.highlighted {
+    background: var(--primary-color);
+    color: var(--white);
+  }
+}
+
+@media (orientation: landscape) and (max-height: 37.5rem) {
+  .modal-container {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-info-section {
+    max-height: 250px !important;
+  }
+
+  .modal-pokemon-image {
+    width: 7rem;
+    height: 7rem;
+  }
+}

@@ -1,0 +1,136 @@
+/* Desktop Responsive Styles - min-width: 64em (1024px), 75em (1200px), 90em (1440px) */
+
+@media (min-width: 64em) {
+  .pokemon-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .main {
+    max-width: 75rem;
+    padding: 2rem;
+    padding-top: 140px;
+  }
+
+  .header-container {
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+  }
+
+  .modal-container {
+    max-width: 28rem;
+  }
+
+  .modal-info-section {
+    max-height: 450px !important;
+  }
+
+  .pokemon-stat {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .pokemon-stat-bar {
+    margin: 0 1rem;
+    order: initial;
+  }
+
+  .pokemon-physical {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .modal-container .pokemon-detail-image {
+    width: 7rem;
+    height: 7rem;
+    margin: 1rem 0;
+  }
+
+  .modal-container .pokemon-detail-name {
+    font-size: var(--font-size-2xl);
+  }
+
+  .header .search-container {
+    max-width: 32rem;
+    margin-left: auto;
+    margin-right: 2rem;
+  }
+
+  .search-suggestions {
+    right: 4.5rem;
+    max-height: 20rem;
+  }
+
+  .suggestion-item:hover {
+    background: var(--primary-light);
+  }
+}
+
+@media (min-width: 75em) {
+  .pokemon-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .header .search-container {
+    padding: 0;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: 3rem;
+  }
+
+  .search-button {
+    min-width: auto;
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+
+  .search-button .search-icon {
+    margin-right: var(--spacing-sm);
+  }
+
+  .search-button::after {
+    content: "Suchen";
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .search-suggestions {
+    right: 0;
+  }
+
+  .search-filters {
+    justify-content: flex-start;
+  }
+
+  .main {
+    max-width: 90rem;
+    padding-top: 140px;
+  }
+
+  .header-container {
+    max-width: 90rem;
+  }
+
+  .modal-container {
+    max-width: 38rem;
+  }
+
+  .header .search-container {
+    max-width: 28rem;
+  }
+}
+
+@media (min-width: 90em) {
+  .pokemon-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .main {
+    max-width: 100rem;
+    padding-top: 140px;
+  }
+
+  .header-container {
+    max-width: 100rem;
+  }
+}

@@ -1,0 +1,68 @@
+/* Mobile Responsive Styles - max-width: 480px and min-width: 30em (480px) */
+
+@media (max-width: 380px) {
+  .modal-info-section {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+  }
+
+  .tab-nav {
+    gap: 0.2rem;
+  }
+
+  .tab-link {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .evolution-chain-container,
+  .next-evolution-stages {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .evolution-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .pokemon-detail-name {
+    font-size: var(--font-size-3xl);
+  }
+
+  .pokemon-detail-image {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .pokemon-physical {
+    grid-template-columns: 1fr;
+  }
+
+  .pokemon-stat {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+
+  .pokemon-stat-bar {
+    margin: 0;
+    order: 3;
+  }
+
+  .pokemon-stat-name,
+  .pokemon-stat-value {
+    text-align: center;
+  }
+}
+
+@media (min-width: 30em) {
+  .modal-info-section {
+    max-height: 300px !important;
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    padding-top: 0.75rem !important;
+  }
+}
