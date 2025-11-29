@@ -160,26 +160,39 @@ let reloadPokemonList = async () => {
 };
 
 /**
+ * Clears search input
+ */
+function clearSearchInput() {
+    const searchInput = document.getElementById(ELEMENT_IDS.searchInput);
+    if (searchInput && searchInput.value !== "") {
+        searchInput.value = "";
+    }
+}
+
+/**
+ * Resets search state
+ */
+function resetSearchState() {
+    appState.isSearchMode = false;
+    appState.currentSearchQuery = "";
+    appState.searchResults = [];
+}
+
+/**
  * Clears the search and returns to the normal view
  */
 export let handleClearSearch = async () => {
-  const searchInput = document.getElementById(ELEMENT_IDS.searchInput);
-  if (searchInput && searchInput.value !== "") {
-    searchInput.value = "";
-  }
+    clearSearchInput();
 
-  if (!appState.isSearchMode) return;
+    if (!appState.isSearchMode) return;
 
-  appState.isSearchMode = false;
-  appState.currentSearchQuery = "";
-  appState.searchResults = [];
+    resetSearchState();
 
-  clearPokemonContainer();
-  await reloadPokemonList();
-  }
+    clearPokemonContainer();
+    await reloadPokemonList();
 
-  updateSearchStatus("");
-  hideAutocomplete();
+    updateSearchStatus("");
+    hideAutocomplete();
 };
 
 /**

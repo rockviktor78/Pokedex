@@ -169,7 +169,6 @@ export let initializeAccessibility = () => {
   const skipLink = document.querySelector(".skip-to-content");
   if (skipLink) {
     skipLink.addEventListener("click", handleSkipLinkClick);
-    });
   }
 
   document.addEventListener("keydown", handleKeyboardNavigation);

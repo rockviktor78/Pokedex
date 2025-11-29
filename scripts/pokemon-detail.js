@@ -124,27 +124,39 @@ export let openPokemonModal = (pokemon) => {
     }
   }
 };
-/**
- * Closes the Pokémon modal
- * @function closePokemonModal
- */
-export let closePokemonModal = () => {
-  const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
-  const scrollToTopButton = document.getElementById("scrollToTopButton");
 
-  if (modal) {
+/**
+ * Hides the modal and sets attributes for accessibility.
+ * @param {HTMLElement} modal - The modal element to hide.
+ */
+function hideModal(modal) {
     modal.classList.remove("visible");
     modal.classList.add("hidden");
     modal.style.display = "none";
-
     modal.setAttribute("inert", "");
+}
 
+/**
+ * Restores page scrollability and shows the scroll-to-top button.
+ */
+function restorePageScroll() {
     document.body.style.overflow = "auto";
-
+    const scrollToTopButton = document.getElementById("scrollToTopButton");
     if (scrollToTopButton) {
-      scrollToTopButton.style.display = "block";
+        scrollToTopButton.style.display = "block";
     }
-  }
+}
+
+/**
+ * Closes the Pokémon modal.
+ * @function closePokemonModal
+ */
+export let closePokemonModal = () => {
+    const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
+    if (modal) {
+        hideModal(modal);
+        restorePageScroll();
+    }
 };
 
 /**

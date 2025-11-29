@@ -13,6 +13,15 @@ import {
 } from "./pokemon-details-template.js";
 
 /**
+ * Gets padded Pokémon ID string
+ * @param {Object} pokemon - Pokémon data object
+ * @returns {string} Padded ID string
+ */
+function getPokemonPaddedId(pokemon) {
+    return pokemon.id.toString().padStart(API_CONFIG.pokemonIdPadding, "0");
+}
+
+/**
  * Creates modal header HTML
  * @function createModalHeaderHTML
  * @param {Object} pokemon - Pokémon data object
@@ -20,16 +29,13 @@ import {
  */
 function createModalHeaderHTML(pokemon) {
   const primaryType = pokemon.types[0]?.type.name || POKEMON_TYPES.normal;
+  const pokemonId = getPokemonPaddedId(pokemon);
 
   return `
     <div class="${CSS_CLASSES.modalHeader} ${primaryType}">
       <div class="${CSS_CLASSES.modalTitleSection}">
-        <h2 class="${
-          CSS_CLASSES.modalPokemonName
-        }">${pokemon.name.toUpperCase()}</h2>
-        <span class="${CSS_CLASSES.modalPokemonId}">#${pokemon.id
-    .toString()
-    .padStart(API_CONFIG.pokemonIdPadding, "0")}</span>
+        <h2 class="${CSS_CLASSES.modalPokemonName}">${pokemon.name.toUpperCase()}</h2>
+        <span class="${CSS_CLASSES.modalPokemonId}">#${pokemonId}</span>
       </div>
       <button class="${
         CSS_CLASSES.modalClose
@@ -49,6 +55,32 @@ function createTabPaneContent(title, contentHTML) {
 }
 
 /**
+ * Extracts Pokémon ID and image URL from an evolution chain node.
+ * @param {Object} chainNode - A node from the evolution chain.
+ * @returns {Object} An object containing the Pokémon's image URL and name.
+ */
+function getEvolutionPokemonData(chainNode) {
+    const parts = chainNode.species.url.split("/").filter(Boolean);
+    const pokemonId = parts[parts.length - 1];
+    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
+    return { imageUrl, name: chainNode.species.name };
+}
+
+/**
+ * Creates the HTML for a single evolution stage.
+ * @param {Object} pokemonData - Data for the Pokémon in this stage.
+ * @returns {string} HTML string for the evolution stage.
+ */
+function createEvolutionStageHTML(pokemonData) {
+    return `
+        <div class="evolution-stage">
+            <img src="${pokemonData.imageUrl}" alt="${pokemonData.name}" class="evolution-image">
+            <span class="evolution-name">${pokemonData.name}</span>
+        </div>
+    `;
+}
+
+/**
  * Creates the HTML for the "Evolutions" tab content by parsing the evolution chain.
  * @param {Object} evolutionChain - The raw evolution chain data from the API.
  * @returns {string} HTML string for the "Evolutions" tab content.
@@ -59,16 +91,8 @@ export function createEvolutionsTabHTML(evolutionChain) {
   }
 
   const parseChain = (chainNode) => {
-    const parts = chainNode.species.url.split("/").filter(Boolean);
-    const pokemonId = parts[parts.length - 1];
-    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
-
-    let html = `
-            <div class="evolution-stage">
-                <img src="${imageUrl}" alt="${chainNode.species.name}" class="evolution-image">
-                <span class="evolution-name">${chainNode.species.name}</span>
-            </div>
-        `;
+    const pokemonData = getEvolutionPokemonData(chainNode);
+    let html = createEvolutionStageHTML(pokemonData);
 
     if (chainNode.evolves_to.length > 0) {
       html += '<div class="evolution-arrow">→</div>';
@@ -77,7 +101,6 @@ export function createEvolutionsTabHTML(evolutionChain) {
         .join("");
       html += `<div class="next-evolution-stages">${nextStages}</div>`;
     }
-
     return html;
   };
 
@@ -107,35 +130,59 @@ function createTabNavigationHTML() {
 }
 
 /**
+ * Creates the "About" tab HTML.
+ * @param {Object} pokemon - Pokémon data object.
+ * @returns {string} HTML for the "About" tab.
+ */
+function createAboutTab(pokemon) {
+    const aboutContent = createTabPaneContent(
+        UI_MESSAGES.physicalProperties,
+        `<div class="${CSS_CLASSES.physicalStats}">${createPhysicalStatsHTML(pokemon)}</div>`
+    );
+    return `<div id="About" class="tab-pane active">${aboutContent}</div>`;
+}
+
+/**
+ * Creates the "Base Stats" tab HTML.
+ * @param {Object} pokemon - Pokémon data object.
+ * @returns {string} HTML for the "Base Stats" tab.
+ */
+function createStatsTab(pokemon) {
+    const statsContent = createTabPaneContent(
+        UI_MESSAGES.baseStats,
+        `<div class="${CSS_CLASSES.statsGrid}">${createStatsHTML(pokemon.stats)}</div>`
+    );
+    return `<div id="Base Stats" class="tab-pane">${statsContent}</div>`;
+}
+
+/**
+ * Creates the "Abilities" tab HTML.
+ * @param {Object} pokemon - Pokémon data object.
+ * @returns {string} HTML for the "Abilities" tab.
+ */
+function createAbilitiesTab(pokemon) {
+    const abilitiesContent = createTabPaneContent(
+        UI_MESSAGES.abilities,
+        `<div class="${CSS_CLASSES.abilitiesList}">${createAbilitiesHTML(pokemon.abilities)}</div>`
+    );
+    return `<div id="Abilities" class="tab-pane">${abilitiesContent}</div>`;
+}
+
+/**
  * Creates the HTML for all tab content panes
  * @param {Object} pokemon - Pokémon data object
  * @returns {string} HTML string for all tab panes
  */
 function createTabContentHTML(pokemon) {
-  const aboutContent = createTabPaneContent(
-    UI_MESSAGES.physicalProperties,
-    `<div class="${CSS_CLASSES.physicalStats}">${createPhysicalStatsHTML(
-      pokemon
-    )}</div>`
-  );
-  const statsContent = createTabPaneContent(
-    UI_MESSAGES.baseStats,
-    `<div class="${CSS_CLASSES.statsGrid}">${createStatsHTML(
-      pokemon.stats
-    )}</div>`
-  );
-  const abilitiesContent = createTabPaneContent(
-    UI_MESSAGES.abilities,
-    `<div class="${CSS_CLASSES.abilitiesList}">${createAbilitiesHTML(
-      pokemon.abilities
-    )}</div>`
-  );
+  const aboutTab = createAboutTab(pokemon);
+  const statsTab = createStatsTab(pokemon);
+  const abilitiesTab = createAbilitiesTab(pokemon);
 
   return `
         <div class="tab-content">
-            <div id="About" class="tab-pane active">${aboutContent}</div>
-            <div id="Base Stats" class="tab-pane">${statsContent}</div>
-            <div id="Abilities" class="tab-pane">${abilitiesContent}</div>
+            ${aboutTab}
+            ${statsTab}
+            ${abilitiesTab}
             <div id="Evolutions" class="tab-pane"></div>
         </div>
     `;

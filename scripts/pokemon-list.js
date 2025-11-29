@@ -65,32 +65,39 @@ export let renderPokemonCards = (pokemonArray) => {
 };
 
 /**
+ * Adds a click event listener to a Pokémon card to handle detail view loading.
+ * @param {HTMLElement} card - The card element.
+ * @param {Object} pokemon - The Pokémon data associated with the card.
+ */
+function addCardClickListener(card, pokemon) {
+    card.addEventListener("click", () => {
+        import("./pokemon-detail.js")
+            .then((module) => {
+                module.handlePokemonCardClick(pokemon);
+            })
+            .catch(() => {});
+    });
+}
+
+/**
  * Creates a single Pokémon card
  * @function createPokemonCard
  * @param {Object} pokemon - Pokémon data from the API
  * @returns {HTMLElement} Pokémon card element
  */
 export let createPokemonCard = (pokemon) => {
-  const card = document.createElement("div");
-  card.className = CSS_CLASSES.pokemonCard;
-  card.setAttribute("data-pokemon-id", pokemon.id);
+    const card = document.createElement("div");
+    card.className = CSS_CLASSES.pokemonCard;
+    card.setAttribute("data-pokemon-id", pokemon.id);
 
-  const primaryType = pokemon.types[0]?.type.name;
-  if (primaryType) {
-    card.classList.add(`${CSS_CLASSES.backgroundPrefix}${primaryType}`);
-  }
+    const primaryType = pokemon.types[0]?.type.name;
+    if (primaryType) {
+        card.classList.add(`${CSS_CLASSES.backgroundPrefix}${primaryType}`);
+    }
 
-  card.innerHTML = createPokemonCardHTML(pokemon);
-
-  card.addEventListener("click", () => {
-    import("./pokemon-detail.js")
-      .then((module) => {
-        module.handlePokemonCardClick(pokemon);
-      })
-      .catch(() => {});
-  });
-
-  return card;
+    card.innerHTML = createPokemonCardHTML(pokemon);
+    addCardClickListener(card, pokemon);
+    return card;
 };
 
 /**

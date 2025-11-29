@@ -7,21 +7,61 @@ import { CSS_CLASSES, API_CONFIG } from "../constants.js";
  */
 export function getBestPokemonImage(pokemon) {
   const sprites = pokemon.sprites;
+  const officialArtwork = sprites.other?.["official-artwork"]?.front_default;
+  const home = sprites.other?.home?.front_default;
+  const dreamWorld = sprites.other?.dream_world?.front_default;
+  const defaultSprite = sprites.front_default;
+  const fallback = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
 
-  if (sprites.other?.["official-artwork"]?.front_default) {
-    return sprites.other["official-artwork"].front_default;
-  }
-  if (sprites.other?.home?.front_default) {
-    return sprites.other.home.front_default;
-  }
-  if (sprites.other?.dream_world?.front_default) {
-    return sprites.other.dream_world.front_default;
-  }
-  if (sprites.front_default) {
-    return sprites.front_default;
-  }
+  return officialArtwork || home || dreamWorld || defaultSprite || fallback;
+}
 
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
+/**
+ * Creates the HTML for the card's header section.
+ * @param {Object} pokemon - The Pokémon data object.
+ * @returns {string} The HTML string for the card header.
+ */
+function createCardHeaderHTML(pokemon) {
+    const paddedId = pokemon.id.toString().padStart(API_CONFIG.pokemonIdPadding, "0");
+    return `
+        <div class="${CSS_CLASSES.pokemonCardHeader}">
+          <h3 class="${CSS_CLASSES.pokemonName}">${pokemon.name.toUpperCase()}</h3>
+          <span class="${CSS_CLASSES.pokemonId}">#${paddedId}</span>
+        </div>
+    `;
+}
+
+/**
+ * Creates the HTML for the card's image section.
+ * @param {Object} pokemon - The Pokémon data object.
+ * @returns {string} The HTML string for the card image.
+ */
+function createCardImageHTML(pokemon) {
+    return `
+        <div class="${CSS_CLASSES.pokemonImageContainer}">
+          <img 
+            src="${getBestPokemonImage(pokemon)}" 
+            alt="${pokemon.name}" 
+            class="${CSS_CLASSES.pokemonImage}"
+            loading="lazy"
+          >
+        </div>
+    `;
+}
+
+/**
+ * Creates the HTML for the card's types section.
+ * @param {Object} pokemon - The Pokémon data object.
+ * @returns {string} The HTML string for the card types.
+ */
+function createCardTypesHTML(pokemon) {
+    const typeElements = pokemon.types
+        .map(
+          (typeInfo) =>
+            `<span class="${CSS_CLASSES.pokemonType} ${CSS_CLASSES.typePrefix}${typeInfo.type.name}">${typeInfo.type.name}</span>`
+        )
+        .join("");
+    return `<div class="${CSS_CLASSES.pokemonTypes}">${typeElements}</div>`;
 }
 
 /**
@@ -31,30 +71,9 @@ export function getBestPokemonImage(pokemon) {
  * @returns {string} Pokémon card HTML string
  */
 export function createPokemonCardHTML(pokemon) {
-  const typeElements = pokemon.types
-    .map(
-      (typeInfo) =>
-        `<span class="${CSS_CLASSES.pokemonType} ${CSS_CLASSES.typePrefix}${typeInfo.type.name}">${typeInfo.type.name}</span>`
-    )
-    .join("");
+    const header = createCardHeaderHTML(pokemon);
+    const image = createCardImageHTML(pokemon);
+    const types = createCardTypesHTML(pokemon);
 
-  return `
-    <div class="${CSS_CLASSES.pokemonCardHeader}">
-      <h3 class="${CSS_CLASSES.pokemonName}">${pokemon.name.toUpperCase()}</h3>
-      <span class="${CSS_CLASSES.pokemonId}">#${pokemon.id
-    .toString()
-    .padStart(API_CONFIG.pokemonIdPadding, "0")}</span>
-    </div>
-    <div class="${CSS_CLASSES.pokemonImageContainer}">
-      <img 
-        src="${getBestPokemonImage(pokemon)}" 
-        alt="${pokemon.name}" 
-        class="${CSS_CLASSES.pokemonImage}"
-        loading="lazy"
-      >
-    </div>
-    <div class="${CSS_CLASSES.pokemonTypes}">
-      ${typeElements}
-    </div>
-  `;
+    return `${header}${image}${types}`;
 }

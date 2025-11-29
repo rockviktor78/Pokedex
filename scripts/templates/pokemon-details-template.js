@@ -21,31 +21,36 @@ export function createModalTypesHTML(types) {
 }
 
 /**
+ * Creates HTML for a single stat entry.
+ * @param {Object} stat - A Pokémon stat object.
+ * @returns {string} The HTML string for the stat entry.
+ */
+function createSingleStatHTML(stat) {
+    const statWidth =
+        (Math.min(stat.base_stat, API_CONFIG.maxStatValue) /
+            API_CONFIG.maxStatValue) *
+        100;
+    const translatedName =
+        STAT_TRANSLATIONS[stat.stat.name] || stat.stat.name;
+
+    return `
+        <div class="${CSS_CLASSES.statItem}">
+            <span class="${CSS_CLASSES.statName}">${translatedName}: ${stat.base_stat}</span>
+            <div class="${CSS_CLASSES.statBarContainer}">
+                <div class="${CSS_CLASSES.statBar}" style="width: ${statWidth}%"></div>
+            </div>
+        </div>
+    `;
+}
+
+/**
  * Creates HTML for stats
  * @function createStatsHTML
  * @param {Array} stats - Array of Pokémon stat objects
  * @returns {string} Stats display HTML string
  */
 export function createStatsHTML(stats) {
-  return stats
-    .map((stat) => {
-      const statWidth =
-        (Math.min(stat.base_stat, API_CONFIG.maxStatValue) /
-          API_CONFIG.maxStatValue) *
-        100;
-      const translatedName =
-        STAT_TRANSLATIONS[stat.stat.name] || stat.stat.name;
-
-      return `
-        <div class="${CSS_CLASSES.statItem}">
-          <span class="${CSS_CLASSES.statName}">${translatedName}: ${stat.base_stat}</span>
-          <div class="${CSS_CLASSES.statBarContainer}">
-            <div class="${CSS_CLASSES.statBar}" style="width: ${statWidth}%"></div>
-          </div>
-        </div>
-      `;
-    })
-    .join("");
+  return stats.map(createSingleStatHTML).join("");
 }
 
 /**

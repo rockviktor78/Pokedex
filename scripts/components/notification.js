@@ -20,27 +20,44 @@ function updateNotificationText(notification, message, query) {
 }
 
 /**
+ * Gets existing or creates new notification element
+ * @returns {HTMLElement} Notification element
+ */
+function getOrCreateNotification() {
+    let notification = document.getElementById("notification");
+
+    if (!notification) {
+        notification = createNotificationElement();
+        document.body.appendChild(notification);
+    }
+    return notification;
+}
+
+/**
+ * Displays the notification with a message
+ * @param {HTMLElement} notification - Notification element
+ * @param {string} message - Message to display
+ * @param {string} query - Search query
+ */
+function displayNotification(notification, message, query) {
+    updateNotificationText(notification, message, query);
+    notification.classList.remove("hide");
+    notification.classList.add("show");
+
+    notificationTimeout = setTimeout(() => {
+        hideNotification();
+    }, 4000);
+}
+
+/**
  * Shows a notification message
  * @param {string} message - The message to display
  * @param {string} query - The search query that was not found
  */
 export function showNotification(message, query = "") {
   clearNotificationTimeout();
-
-  let notification = document.getElementById("notification");
-
-  if (!notification) {
-    notification = createNotificationElement();
-    document.body.appendChild(notification);
-  }
-
-  updateNotificationText(notification, message, query);
-  notification.classList.remove("hide");
-  notification.classList.add("show");
-
-  notificationTimeout = setTimeout(() => {
-    hideNotification();
-  }, 4000);
+  const notification = getOrCreateNotification();
+  displayNotification(notification, message, query);
 }
 
 /**

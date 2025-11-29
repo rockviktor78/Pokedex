@@ -41,6 +41,29 @@ export let fetchPokemonList = async (offset, limit) => {
 };
 
 /**
+ * Retrieves a Pokémon from the cache.
+ * @param {string} pokemonId - The ID of the Pokémon to retrieve.
+ * @returns {object|null} The cached Pokémon data or null if not found.
+ */
+function getPokemonFromCache(pokemonId) {
+  return appState.pokemonCache[pokemonId] || null;
+}
+
+/**
+ * Fetches Pokémon data from the API and caches it.
+ * @param {object} pokemon - The Pokémon object with a URL.
+ * @returns {Promise<object>} The fetched Pokémon data.
+ * @throws {Error} If the fetch fails.
+ */
+async function fetchAndCachePokemonData(pokemon) {
+  const response = await fetch(pokemon.url);
+  if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
+  const pokemonData = await response.json();
+  appState.pokemonCache[pokemonData.id] = pokemonData;
+  return pokemonData;
+}
+
+/**
  * Processes a single Pokémon from the list
  * Checks cache first, loads from API if needed
  * @async
@@ -51,17 +74,11 @@ export let fetchPokemonList = async (offset, limit) => {
 async function processSinglePokemon(pokemon) {
   try {
     const pokemonId = extractPokemonId(pokemon.url);
-    if (appState.pokemonCache[pokemonId]) {
-      return appState.pokemonCache[pokemonId];
+    const cachedPokemon = getPokemonFromCache(pokemonId);
+    if (cachedPokemon) {
+      return cachedPokemon;
     }
-
-    const response = await fetch(pokemon.url);
-    if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
-
-    const pokemonData = await response.json();
-
-    appState.pokemonCache[pokemonData.id] = pokemonData;
-    return pokemonData;
+    return await fetchAndCachePokemonData(pokemon);
   } catch (error) {
     return null;
   }
