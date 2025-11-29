@@ -150,19 +150,25 @@ export let isElementInViewport = (element) => {
 };
 
 /**
+ * Handles skip link click
+ */
+let handleSkipLinkClick = (e) => {
+  e.preventDefault();
+  const mainContent = document.getElementById("pokemonContainer");
+  if (mainContent) {
+    mainContent.focus();
+    mainContent.scrollIntoView();
+  }
+};
+
+/**
  * Initializes accessibility features
  * @function initializeAccessibility
  */
 export let initializeAccessibility = () => {
   const skipLink = document.querySelector(".skip-to-content");
   if (skipLink) {
-    skipLink.addEventListener("click", (e) => {
-      e.preventDefault();
-      const mainContent = document.getElementById("pokemonContainer");
-      if (mainContent) {
-        mainContent.focus();
-        mainContent.scrollIntoView();
-      }
+    skipLink.addEventListener("click", handleSkipLinkClick);
     });
   }
 

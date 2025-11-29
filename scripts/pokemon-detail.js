@@ -18,6 +18,31 @@ let currentPokemonIndex = 0;
 let currentPokemonList = [];
 
 /**
+ * Sets up current pokemon list based on search mode
+ */
+let setupCurrentPokemonList = (pokemon) => {
+  if (appState.isSearchMode && appState.searchResults) {
+    currentPokemonList = appState.searchResults;
+  } else {
+    currentPokemonList = appState.pokemonList;
+  }
+  currentPokemonIndex = currentPokemonList.findIndex(
+    (p) => p.id === pokemon.id
+  );
+};
+
+/**
+ * Fetches detailed pokemon data if needed
+ */
+let fetchDetailedPokemon = async (pokemon) => {
+  if (pokemon.stats) return pokemon;
+
+  const response = await fetch(pokemon.url);
+  if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
+  return await response.json();
+};
+
+/**
  * Handles clicking on a Pokémon card
  * @async
  * @function handlePokemonCardClick
@@ -25,23 +50,8 @@ let currentPokemonList = [];
  */
 export let handlePokemonCardClick = async (pokemon) => {
   try {
-    if (appState.isSearchMode && appState.searchResults) {
-      currentPokemonList = appState.searchResults;
-    } else {
-      currentPokemonList = appState.pokemonList;
-    }
-
-    currentPokemonIndex = currentPokemonList.findIndex(
-      (p) => p.id === pokemon.id
-    );
-
-    let detailedPokemon = pokemon;
-    if (!pokemon.stats) {
-      const response = await fetch(pokemon.url);
-      if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
-      detailedPokemon = await response.json();
-    }
-
+    setupCurrentPokemonList(pokemon);
+    const detailedPokemon = await fetchDetailedPokemon(pokemon);
     openPokemonModal(detailedPokemon);
   } catch (error) {
     showErrorMessage();
@@ -162,6 +172,15 @@ export let goToNextPokemon = async () => {
 };
 
 /**
+ * Updates modal with pokemon details
+ */
+let updateModalWithPokemon = async (modalContent, detailedPokemon) => {
+  setupModalContent(modalContent, detailedPokemon);
+  updateNavigationArrows();
+  await loadEvolutionData(detailedPokemon);
+};
+
+/**
  * Loads Pokémon at a specific index
  * @async
  * @function loadPokemonAtIndex
@@ -176,17 +195,8 @@ let loadPokemonAtIndex = async (index) => {
     if (!pokemon) return;
 
     modalContent.innerHTML = createLoadingHTML("Loading Pokémon...");
-
-    let detailedPokemon = pokemon;
-    if (!pokemon.stats) {
-      const response = await fetch(pokemon.url);
-      if (!response.ok) throw new Error(`Error loading ${pokemon.name}`);
-      detailedPokemon = await response.json();
-    }
-
-    setupModalContent(modalContent, detailedPokemon);
-    updateNavigationArrows();
-    await loadEvolutionData(detailedPokemon);
+    const detailedPokemon = await fetchDetailedPokemon(pokemon);
+    await updateModalWithPokemon(modalContent, detailedPokemon);
   } catch (error) {
     showErrorMessage();
   }
@@ -221,50 +231,56 @@ window.switchTab = (event, tabName) => {
   // Hide all tab panes
   const tabPanes = document.querySelectorAll(".tab-pane");
   tabPanes.forEach((pane) => pane.classList.remove("active"));
-
   // Deactivate all tab links
   const tabLinks = document.querySelectorAll(".tab-link");
   tabLinks.forEach((link) => link.classList.remove("active"));
-
   // Show the selected tab pane and activate the link
   document.getElementById(tabName).classList.add("active");
   event.currentTarget.classList.add("active");
 };
 
 /**
- * Initializes Modal Event Listeners
- * @function initializeModalEventListeners
+ * Sets up modal overlay click listener
  */
-export let initializeModalEventListeners = () => {
-  const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
-  const prevButton = document.getElementById("prevPokemonButton");
-  const nextButton = document.getElementById("nextPokemonButton");
-  const closeButton = document.getElementById("closeModalButton");
+let setupModalOverlayListener = (modal) => {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closePokemonModal();
+    }
+  });
+};
 
-  if (modal) {
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        closePokemonModal();
-      }
-    });
+/**
+ * Handles arrow key navigation
+ */
+let handleArrowKeyNavigation = (e, modal) => {
+  if (modal.classList.contains("hidden")) return;
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-        closePokemonModal();
-      }
-
-      if (!modal.classList.contains("hidden")) {
-        if (e.key === "ArrowLeft") {
-          e.preventDefault();
-          goToPreviousPokemon();
-        } else if (e.key === "ArrowRight") {
-          e.preventDefault();
-          goToNextPokemon();
-        }
-      }
-    });
+  if (e.key === "ArrowLeft") {
+    e.preventDefault();
+    goToPreviousPokemon();
+  } else if (e.key === "ArrowRight") {
+    e.preventDefault();
+    goToNextPokemon();
   }
+};
 
+/**
+ * Sets up keyboard navigation
+ */
+let setupKeyboardNavigation = (modal) => {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+      closePokemonModal();
+    }
+    handleArrowKeyNavigation(e, modal);
+  });
+};
+
+/**
+ * Sets up navigation buttons
+ */
+let setupNavigationButtons = (prevButton, nextButton) => {
   if (prevButton) {
     prevButton.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -278,13 +294,32 @@ export let initializeModalEventListeners = () => {
       goToNextPokemon();
     });
   }
+};
 
+/**
+ * Exposes functions globally
+ */
+let exposeGlobalFunctions = () => {
   window.closePokemonModal = closePokemonModal;
   window.goToPreviousPokemon = goToPreviousPokemon;
   window.goToNextPokemon = goToNextPokemon;
+};
 
-  const modalElement = document.getElementById(ELEMENT_IDS.pokemonModal);
-  if (modalElement) {
-    modalElement.setAttribute("inert", "");
+/**
+ * Initializes Modal Event Listeners
+ * @function initializeModalEventListeners
+ */
+export let initializeModalEventListeners = () => {
+  const modal = document.getElementById(ELEMENT_IDS.pokemonModal);
+  const prevButton = document.getElementById("prevPokemonButton");
+  const nextButton = document.getElementById("nextPokemonButton");
+
+  if (modal) {
+    setupModalOverlayListener(modal);
+    setupKeyboardNavigation(modal);
+    modal.setAttribute("inert", "");
   }
+
+  setupNavigationButtons(prevButton, nextButton);
+  exposeGlobalFunctions();
 };

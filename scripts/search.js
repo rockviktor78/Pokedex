@@ -76,6 +76,19 @@ export let handleSearchInput = async (e) => {
 };
 
 /**
+ * Shows validation error for short input
+ */
+let showInputValidationError = (searchInput) => {
+  searchInput.style.borderColor = "#ff6b6b";
+  searchInput.placeholder = "Enter at least 3 characters...";
+
+  setTimeout(() => {
+    searchInput.style.borderColor = "";
+    searchInput.placeholder = "Pokémon suchen...";
+  }, 2000);
+};
+
+/**
  * Handles search submit (Enter or button click)
  */
 export let handleSearchSubmit = async () => {
@@ -90,19 +103,27 @@ export let handleSearchSubmit = async () => {
   }
 
   if (query.length < 3) {
-    searchInput.style.borderColor = "#ff6b6b";
-    searchInput.placeholder = "Enter at least 3 characters...";
-
-    setTimeout(() => {
-      searchInput.style.borderColor = "";
-      searchInput.placeholder = "Pokémon suchen...";
-    }, 2000);
-
+    showInputValidationError(searchInput);
     return;
   }
 
   await performSearch(query);
   hideAutocomplete();
+};
+
+/**
+ * Handles search results display
+ */
+let handleSearchResults = (results, query) => {
+  clearPokemonContainer();
+
+  if (results.length > 0) {
+    renderPokemonCards(results);
+    updateSearchStatus(createSearchStatusHTML(results.length, query));
+  } else {
+    updateSearchStatus(createSearchStatusHTML(0, query));
+    showNotification("", query);
+  }
 };
 
 /**
@@ -114,24 +135,27 @@ export let performSearch = async (query) => {
 
   try {
     const results = await searchPokemon(query);
-
     appState.isSearchMode = true;
     appState.currentSearchQuery = query;
     appState.searchResults = results;
-
-    clearPokemonContainer();
-
-    if (results.length > 0) {
-      renderPokemonCards(results);
-      updateSearchStatus(createSearchStatusHTML(results.length, query));
-    } else {
-      updateSearchStatus(createSearchStatusHTML(0, query));
-      showNotification("", query);
-    }
+    handleSearchResults(results, query);
   } catch (error) {
     showErrorMessage();
   } finally {
     setLoadingState(false);
+  }
+};
+
+/**
+ * Reloads pokemon list after clearing search
+ */
+let reloadPokemonList = async () => {
+  if (appState.pokemonList.length > 0) {
+    renderPokemonCards(appState.pokemonList);
+  } else {
+    appState.currentOffset = 0;
+    const { loadInitialPokemon } = await import("./pokemon-list.js");
+    await loadInitialPokemon();
   }
 };
 
@@ -151,13 +175,7 @@ export let handleClearSearch = async () => {
   appState.searchResults = [];
 
   clearPokemonContainer();
-
-  if (appState.pokemonList.length > 0) {
-    renderPokemonCards(appState.pokemonList);
-  } else {
-    appState.currentOffset = 0;
-    const { loadInitialPokemon } = await import("./pokemon-list.js");
-    await loadInitialPokemon();
+  await reloadPokemonList();
   }
 
   updateSearchStatus("");

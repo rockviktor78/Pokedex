@@ -8,6 +8,18 @@ import { createNotificationHTML } from "../templates/notification-template.js";
 let notificationTimeout = null;
 
 /**
+ * Updates notification text content
+ */
+function updateNotificationText(notification, message, query) {
+  const textElement = notification.querySelector(".notification-text");
+  if (textElement) {
+    textElement.innerHTML = query
+      ? `<strong>"${query}"</strong> wurde nicht gefunden`
+      : message;
+  }
+}
+
+/**
  * Shows a notification message
  * @param {string} message - The message to display
  * @param {string} query - The search query that was not found
@@ -22,13 +34,7 @@ export function showNotification(message, query = "") {
     document.body.appendChild(notification);
   }
 
-  const textElement = notification.querySelector(".notification-text");
-  if (textElement) {
-    textElement.innerHTML = query
-      ? `<strong>"${query}"</strong> wurde nicht gefunden`
-      : message;
-  }
-
+  updateNotificationText(notification, message, query);
   notification.classList.remove("hide");
   notification.classList.add("show");
 

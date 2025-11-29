@@ -10,6 +10,16 @@ import { appState } from "./main.js";
 import { API_CONFIG } from "./constants.js";
 
 /**
+ * Fetches and processes pokemon list response
+ */
+let processPokemonListResponse = async (data, offset) => {
+  appState.currentOffset = offset;
+  const pokemonDetails = await fetchPokemonDetails(data.results);
+  appState.pokemonList.push(...pokemonDetails);
+  return pokemonDetails;
+};
+
+/**
  * Loads a paginated list of Pokémon from the PokéAPI
  * @async
  * @function fetchPokemonList
@@ -27,12 +37,7 @@ export let fetchPokemonList = async (offset, limit) => {
   }
 
   const data = await response.json();
-  appState.currentOffset = offset;
-
-  const pokemonDetails = await fetchPokemonDetails(data.results);
-  appState.pokemonList.push(...pokemonDetails);
-
-  return pokemonDetails;
+  return await processPokemonListResponse(data, offset);
 };
 
 /**
@@ -95,6 +100,17 @@ export let fetchPokemonSpecies = async (pokemonId) => {
 };
 
 /**
+ * Fetches evolution chain URL from species data
+ */
+let fetchEvolutionChainUrl = async (pokemonSpeciesUrl) => {
+  const speciesResponse = await fetch(pokemonSpeciesUrl);
+  if (!speciesResponse.ok) return null;
+
+  const speciesData = await speciesResponse.json();
+  return speciesData.evolution_chain.url;
+};
+
+/**
  * Fetches the complete evolution chain for a Pokémon.
  * @async
  * @param {string} pokemonSpeciesUrl - The URL for the Pokémon's species data.
@@ -102,11 +118,8 @@ export let fetchPokemonSpecies = async (pokemonId) => {
  */
 export let fetchEvolutionChain = async (pokemonSpeciesUrl) => {
   try {
-    const speciesResponse = await fetch(pokemonSpeciesUrl);
-    if (!speciesResponse.ok) return null;
-
-    const speciesData = await speciesResponse.json();
-    const evolutionChainUrl = speciesData.evolution_chain.url;
+    const evolutionChainUrl = await fetchEvolutionChainUrl(pokemonSpeciesUrl);
+    if (!evolutionChainUrl) return null;
 
     const evolutionResponse = await fetch(evolutionChainUrl);
     if (!evolutionResponse.ok) return null;
@@ -115,6 +128,21 @@ export let fetchEvolutionChain = async (pokemonSpeciesUrl) => {
   } catch (error) {
     return null;
   }
+};
+
+/**
+ * Fetches pokemon from API and caches it
+ */
+let fetchAndCachePokemon = async (identifier) => {
+  const url = `${API_CONFIG.baseUrl}${
+    API_CONFIG.endpoints.pokemon
+  }/${identifier.toLowerCase()}`;
+  const response = await fetch(url);
+  if (!response.ok) return null;
+
+  const pokemon = await response.json();
+  appState.pokemonCache[pokemon.id] = pokemon;
+  return pokemon;
 };
 
 /**
@@ -129,23 +157,18 @@ export let fetchSinglePokemon = async (identifier) => {
       return appState.pokemonCache[numericId];
     }
 
-    const url = `${API_CONFIG.baseUrl}${
-      API_CONFIG.endpoints.pokemon
-    }/${identifier.toLowerCase()}`;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      return null;
-    }
-
-    const pokemon = await response.json();
-
-    appState.pokemonCache[pokemon.id] = pokemon;
-
-    return pokemon;
+    return await fetchAndCachePokemon(identifier);
   } catch (error) {
     return null;
   }
+};
+
+/**
+ * Processes pokemon names response
+ */
+let processPokemonNamesResponse = (data) => {
+  appState.allPokemonNames = data.results;
+  return data.results;
 };
 
 /**
@@ -162,12 +185,24 @@ export let loadAllPokemonNames = async () => {
     }
 
     const data = await response.json();
-    appState.allPokemonNames = data.results;
-
-    return data.results;
+    return processPokemonNamesResponse(data);
   } catch (error) {
     return [];
   }
+};
+
+/**
+ * Fetches details for matching pokemon names
+ */
+let fetchMatchingPokemonDetails = async (matchingNames) => {
+  const results = [];
+  for (const pokemon of matchingNames) {
+    const details = await fetchSinglePokemon(pokemon.name);
+    if (details) {
+      results.push(details);
+    }
+  }
+  return results;
 };
 
 /**
@@ -176,8 +211,6 @@ export let loadAllPokemonNames = async () => {
  * @returns {Array} Array with found Pokémon
  */
 export let performExtendedSearch = async (searchTerm) => {
-  const results = [];
-
   if (appState.allPokemonNames.length === 0) {
     await loadAllPokemonNames();
   }
@@ -186,13 +219,7 @@ export let performExtendedSearch = async (searchTerm) => {
     .filter((pokemon) => pokemon.name.toLowerCase().includes(searchTerm))
     .slice(0, 10);
 
-  for (const pokemon of matchingNames) {
-    const details = await fetchSinglePokemon(pokemon.name);
-    if (details) {
-      results.push(details);
-    }
-  }
-  return results;
+  return await fetchMatchingPokemonDetails(matchingNames);
 };
 
 /**

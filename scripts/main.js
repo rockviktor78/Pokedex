@@ -91,15 +91,23 @@ let setupScrollButton = () => {
 };
 
 /**
+ * Checks and updates UI on search mode change
+ */
+let checkSearchModeChange = (previousMode) => {
+  if (appState.isSearchMode !== previousMode) {
+    updateLoadMoreButton();
+    return appState.isSearchMode;
+  }
+  return previousMode;
+};
+
+/**
  * Sets up UI state monitoring
  */
 let setupUIMonitoring = () => {
   let previousSearchMode = appState.isSearchMode;
   setInterval(() => {
-    if (appState.isSearchMode !== previousSearchMode) {
-      updateLoadMoreButton();
-      previousSearchMode = appState.isSearchMode;
-    }
+    previousSearchMode = checkSearchModeChange(previousSearchMode);
   }, 100);
 };
 
