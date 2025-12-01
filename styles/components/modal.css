@@ -119,7 +119,7 @@
 .modal-info-section {
   padding: 1rem 0.75rem;
   max-height: 400px;
-  overflow-y: auto;
+  overflow-y: scroll;
   background: rgba(255, 255, 255, 0.02);
   border-radius: 0.5rem;
   margin: 1rem 0.5rem 1rem;
@@ -139,34 +139,28 @@
   margin-bottom: 0;
 }
 
-.modal-info-section::after {
-  content: "";
-  display: block;
-  height: 6rem;
-  width: 100%;
-}
-
 .modal-info-section::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .modal-info-section::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  border-radius: 4px;
 }
+
 .modal-info-section::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 
 .modal-info-section::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .modal-info-section {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+  scrollbar-width: auto;
+  scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
 }
 
 .modal-navigation {
@@ -269,7 +263,10 @@
 .tab-pane {
   display: none;
   animation: fadeIn 0.3s ease-in-out;
-  min-height: 20rem;
+}
+
+.tab-pane.tab-scrollable {
+  padding-bottom: 3rem;
 }
 
 .tab-pane.active {

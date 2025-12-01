@@ -18,7 +18,7 @@ import {
  * @returns {string} Padded ID string
  */
 function getPokemonPaddedId(pokemon) {
-    return pokemon.id.toString().padStart(API_CONFIG.pokemonIdPadding, "0");
+  return pokemon.id.toString().padStart(API_CONFIG.pokemonIdPadding, "0");
 }
 
 /**
@@ -34,7 +34,9 @@ function createModalHeaderHTML(pokemon) {
   return `
     <div class="${CSS_CLASSES.modalHeader} ${primaryType}">
       <div class="${CSS_CLASSES.modalTitleSection}">
-        <h2 class="${CSS_CLASSES.modalPokemonName}">${pokemon.name.toUpperCase()}</h2>
+        <h2 class="${
+          CSS_CLASSES.modalPokemonName
+        }">${pokemon.name.toUpperCase()}</h2>
         <span class="${CSS_CLASSES.modalPokemonId}">#${pokemonId}</span>
       </div>
       <button class="${
@@ -60,10 +62,10 @@ function createTabPaneContent(title, contentHTML) {
  * @returns {Object} An object containing the Pokémon's image URL and name.
  */
 function getEvolutionPokemonData(chainNode) {
-    const parts = chainNode.species.url.split("/").filter(Boolean);
-    const pokemonId = parts[parts.length - 1];
-    const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
-    return { imageUrl, name: chainNode.species.name };
+  const parts = chainNode.species.url.split("/").filter(Boolean);
+  const pokemonId = parts[parts.length - 1];
+  const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
+  return { imageUrl, name: chainNode.species.name };
 }
 
 /**
@@ -72,7 +74,7 @@ function getEvolutionPokemonData(chainNode) {
  * @returns {string} HTML string for the evolution stage.
  */
 function createEvolutionStageHTML(pokemonData) {
-    return `
+  return `
         <div class="evolution-stage">
             <img src="${pokemonData.imageUrl}" alt="${pokemonData.name}" class="evolution-image">
             <span class="evolution-name">${pokemonData.name}</span>
@@ -135,11 +137,13 @@ function createTabNavigationHTML() {
  * @returns {string} HTML for the "About" tab.
  */
 function createAboutTab(pokemon) {
-    const aboutContent = createTabPaneContent(
-        UI_MESSAGES.physicalProperties,
-        `<div class="${CSS_CLASSES.physicalStats}">${createPhysicalStatsHTML(pokemon)}</div>`
-    );
-    return `<div id="About" class="tab-pane active">${aboutContent}</div>`;
+  const aboutContent = createTabPaneContent(
+    UI_MESSAGES.physicalProperties,
+    `<div class="${CSS_CLASSES.physicalStats}">${createPhysicalStatsHTML(
+      pokemon
+    )}</div>`
+  );
+  return `<div id="About" class="tab-pane tab-scrollable active">${aboutContent}</div>`;
 }
 
 /**
@@ -148,11 +152,13 @@ function createAboutTab(pokemon) {
  * @returns {string} HTML for the "Base Stats" tab.
  */
 function createStatsTab(pokemon) {
-    const statsContent = createTabPaneContent(
-        UI_MESSAGES.baseStats,
-        `<div class="${CSS_CLASSES.statsGrid}">${createStatsHTML(pokemon.stats)}</div>`
-    );
-    return `<div id="Base Stats" class="tab-pane">${statsContent}</div>`;
+  const statsContent = createTabPaneContent(
+    UI_MESSAGES.baseStats,
+    `<div class="${CSS_CLASSES.statsGrid}">${createStatsHTML(
+      pokemon.stats
+    )}</div>`
+  );
+  return `<div id="Base Stats" class="tab-pane tab-scrollable">${statsContent}</div>`;
 }
 
 /**
@@ -161,11 +167,13 @@ function createStatsTab(pokemon) {
  * @returns {string} HTML for the "Abilities" tab.
  */
 function createAbilitiesTab(pokemon) {
-    const abilitiesContent = createTabPaneContent(
-        UI_MESSAGES.abilities,
-        `<div class="${CSS_CLASSES.abilitiesList}">${createAbilitiesHTML(pokemon.abilities)}</div>`
-    );
-    return `<div id="Abilities" class="tab-pane">${abilitiesContent}</div>`;
+  const abilitiesContent = createTabPaneContent(
+    UI_MESSAGES.abilities,
+    `<div class="${CSS_CLASSES.abilitiesList}">${createAbilitiesHTML(
+      pokemon.abilities
+    )}</div>`
+  );
+  return `<div id="Abilities" class="tab-pane tab-scrollable">${abilitiesContent}</div>`;
 }
 
 /**

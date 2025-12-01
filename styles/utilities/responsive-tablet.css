@@ -32,7 +32,6 @@
   }
 
   .modal-container {
-    max-width: 600px;
     margin: var(--spacing-xl);
   }
 
@@ -40,9 +39,18 @@
     padding: var(--spacing-lg);
   }
 
+  .modal-container .pokemon-detail {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
   .modal-body {
     padding: var(--spacing-lg) var(--spacing-lg) 1.5rem;
     padding-bottom: 1.5rem !important;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .modal-info-section {
@@ -53,7 +61,35 @@
     padding-left: 1rem !important;
     padding-right: 1rem !important;
     padding-top: 1rem !important;
+    flex-grow: 1;
   }
+}
+
+/* Kein Scrollen ab 768px Breite UND 750px Höhe */
+@media (min-width: 768px) and (min-height: 750px) {
+  .modal-container {
+    max-width: 600px;
+    width: 600px;
+    max-height: 700px;
+    height: 700px;
+  }
+
+  .modal-body {
+    overflow-y: hidden !important;
+    padding-bottom: 0 !important;
+  }
+
+  .modal-info-section {
+    max-height: none !important;
+    overflow-y: hidden !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .tab-pane.tab-scrollable {
+    padding-bottom: 0 !important;
+  }
+}
 
   .modal-image-section {
     padding: 1.25rem;
@@ -131,4 +167,44 @@
   .search-filters {
     justify-content: center;
   }
+
+  /* Pokemon Card Background auf größeren Bildschirmen anpassen */
+  .pokemon-card.bg-fire { background: var(--type-fire); }
+  .pokemon-card.bg-water { background: var(--type-water); }
+  .pokemon-card.bg-grass { background: var(--type-grass); }
+  .pokemon-card.bg-electric { background: var(--type-electric); }
+  .pokemon-card.bg-psychic { background: var(--type-psychic); }
+  .pokemon-card.bg-ice { background: var(--type-ice); }
+  .pokemon-card.bg-dragon { background: var(--type-dragon); }
+  .pokemon-card.bg-dark { background: var(--type-dark); }
+  .pokemon-card.bg-fighting { background: var(--type-fighting); }
+  .pokemon-card.bg-poison { background: var(--type-poison); }
+  .pokemon-card.bg-ground { background: var(--type-ground); }
+  .pokemon-card.bg-flying { background: var(--type-flying); }
+  .pokemon-card.bg-bug { background: var(--type-bug); }
+  .pokemon-card.bg-rock { background: var(--type-rock); }
+  .pokemon-card.bg-ghost { background: var(--type-ghost); }
+  .pokemon-card.bg-steel { background: var(--type-steel); }
+  .pokemon-card.bg-fairy { background: var(--type-fairy); }
+  .pokemon-card.bg-normal { background: var(--type-normal); }
+
+  /* Pokemon Detail Background auf größeren Bildschirmen anpassen */
+  .modal-container .pokemon-detail.fire { background: rgba(255, 99, 71, 0.25); }
+  .modal-container .pokemon-detail.water { background: rgba(100, 149, 237, 0.25); }
+  .modal-container .pokemon-detail.grass { background: rgba(144, 238, 144, 0.25); }
+  .modal-container .pokemon-detail.electric { background: rgba(255, 215, 0, 0.25); }
+  .modal-container .pokemon-detail.psychic { background: rgba(221, 160, 221, 0.25); }
+  .modal-container .pokemon-detail.ice { background: rgba(173, 216, 230, 0.25); }
+  .modal-container .pokemon-detail.dragon { background: rgba(138, 43, 226, 0.25); }
+  .modal-container .pokemon-detail.dark { background: rgba(105, 105, 105, 0.25); }
+  .modal-container .pokemon-detail.fairy { background: rgba(255, 182, 193, 0.25); }
+  .modal-container .pokemon-detail.fighting { background: rgba(165, 42, 42, 0.25); }
+  .modal-container .pokemon-detail.poison { background: rgba(160, 32, 240, 0.25); }
+  .modal-container .pokemon-detail.ground { background: rgba(222, 184, 135, 0.25); }
+  .modal-container .pokemon-detail.flying { background: rgba(135, 206, 235, 0.25); }
+  .modal-container .pokemon-detail.bug { background: rgba(154, 205, 50, 0.25); }
+  .modal-container .pokemon-detail.rock { background: rgba(188, 143, 143, 0.25); }
+  .modal-container .pokemon-detail.ghost { background: rgba(128, 128, 128, 0.25); }
+  .modal-container .pokemon-detail.steel { background: rgba(192, 192, 192, 0.25); }
+  .modal-container .pokemon-detail.normal { background: rgba(245, 245, 220, 0.25); }
 }
